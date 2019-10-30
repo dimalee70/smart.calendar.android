@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_events"
+    app:startDestination="@id/myEventsFragment">
+
+    <fragment
+        android:id="@+id/myEventsFragment"
+        android:name="kz.smart.calendar.modules.myevents.domain.MyEventsFragment"
+        android:label="fragment_my_events"
+        tools:layout="@layout/fragment_my_events" >
+        <action
+            android:id="@+id/action_myEventsFragment_to_addEventActivity"
+            app:destination="@id/addEventActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <activity
+        android:id="@+id/addEventActivity"
+        android:name="kz.smart.calendar.modules.myevents.domain.AddEventActivity"
+        android:label="activity_add_event"
+        tools:layout="@layout/activity_add_event" />
+</navigation>

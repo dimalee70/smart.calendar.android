@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">Smart Calendar</string>
+
+    <string name="timed_out">Время запроса истекло.</string>
+    <string name="network_connection_lost">Прервано соединение с интернетом.</string>
+    <string name="bad_server_response">Неверный ответ от сервера.</string>
+    <string name="server_error">Непредвиденная ошибка на сервере.</string>
+    <string name="try_again">Пожалуйста, попробуйте еще раз.</string>
+    <string name="bad_connection">Не получилось загрузить изображение. Проверьте интернет соеденение</string>
+    <string name="empty_fields">Обязательные поля не зполнены</string>
+    <string name="unknown_error">Произошла неизвестная ошибка.</string>
+    <string name="unknown_error_from_backend">Произошла ошибка на сервере. Пожалуйста, обновите приложение</string>
+
+    <string name="january">Январь</string>
+    <string name="february">Февраль</string>
+    <string name="march">Март</string>
+    <string name="april">Апрель</string>
+    <string name="may">Май</string>
+    <string name="june">Июнь</string>
+    <string name="jule">Июль</string>
+    <string name="august">Август</string>
+    <string name="september">Сентябрь</string>
+    <string name="october">Октябрь</string>
+    <string name="november">Ноябрь</string>
+    <string name="december">Декабрь</string>
+
+    <string name="birth_date">Дата рождения</string>
+    <string name="sex">Пол</string>
+    <string name="not_confirmed">(не подтверждена)</string>
+    <string name="send">Отправить</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="not_given">Не задан</string>
+    <string name="day">День</string>
+    <string name="month">Месяц</string>
+    <string name="year">Год</string>
+
+    <string name="time_remain">%1$s д. %2$s:%3$s:%4$s</string>
+    <string name="short_time_remain">%1$s:%2$s</string>
+    <string name="short_date_remain">%1$s д. %2$s ч.</string>
+    <string name="time_hms_remain">%1$s:%2$s:%3$s</string>
+
+    <string name="default_network_error_message">Отсутствует соединение с интернетом.</string>
+    <string name="default_unexpected_error_message">Неизвестная ошибка на сервере.</string>
+    <string name="default_error_message">Ошибка cоединения с сервером.</string>
+
+    <string name="cancel">Отмена</string>
+    <string name="choose">Выбрать</string>
+    <string name="load_photo">Загрузить фото</string>
+    <string name="user_not_found">Пользователь не найден!</string>
+
+    <string name="notifications_admin_channel_name">notifications_admin_channel_name</string>
+    <string name="notifications_admin_channel_description">notifications_admin_channel_description</string>
+
+    <string name="authorization_warning">Авторизуясь, Вы соглашаетесь со следующими документами: </string>
+    <string name="user_agreement">Пользовательское соглашение</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="user_name">Имя пользователя</string>
+    <string name="username">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="login">Войти</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="conditions">Условия и примечания</string>
+    <string name="photogallery">Фотогалерея</string>
+    <string name="common">Основное</string>
+    <string name="next">Далее</string>
+    <string name="sponsors_and_partners">Спонсоры и партнеры</string>
+    <string name="schedule">Расписание</string>
+    <string name="guests_and_participants">Гости и участники</string>
+    <string name="extras">Дополнительно</string>
+    <string name="categorization">Категоризация</string>
+    <string name="create_event">Создать мероприятие</string>
+
+</resources>

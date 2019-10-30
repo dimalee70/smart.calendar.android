@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/feed"
+        android:icon="@drawable/ic_feed"
+        android:title="События" />
+    <item
+        android:id="@+id/calendar"
+        android:icon="@drawable/ic_calendar"
+        android:title="Календарь событий" />
+    <item
+        android:id="@+id/poll"
+        android:icon="@drawable/ic_poll"
+        android:title="Опросы" />
+    <item
+        android:id="@+id/my_events"
+        android:icon="@drawable/ic_favorites"
+        android:title="Мои события" />
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_profile"
+        android:title="Настрйоки" />
+</menu>

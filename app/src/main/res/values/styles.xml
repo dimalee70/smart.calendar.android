@@ -1,0 +1,85 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.App" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--item name="primaryButtonTheme">@style/Widget.Button.Primary</item-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:typeface">serif</item>
+        <item name="fontFamily">@font/metropolis_regular</item>
+    </style>
+
+    <style name="Theme.App.Dark.FullScreen" parent="Theme.App.Dark">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="AppTheme.ActionBar" parent="android:Widget.ActionBar">
+    </style>
+
+    <style name="DialogAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@animator/anim_in</item>
+        <item name="android:windowExitAnimation">@animator/anim_out</item>
+    </style>
+
+    <style name="NotificationDialogAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <style name="Theme.App.Dark" parent="Base.Theme.App">
+        <item name="android:textViewStyle">@style/Widget.TextView.Primary</item>
+    </style>
+
+    <style name="Widget.Button.Primary" parent="Widget.AppCompat.Button">
+    </style>
+
+    <style name="Widget.TextView.Primary" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/metropolis_regular</item>
+    </style>
+
+    <style name="Widget.TextView.Hint" parent="android:Widget.TextView">
+        <item name="fontFamily">@font/metropolis_regular</item>
+    </style>
+
+    <style name="Dialog.Text" parent="Widget.TextView.Primary">
+        <item name="android:textColor">@color/colorPanel</item>
+    </style>
+
+    <style name="Widget.EditText.Primary.Dark" parent="Widget.AppCompat.EditText">
+    </style>
+
+    <style name="Theme.App.Launcher" parent="Theme.App.Dark">
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="Base.Widget.AppCompat.ProgressBar.Horizontal.ProgressBar" parent="Base.Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_bar</item>
+    </style>
+
+    <style name="Widget.AppCompat.SeekBar.CustomSeekBar" parent="Base.Widget.AppCompat.SeekBar">
+        <item name="android:paddingLeft">0dp</item>
+        <item name="paddingStart">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="paddingEnd">0dp</item>
+        <item name="android:progressDrawable">@drawable/seekbar_progress</item>
+        <item name="android:thumb">@drawable/thumb</item>
+    </style>
+
+    <style name="header_bar">
+        <item name="android:actionBarDivider">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/colorSecondary</item>
+    </style>
+</resources>

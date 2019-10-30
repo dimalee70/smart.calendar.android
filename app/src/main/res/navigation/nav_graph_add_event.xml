@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_add_event"
+    app:startDestination="@id/addEventFragment">
+
+    <fragment
+        android:id="@+id/addEventFragment"
+        android:name="kz.smart.calendar.modules.myevents.domain.AddEventFragment"
+        android:label="fragment_add_event"
+        tools:layout="@layout/fragment_add_event" >
+        <action
+            android:id="@+id/action_addEventFragment_to_setCategoryFragment"
+            app:destination="@id/setCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setCategoryFragment"
+        android:name="kz.smart.calendar.modules.myevents.domain.SetCategoryFragment"
+        android:label="fragment_set_category"
+        tools:layout="@layout/fragment_set_category" >
+        <action
+            android:id="@+id/action_setCategoryFragment_to_setExtrasFragment"
+            app:destination="@id/setExtrasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setExtrasFragment"
+        android:name="kz.smart.calendar.modules.myevents.domain.SetExtrasFragment"
+        android:label="fragment_set_extras"
+        tools:layout="@layout/fragment_set_extras" >
+        <action
+            android:id="@+id/action_setExtrasFragment_to_setParticipantsFragment"
+            app:destination="@id/setParticipantsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setParticipantsFragment"
+        android:name="kz.smart.calendar.modules.myevents.domain.SetParticipantsFragment"
+        android:label="fragment_set_participants"
+        tools:layout="@layout/fragment_set_participants" >
+        <action
+            android:id="@+id/action_setParticipantsFragment_to_setScheduleFragment"
+            app:destination="@id/setScheduleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setScheduleFragment"
+        android:name="kz.smart.calendar.modules.myevents.domain.SetScheduleFragment"
+        android:label="fragment_set_schedule"
+        tools:layout="@layout/fragment_set_schedule" >
+        <action
+            android:id="@+id/action_setScheduleFragment_to_setPartnersFragment"
+            app:destination="@id/setPartnersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setPartnersFragment"
+        android:name="kz.smart.calendar.modules.myevents.domain.SetPartnersFragment"
+        android:label="fragment_set_partners"
+        tools:layout="@layout/fragment_set_partners" >
+        <action
+            android:id="@+id/action_setPartnersFragment_to_setConditionsFragment"
+            app:destination="@id/setConditionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setConditionsFragment"
+        android:name="kz.smart.calendar.modules.myevents.domain.SetConditionsFragment"
+        android:label="fragment_set_conditions"
+        tools:layout="@layout/fragment_set_conditions" >
+        <action
+            android:id="@+id/action_setConditionsFragment_to_setGalleryFragment"
+            app:destination="@id/setGalleryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setGalleryFragment"
+        android:name="kz.smart.calendar.modules.myevents.domain.SetGalleryFragment"
+        android:label="fragment_set_gallery"
+        tools:layout="@layout/fragment_set_gallery" >
+        <action
+            android:id="@+id/action_setGalleryFragment_to_previewActivity"
+            app:destination="@id/previewActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/previewActivity"
+        android:name="kz.smart.calendar.modules.myevents.domain.PreviewActivity"
+        android:label="activity_preview"
+        tools:layout="@layout/activity_preview" />
+</navigation>
