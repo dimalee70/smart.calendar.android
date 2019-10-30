@@ -181,6 +181,8 @@ dependencies {
 
     implementation 'com.onesignal:OneSignal:3.11.4'
 
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
