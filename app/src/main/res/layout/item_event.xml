@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="data" type="kz.smart.calendar.models.objects.Event" />
+        <variable name="data" type="kz.smart.calendar.models.objects.TestEvent" />
     </data>
 
     <androidx.cardview.widget.CardView
