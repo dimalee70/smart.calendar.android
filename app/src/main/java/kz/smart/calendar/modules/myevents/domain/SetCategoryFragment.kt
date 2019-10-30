@@ -29,7 +29,7 @@ class SetCategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
             btn_continue.setOnClickListener {
-                findNavController().navigate(R.id.action_setCategoryFragment_to_setExtrasFragment)
+                findNavController().navigate(R.id.action_setCategoryFragment_to_setOptionsFragment)
             }
     }
 }

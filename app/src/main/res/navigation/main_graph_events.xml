@@ -14,7 +14,9 @@
             android:id="@+id/action_myEventsFragment_to_addEventActivity3"
             app:destination="@id/addEventActivity3"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="false"
+            app:popUpTo="@+id/myEventsFragment" />
     </fragment>
     <activity
         android:id="@+id/addEventActivity3"

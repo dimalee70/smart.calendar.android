@@ -24,12 +24,4 @@ class SetParticipantsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_set_participants, container, false)
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-            btn_continue.setOnClickListener {
-                findNavController().navigate(R.id.action_setParticipantsFragment_to_setScheduleFragment)
-            }
-    }
 }

@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_set_options.*
 
 import kz.smart.calendar.R
 
@@ -22,5 +24,11 @@ class SetOptionsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_set_options, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        btn_continue.setOnClickListener {
+            findNavController().navigate(R.id.action_setOptionsFragment_to_setExtrasFragment)
+        }
+    }
 }

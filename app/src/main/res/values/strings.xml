@@ -72,5 +72,8 @@
     <string name="extras">Дополнительно</string>
     <string name="categorization">Категоризация</string>
     <string name="create_event">Создать мероприятие</string>
+    <string name="option_settings">Настройка опций</string>
+    <string name="desired_options">Желаемые опции</string>
+    <string name="publish">Опубликовать</string>
 
 </resources>

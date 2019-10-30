@@ -24,12 +24,4 @@ class SetScheduleFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_set_schedule, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-            btn_continue.setOnClickListener {
-                findNavController().navigate(R.id.action_setScheduleFragment_to_setPartnersFragment)
-            }
-    }
-
 }

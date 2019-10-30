@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_add_event" >
         <action
             android:id="@+id/action_addEventFragment_to_setCategoryFragment"
-            app:destination="@id/setCategoryFragment" />
+            app:destination="@id/setCategoryFragment"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/setCategoryFragment"
@@ -20,8 +21,9 @@
         android:label="fragment_set_category"
         tools:layout="@layout/fragment_set_category" >
         <action
-            android:id="@+id/action_setCategoryFragment_to_setExtrasFragment"
-            app:destination="@id/setExtrasFragment" />
+            android:id="@+id/action_setCategoryFragment_to_setOptionsFragment"
+            app:destination="@id/setOptionsFragment"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/setExtrasFragment"
@@ -30,56 +32,69 @@
         tools:layout="@layout/fragment_set_extras" >
         <action
             android:id="@+id/action_setExtrasFragment_to_setParticipantsFragment"
-            app:destination="@id/setParticipantsFragment" />
+            app:destination="@id/setParticipantsFragment"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_setExtrasFragment_to_setPartnersFragment"
+            app:destination="@id/setPartnersFragment"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_setExtrasFragment_to_setConditionsFragment"
+            app:destination="@id/setConditionsFragment"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_setExtrasFragment_to_setGalleryFragment"
+            app:destination="@id/setGalleryFragment"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_setExtrasFragment_to_previewActivity"
+            app:destination="@id/previewActivity"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/addEventFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_setExtrasFragment_to_setScheduleFragment"
+            app:destination="@id/setScheduleFragment"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/setParticipantsFragment"
         android:name="kz.smart.calendar.modules.myevents.domain.SetParticipantsFragment"
         android:label="fragment_set_participants"
-        tools:layout="@layout/fragment_set_participants" >
-        <action
-            android:id="@+id/action_setParticipantsFragment_to_setScheduleFragment"
-            app:destination="@id/setScheduleFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_set_participants" />
     <fragment
         android:id="@+id/setScheduleFragment"
         android:name="kz.smart.calendar.modules.myevents.domain.SetScheduleFragment"
         android:label="fragment_set_schedule"
-        tools:layout="@layout/fragment_set_schedule" >
-        <action
-            android:id="@+id/action_setScheduleFragment_to_setPartnersFragment"
-            app:destination="@id/setPartnersFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_set_schedule" />
     <fragment
         android:id="@+id/setPartnersFragment"
         android:name="kz.smart.calendar.modules.myevents.domain.SetPartnersFragment"
         android:label="fragment_set_partners"
-        tools:layout="@layout/fragment_set_partners" >
-        <action
-            android:id="@+id/action_setPartnersFragment_to_setConditionsFragment"
-            app:destination="@id/setConditionsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_set_partners" />
     <fragment
         android:id="@+id/setConditionsFragment"
         android:name="kz.smart.calendar.modules.myevents.domain.SetConditionsFragment"
         android:label="fragment_set_conditions"
-        tools:layout="@layout/fragment_set_conditions" >
-        <action
-            android:id="@+id/action_setConditionsFragment_to_setGalleryFragment"
-            app:destination="@id/setGalleryFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_set_conditions" />
     <fragment
         android:id="@+id/setGalleryFragment"
         android:name="kz.smart.calendar.modules.myevents.domain.SetGalleryFragment"
         android:label="fragment_set_gallery"
-        tools:layout="@layout/fragment_set_gallery" >
-        <action
-            android:id="@+id/action_setGalleryFragment_to_previewActivity"
-            app:destination="@id/previewActivity" />
-    </fragment>
+        tools:layout="@layout/fragment_set_gallery" />
     <activity
         android:id="@+id/previewActivity"
         android:name="kz.smart.calendar.modules.myevents.domain.PreviewActivity"
         android:label="activity_preview"
         tools:layout="@layout/activity_preview" />
+    <fragment
+        android:id="@+id/setOptionsFragment"
+        android:name="kz.smart.calendar.modules.myevents.domain.SetOptionsFragment"
+        android:label="fragment_options"
+        tools:layout="@layout/fragment_options" >
+        <action
+            android:id="@+id/action_setOptionsFragment_to_setExtrasFragment"
+            app:destination="@id/setExtrasFragment"
+            app:launchSingleTop="true" />
+    </fragment>
 </navigation>

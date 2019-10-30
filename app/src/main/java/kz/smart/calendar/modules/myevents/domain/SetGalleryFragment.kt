@@ -23,14 +23,4 @@ class SetGalleryFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_set_gallery, container, false)
     }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-            btn_continue.setOnClickListener {
-                findNavController().navigate(R.id.action_setGalleryFragment_to_previewActivity)
-            }
-    }
-
 }

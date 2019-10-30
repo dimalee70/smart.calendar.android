@@ -24,13 +24,4 @@ class SetPartnersFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_set_partners, container, false)
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-            btn_continue.setOnClickListener {
-                findNavController().navigate(R.id.action_setPartnersFragment_to_setConditionsFragment)
-            }
-    }
-
 }

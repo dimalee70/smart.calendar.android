@@ -75,6 +75,10 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
                             anonimousAuth()
                             return@subscribe
                         }
+                        else
+                        {
+                            router.newRootScreen(Screens.HomeScreen())
+                        }
                     }
 
                     run {

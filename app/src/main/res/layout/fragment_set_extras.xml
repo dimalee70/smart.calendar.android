@@ -21,7 +21,6 @@ tools:context=".modules.myevents.domain.SetExtrasFragment">
         android:text="@string/schedule"
         app:layout_constraintTop_toBottomOf="@+id/title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         android:background="@null"
         />
@@ -33,7 +32,6 @@ tools:context=".modules.myevents.domain.SetExtrasFragment">
         android:text="@string/guests_and_participants"
         app:layout_constraintTop_toBottomOf="@+id/btn_schedule"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         android:background="@null"
         />
@@ -45,7 +43,6 @@ tools:context=".modules.myevents.domain.SetExtrasFragment">
         android:text="@string/sponsors_and_partners"
         app:layout_constraintTop_toBottomOf="@+id/btn_participants"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         android:background="@null"
         />
@@ -57,7 +54,6 @@ tools:context=".modules.myevents.domain.SetExtrasFragment">
         android:text="@string/conditions"
         app:layout_constraintTop_toBottomOf="@+id/btn_partners"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         android:background="@null"
         />
@@ -69,7 +65,6 @@ tools:context=".modules.myevents.domain.SetExtrasFragment">
         android:text="@string/photogallery"
         app:layout_constraintTop_toBottomOf="@+id/btn_conditions"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         android:background="@null"
         />

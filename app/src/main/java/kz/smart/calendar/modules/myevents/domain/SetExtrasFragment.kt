@@ -28,8 +28,28 @@ class SetExtrasFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-            btn_continue.setOnClickListener {
-                findNavController().navigate(R.id.action_setExtrasFragment_to_setParticipantsFragment)
-            }
+        btn_continue.setOnClickListener {
+            findNavController().navigate(R.id.action_setExtrasFragment_to_previewActivity)
+        }
+
+        btn_participants.setOnClickListener {
+            findNavController().navigate(R.id.action_setExtrasFragment_to_setParticipantsFragment)
+        }
+
+        btn_schedule.setOnClickListener {
+            findNavController().navigate(R.id.action_setExtrasFragment_to_setScheduleFragment)
+        }
+        btn_partners.setOnClickListener {
+            findNavController().navigate(R.id.action_setExtrasFragment_to_setPartnersFragment)
+        }
+        btn_conditions.setOnClickListener {
+            findNavController().navigate(R.id.action_setExtrasFragment_to_setConditionsFragment)
+        }
+        btn_photogallery.setOnClickListener {
+            findNavController().navigate(R.id.action_setExtrasFragment_to_setGalleryFragment)
+        }
     }
+
+
+
 }
