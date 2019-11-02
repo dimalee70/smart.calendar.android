@@ -11,7 +11,7 @@ import kz.smart.calendar.models.db.Db
 import kz.smart.calendar.models.db.UserDao
 import kz.smart.calendar.modules.poll.domain.PollFragment
 import kz.smart.calendar.modules.poll.domain.PollPresenter
-import kz.smart.calendar.presentation.presenter.LoginInPresenter
+import photograd.kz.smart.presentation.presenter.login.LoginInPresenter
 import kz.smart.calendar.presentation.presenter.MainAppPresenter
 import kz.smart.calendar.presentation.presenter.home.HomeMainPresenter
 import kz.smart.calendar.presentation.presenter.home.HomePresenter
@@ -19,8 +19,8 @@ import kz.smart.calendar.ui.activity.BaseActivity
 import kz.smart.calendar.ui.activity.MainAppActivity
 import kz.smart.calendar.ui.activity.home.HomeActivity
 import kz.smart.calendar.ui.fragment.home.HomeMainFragment
-import photograd.kz.smart.presentation.presenter.login.LoginProcessPresenter
-import photograd.kz.smart.presentation.presenter.registration.RegistrationProcessPresenter
+import kz.smart.calendar.modules.settings.presentation.login.LoginProcessPresenter
+import kz.smart.calendar.modules.settings.presentation.registration.RegistrationProcessPresenter
 import javax.inject.Singleton
 
 @Singleton

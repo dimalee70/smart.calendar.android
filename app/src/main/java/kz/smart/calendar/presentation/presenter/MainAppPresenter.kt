@@ -46,7 +46,7 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
         //viewState?.showLogin()
     }
 
-    val user = LoginRequestModel("",_password = "")
+    val user = LoginRequestModel()
 
     fun auth(event: Event?) {
         viewState?.showProgress()
@@ -155,8 +155,6 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
             showTutorial()
             return
         }*/
-        anonimousAuth()
-        return
 
         if (DataHolder.sessionId == null) {
             anonimousAuth()

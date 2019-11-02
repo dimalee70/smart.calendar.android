@@ -7,5 +7,5 @@ import photograd.kz.smart.presentation.view.login.LoginFragmentView
 
 @InjectViewState
 class LoginPresenter : MvpPresenter<LoginFragmentView>() {
-    val user = LoginRequestModel("",_password = "")
+    val user = LoginRequestModel()
 }

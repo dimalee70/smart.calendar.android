@@ -6,6 +6,4 @@ import kz.smart.calendar.presentation.BaseView
 
 @StateStrategyType(OneExecutionStateStrategy::class)
 interface RegistrationProcessView: BaseView {
-    fun showHome()
-    fun onRegister()
 }
