@@ -9,6 +9,8 @@ import kz.smart.calendar.di.CustomApplicationScope
 import kz.smart.calendar.di.modules.*
 import kz.smart.calendar.models.db.Db
 import kz.smart.calendar.models.db.UserDao
+import kz.smart.calendar.modules.poll.domain.PollFragment
+import kz.smart.calendar.modules.poll.domain.PollPresenter
 import kz.smart.calendar.presentation.presenter.LoginInPresenter
 import kz.smart.calendar.presentation.presenter.MainAppPresenter
 import kz.smart.calendar.presentation.presenter.home.HomeMainPresenter
@@ -46,10 +48,12 @@ interface AppComponent {
     fun inject(activity: HomeActivity)
     fun inject(activity: HomeMainFragment)
 
+    fun inject(fragment: PollFragment)
+
     fun inject(presenter: MainAppPresenter)
     fun inject(presenter: HomePresenter)
     fun inject(presenter: HomeMainPresenter)
-
+    fun inject(presenter: PollPresenter)
     fun inject(presenter: RegistrationProcessPresenter)
     fun inject(presenter: LoginInPresenter)
     fun inject(presenter: LoginProcessPresenter)

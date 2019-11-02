@@ -14,7 +14,7 @@ import kz.smart.calendar.ui.adapters.RecyclerBindingAdapter
 /**
  * A simple [Fragment] subclass.
  */
-class FeedFragment : Fragment() {
+class   FeedFragment : Fragment() {
 
     lateinit var recyclerTypesAdapter: RecyclerBindingAdapter<TestEvent>
 

@@ -55,7 +55,4 @@ interface ApiManager {
 
     @POST("upload_image")
     fun uploadImage(@Body body: ImageRequestModel): Observable<ImageResponse>
-
-
-
 }

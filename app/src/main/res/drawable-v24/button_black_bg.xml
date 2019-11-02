@@ -6,7 +6,7 @@
         <gradient android:angle="180" android:endColor="@color/colorPrimary"
                 android:startColor="@color/colorPrimary" />
         <!--make button border solid color, nontransparent-->
-        <corners android:radius="50dp"/>
+        <corners android:radius="10dp"/>
     </shape>
 </item>
 </selector>

@@ -1,0 +1,13 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <stroke
+        android:color="@color/frameVoteColorUnChosen" />
+
+    <solid android:color="@color/frameVoteColorUnChosen" />
+
+
+    <corners
+        android:topRightRadius="10dp"
+        android:bottomRightRadius="10dp"
+        />
+</shape>

@@ -10,6 +10,11 @@ import androidx.databinding.ObservableList
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.item_poll.view.*
+import kz.smart.calendar.BR
+import kz.smart.calendar.R
+import kz.smart.calendar.models.objects.Poll
+import kz.smart.calendar.models.objects.VoteOption
 
 import java.util.ArrayList
 
@@ -46,6 +51,14 @@ class RecyclerBindingAdapter<T>(
         }
         holder.binding.setVariable(variableId, item)
 //        holder.binding.executePendingBindings()
+        if(holderLayout == R.layout.item_poll){
+            val votes = ObservableArrayList<VoteOption>()
+            val recyclerVoteAdapter = RecyclerBindingAdapter<VoteOption>(R.layout.item_vote, BR.data, context)
+            votes.addAll((item as Poll).vote_options)
+            recyclerVoteAdapter.setItems(votes)
+            holder.binding.root.votesRv.adapter = recyclerVoteAdapter
+
+        }
 //        if(holderLayout == R.layout.item_custom || holderLayout == R.layout.item_custom_full){
 //            holder.binding.root.closeIb.setOnClickListener{
 //                removeAt(position)
@@ -62,6 +75,13 @@ class RecyclerBindingAdapter<T>(
 
     override fun getItemViewType(position: Int): Int {
         val item = items[position]
+        if(holderLayout == R.layout.item_poll){
+            val votes = ObservableArrayList<VoteOption>()
+            val recyclerVoteAdapter = RecyclerBindingAdapter<VoteOption>(R.layout.item_vote, BR.data, context)
+            votes.addAll((item as Poll).vote_options)
+            holderLayout
+
+        }
         return holderLayout
     }
 

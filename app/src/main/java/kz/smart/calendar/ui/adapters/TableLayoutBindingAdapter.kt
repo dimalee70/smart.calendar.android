@@ -180,4 +180,26 @@ object TableLayoutBindingAdapter {
 
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("textInt")
+    fun TextView.setTextInt(num: Int){
+        text =  num.toString()
+    }
+
+    @JvmStatic
+    @BindingAdapter("statusText")
+    fun TextView.setStatusText(num: Int){
+        text = if (num == 0) resources.getString(R.string.poll_status_no_active) else resources.getString(R.string.poll_status_active)
+    }
+
+    @JvmStatic
+    @BindingAdapter("percentageText")
+    fun TextView.setPercantageText(num: Float?){
+        if(num == null) {
+            text = ""
+            return
+        }
+        text = num.toString() + "%"
+    }
 }
