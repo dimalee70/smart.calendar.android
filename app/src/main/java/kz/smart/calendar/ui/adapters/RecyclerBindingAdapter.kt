@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
@@ -54,6 +55,19 @@ class RecyclerBindingAdapter<T>(
         if(holderLayout == R.layout.item_poll){
             val votes = ObservableArrayList<VoteOption>()
             val recyclerVoteAdapter = RecyclerBindingAdapter<VoteOption>(R.layout.item_vote, BR.data, context)
+            recyclerVoteAdapter.setOnItemClickListener(
+                object: OnItemClickListener<VoteOption> {
+                    override fun onItemClick(position: Int, item: VoteOption) {
+                        var idx = votes.indexOfFirst {
+                            it.isSlected == true
+                        }
+                        if(idx >= 0)
+                            votes[idx].isSlected = false
+                        if(idx != position)
+                            item.isSlected = !item.isSlected
+                    }
+                }
+            )
             votes.addAll((item as Poll).vote_options)
             recyclerVoteAdapter.setItems(votes)
             holder.binding.root.votesRv.adapter = recyclerVoteAdapter

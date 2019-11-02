@@ -21,6 +21,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import de.hdodenhof.circleimageview.CircleImageView
 import kz.smart.calendar.R
+import kz.smart.calendar.ui.common.PollTextView
 
 import java.util.regex.Pattern
 
@@ -201,5 +202,21 @@ object TableLayoutBindingAdapter {
             return
         }
         text = num.toString() + "%"
+    }
+
+    @JvmStatic
+    @BindingAdapter("isSelected")
+    fun PollTextView.setIsSelected(select: Boolean){
+        val drawable = ContextCompat.getDrawable(context, R.drawable.bg_rounded_ans)!!
+        if(select){
+            val wrappedDrawable = DrawableCompat.wrap(drawable)
+            DrawableCompat.setTint(wrappedDrawable, ContextCompat.getColor(context, R.color.frameVoteColorChosen))
+            background = wrappedDrawable
+        }
+        else{
+            val wrappedDrawable = DrawableCompat.wrap(drawable)
+            DrawableCompat.setTint(wrappedDrawable, ContextCompat.getColor(context, R.color.frameVoteColorUnChosen))
+            background = wrappedDrawable
+        }
     }
 }

@@ -24,4 +24,5 @@
     <color name="pollBackgrndColor">#FFE3CA</color>
     <color name="buttonTextColor">#D4D3D3</color>
     <color name="frameVoteColorUnChosen">#ffffff</color>
+    <color name="frameVoteColorChosen">#5BA1E4</color>
 </resources>
