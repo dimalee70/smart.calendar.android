@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/eventDetailsFragment"
-        android:name="kz.smart.calendar.modules.feed.domain.EventDetailsFragment"
+        android:name="kz.smart.calendar.modules.common.EventDetailsFragment"
         android:label="fragment_event_details"
         tools:layout="@layout/fragment_event_details" />
 </navigation>

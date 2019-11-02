@@ -31,7 +31,9 @@
     <string name="male">Мужской</string>
     <string name="female">Женский</string>
     <string name="not_given">Не задан</string>
+    <string name="today">Сегодня</string>
     <string name="day">День</string>
+    <string name="week">Неделя</string>
     <string name="month">Месяц</string>
     <string name="year">Год</string>
 
@@ -75,5 +77,4 @@
     <string name="option_settings">Настройка опций</string>
     <string name="desired_options">Желаемые опции</string>
     <string name="publish">Опубликовать</string>
-
 </resources>

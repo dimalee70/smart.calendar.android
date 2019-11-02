@@ -8,4 +8,6 @@ enum class Status(val value: Int)
     INACTIVE(0),
     @SerializedName("1")
     ACTIVE(1),
+    @SerializedName("2")
+    FINNISHED(2)
 }

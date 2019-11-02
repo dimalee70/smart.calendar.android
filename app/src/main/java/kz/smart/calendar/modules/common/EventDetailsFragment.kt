@@ -1,4 +1,4 @@
-package kz.smart.calendar.modules.feed.domain
+package kz.smart.calendar.modules.common
 
 
 import android.os.Bundle

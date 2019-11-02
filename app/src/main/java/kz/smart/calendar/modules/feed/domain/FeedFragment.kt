@@ -6,16 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.fragment_feed.*
 
 import kz.smart.calendar.R
+import kz.smart.calendar.models.enums.Period
 import kz.smart.calendar.models.objects.TestEvent
+import kz.smart.calendar.ui.adapters.LabeledPagerAdapter
 import kz.smart.calendar.ui.adapters.RecyclerBindingAdapter
 
 /**
  * A simple [Fragment] subclass.
  */
 class FeedFragment : Fragment() {
-
     lateinit var recyclerTypesAdapter: RecyclerBindingAdapter<TestEvent>
 
     override fun onCreateView(
@@ -62,6 +66,28 @@ class FeedFragment : Fragment() {
 
 
         return inflater.inflate(R.layout.fragment_feed, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupViewPager()
+    }
+
+    private fun setupViewPager() {
+
+        val adapter = LabeledPagerAdapter(childFragmentManager)
+
+        val dayFragment: FeedPeriodFragment = FeedPeriodFragment.newInstance(Period.DAY)
+        val weekFragment: FeedPeriodFragment = FeedPeriodFragment.newInstance(Period.WEEK)
+        val monthFragment: FeedPeriodFragment = FeedPeriodFragment.newInstance(Period.MONTH)
+
+        adapter.addFragment(dayFragment, getString(R.string.today))
+        adapter.addFragment(weekFragment, getString(R.string.week))
+        adapter.addFragment(monthFragment, getString(R.string.month))
+
+        vp_periods.adapter = adapter
+        period_tabs!!.setupWithViewPager(vp_periods)
+
     }
 
 

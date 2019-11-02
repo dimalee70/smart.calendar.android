@@ -8,4 +8,6 @@ enum class Period(val value: Int)
     DAY(0),
     @SerializedName("1")
     WEEK(1),
+    @SerializedName("2")
+    MONTH(2)
 }
