@@ -83,11 +83,11 @@ class PollFragment : BaseMvpFragment(), PollView{
         votes.add(VoteOption(7,"авамв"))
 
         val pollList = ArrayList<Poll>()
-        pollList.add(Poll(1, "Празднование дня города", "Кого пригласить на выступление во время праздника?", "5 дней", 388, votes, Status.ACTIVE))
-        pollList.add(Poll(2, "Празднование дня города2", "Кого пригласить на выступление во время праздника?2", "10 дней", 500, votes, Status.INACTIVE))
-        pollList.add(Poll(3, "Празднование дня города3", "Кого пригласить на выступление во время праздника?3", "20 дней", 600, votes, Status.ACTIVE))
-        pollList.add(Poll(4, "Празднование дня города4", "Кого пригласить на выступление во время праздника?4", "25 дней", 700, votes, Status.INACTIVE))
-        pollList.add(Poll(5, "Празднование дня города5", "Кого пригласить на выступление во время праздника?5", "35 дней", 800, votes, Status.ACTIVE))
+        pollList.add(Poll(1, "Празднование дня города", "Кого пригласить на выступление во время праздника?", "5 дней", 388, votes, Status.ACTIVE,"", 20))
+        pollList.add(Poll(2, "Празднование дня города2", "Кого пригласить на выступление во время праздника?2", "10 дней", 500, votes, Status.INACTIVE,"", 20))
+        pollList.add(Poll(3, "Празднование дня города3", "Кого пригласить на выступление во время праздника?3", "20 дней", 600, votes, Status.ACTIVE,"", 20))
+        pollList.add(Poll(4, "Празднование дня города4", "Кого пригласить на выступление во время праздника?4", "25 дней", 700, votes, Status.INACTIVE,"", 20))
+        pollList.add(Poll(5, "Празднование дня города5", "Кого пригласить на выступление во время праздника?5", "35 дней", 800, votes, Status.ACTIVE,"", 20))
 
         polls.addAll(pollList)
         recyclerPollAdapter.setItems(polls)

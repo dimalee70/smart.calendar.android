@@ -10,7 +10,6 @@ data class Poll(
     val votesAmount: Int,
     val vote_options: ArrayList<VoteOption>,
     val status: Status,
-    val text: String,
     val end_date: String,
     val votes_amount: Int
 )

@@ -17,7 +17,6 @@ import kz.smart.calendar.events.SetBottomBarVisibilityEvent
 import kz.smart.calendar.models.enums.Period
 import kz.smart.calendar.models.objects.TestEvent
 import kz.smart.calendar.ui.adapters.LabeledPagerAdapter
-import kz.smart.calendar.ui.adapters.LabeledPagerAdapter
 import kz.smart.calendar.ui.adapters.RecyclerBindingAdapter
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
