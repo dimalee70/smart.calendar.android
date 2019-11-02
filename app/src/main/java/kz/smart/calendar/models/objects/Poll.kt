@@ -6,7 +6,6 @@ data class Poll(
     val id: Int,
     val title: String,
     val text:String,
-    val endDate: String,
     val votesAmount: Int,
     val vote_options: ArrayList<VoteOption>,
     val status: Status,
