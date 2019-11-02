@@ -6,26 +6,33 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 import kz.smart.calendar.R
+import kz.smart.calendar.events.OpenEventDetailsEvent
+import kz.smart.calendar.events.SetBottomBarVisibilityEvent
 import kz.smart.calendar.models.enums.Period
 import kz.smart.calendar.models.objects.TestEvent
 import kz.smart.calendar.ui.adapters.LabeledPagerAdapter
 import kz.smart.calendar.ui.adapters.RecyclerBindingAdapter
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * A simple [Fragment] subclass.
  */
 class FeedFragment : Fragment() {
     lateinit var recyclerTypesAdapter: RecyclerBindingAdapter<TestEvent>
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         // Inflate the layout for this fragment
 
 //
@@ -91,6 +98,18 @@ class FeedFragment : Fragment() {
     }
 
 
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
 
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: OpenEventDetailsEvent) {
+        findNavController().navigate(R.id.action_feedFragment_to_nav_event_details)
+    }
 }

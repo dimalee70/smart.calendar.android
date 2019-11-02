@@ -16,6 +16,7 @@ import kz.smart.calendar.R
 import kz.smart.calendar.databinding.FragmentHomeMainBinding
 import kz.smart.calendar.presentation.presenter.home.HomeMainPresenter
 import kz.smart.calendar.presentation.view.home.HomeMainView
+import kz.smart.calendar.ui.common.BackButtonListener
 import kz.smart.calendar.ui.fragment.BaseFragment
 import kz.smart.calendar.ui.fragment.BaseMvpFragment
 import java.util.*
@@ -154,6 +155,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
     fun onBackPressed(): Boolean{
         val fragment = fragments[binding.mainPager.currentItem]
+
         val hadNestedFragments = fragment.onBackPressed()
         // if no fragments were popped
         if (!hadNestedFragments) {
