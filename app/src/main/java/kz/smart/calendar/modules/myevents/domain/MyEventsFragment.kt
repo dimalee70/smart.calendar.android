@@ -29,7 +29,7 @@ class MyEventsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btn_add_event.setOnClickListener {
-            findNavController().navigate(R.id.action_myEventsFragment_to_addEventActivity3)
+            findNavController().navigate(R.id.action_myEventsFragment_to_addEventFragment2)
         }
     }
 

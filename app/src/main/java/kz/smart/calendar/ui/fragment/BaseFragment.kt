@@ -10,7 +10,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
+import kz.smart.calendar.R
+import kz.smart.calendar.events.SetBottomBarVisibilityEvent
 import kz.smart.calendar.rootDestinations
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 open class BaseFragment: Fragment() {
 
@@ -45,6 +50,17 @@ open class BaseFragment: Fragment() {
         //val navController = requireActivity().findNavController(navHostId)
 
         //NavigationUI.setupWithNavController(toolbar, navController, appBarConfig)
+
+        requireActivity().findNavController(navHostId).addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.homeMainFragment, R.id.myEventsFragment, R.id.scheduleFragment, R.id.feedFragment, R.id.pollFragment, R.id.settingsFragment -> {
+                        EventBus.getDefault().post(SetBottomBarVisibilityEvent(true))
+                }
+                else -> {
+                    EventBus.getDefault().post(SetBottomBarVisibilityEvent(false))
+                }
+            }
+        }
     }
 
     fun onBackPressed(): Boolean {

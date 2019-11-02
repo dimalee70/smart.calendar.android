@@ -26,6 +26,10 @@ import javax.inject.Inject
 class HomeMainFragment : BaseMvpFragment(), HomeMainView,
     RecyclerBindingAdapter.OnItemClickListener<Event>
 {
+    override fun setBottomViewVisibility(isVisible: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     var position: Int? = null
 
     @Inject
@@ -42,6 +46,8 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
         }
     }
 
+
+
     @Inject
     lateinit var router: Router
 
@@ -50,7 +56,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
     @ProvidePresenter
     fun providePresenter(): HomeMainPresenter{
-        return HomeMainPresenter(router)
+        return HomeMainPresenter()
     }
 
     lateinit var binding: FragmentHomeMainBinding

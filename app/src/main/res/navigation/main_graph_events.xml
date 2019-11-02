@@ -11,16 +11,16 @@
         android:label="fragment_my_events"
         tools:layout="@layout/fragment_my_events" >
         <action
-            android:id="@+id/action_myEventsFragment_to_addEventActivity3"
-            app:destination="@id/addEventActivity3"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="false"
-            app:popUpTo="@+id/myEventsFragment" />
+            android:id="@+id/action_myEventsFragment_to_addEventFragment2"
+            app:destination="@+id/addEventFragment2"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
     </fragment>
-    <activity
-        android:id="@+id/addEventActivity3"
-        android:name="kz.smart.calendar.modules.myevents.domain.AddEventActivity"
-        android:label="activity_add_event"
-        tools:layout="@layout/activity_add_event" />
+    <fragment
+        android:id="@+id/addEventFragment2"
+        android:name="kz.smart.calendar.modules.myevents.domain.AddEventFragment"
+        android:label="fragment_add_event"
+        tools:layout="@layout/fragment_add_event" />
 </navigation>

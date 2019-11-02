@@ -9,7 +9,28 @@
                 type="kz.smart.calendar.presentation.presenter.home.HomeMainPresenter" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        >
+
+        <kz.smart.calendar.ui.common.NonSwipingViewPager
+            android:id="@+id/main_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/main_menu"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -44,5 +65,5 @@
                     />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout-->
 </layout>

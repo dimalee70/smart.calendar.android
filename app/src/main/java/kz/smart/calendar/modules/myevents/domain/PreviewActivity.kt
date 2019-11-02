@@ -1,12 +1,12 @@
 package kz.smart.calendar.modules.myevents.domain
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.ActivityNavigator
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
+import androidx.navigation.*
 import kotlinx.android.synthetic.main.activity_preview.*
 import kz.smart.calendar.R
+import kz.smart.calendar.ui.activity.home.HomeActivity
 
 class PreviewActivity : AppCompatActivity() {
 
@@ -24,8 +24,15 @@ class PreviewActivity : AppCompatActivity() {
 
     fun pop()
     {
-        //findNavController(R.id.nav_graph_add_event).popBackStack(R.id.addEventFragment, true)
         ActivityNavigator(this).popBackStack()
-        //ActivityNavigator(this)
+        /*val activityNavigator = ActivityNavigator( this)
+        activityNavigator.navigate(
+            activityNavigator.createDestination().setIntent(
+                Intent(
+                   this,
+                    HomeActivity::class.java
+                )
+            ), null, null, null
+        )*/
     }
 }

@@ -20,5 +20,6 @@
         android:id="@+id/addEventActivity"
         android:name="kz.smart.calendar.modules.myevents.domain.AddEventActivity"
         android:label="activity_add_event"
-        tools:layout="@layout/activity_add_event" />
+        tools:layout="@layout/activity_add_event" >
+    </activity>
 </navigation>
