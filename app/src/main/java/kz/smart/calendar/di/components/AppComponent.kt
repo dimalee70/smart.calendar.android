@@ -46,7 +46,7 @@ interface AppComponent {
     fun inject(activity: BaseActivity)
     fun inject(activity: MainAppActivity)
     fun inject(activity: HomeActivity)
-    fun inject(activity: HomeMainFragment)
+    fun inject(fragment: HomeMainFragment)
 
     fun inject(fragment: PollFragment)
 
@@ -57,5 +57,6 @@ interface AppComponent {
     fun inject(presenter: RegistrationProcessPresenter)
     fun inject(presenter: LoginInPresenter)
     fun inject(presenter: LoginProcessPresenter)
+
 
 }

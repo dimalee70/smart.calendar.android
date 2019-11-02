@@ -101,6 +101,7 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
                         DataHolder.user = result.data.user
                         DataHolder.userId = result.data.user.id
                         DataHolder.sessionId = result.data.session_id
+                        getPolls()
                         router.newRootScreen(Screens.HomeScreen())
                     }
                 },
@@ -126,12 +127,36 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
             )
     }
 
+
+    fun getPolls() {
+        viewState?.showProgress()
+
+        disposable = client.getPolls()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {    result ->
+                    run {
+                        viewState?.hideProgress()
+                    }
+                },
+                { error ->
+                    run {
+                        viewState?.hideProgress()
+                        viewState?.showError(error)
+                    }
+                }
+            )
+    }
+
     fun start(event: Event?)
     {
         /*if (DataHolder.isFirstLaunch){
             showTutorial()
             return
         }*/
+        anonimousAuth()
+        return
 
         if (DataHolder.sessionId == null) {
             anonimousAuth()

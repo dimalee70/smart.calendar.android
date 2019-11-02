@@ -9,5 +9,10 @@
         android:id="@+id/feedFragment"
         android:name="kz.smart.calendar.modules.feed.domain.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" />
+        tools:layout="@layout/fragment_feed" >
+        <action
+            android:id="@+id/action_feedFragment_to_nav_event_details"
+            app:destination="@id/nav_event_details" />
+    </fragment>
+    <include app:graph="@navigation/nav_event_details" />
 </navigation>

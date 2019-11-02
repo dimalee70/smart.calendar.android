@@ -1,17 +1,22 @@
 package kz.smart.calendar.presentation.presenter.home
 
 import android.content.SharedPreferences
+import android.view.View
 import androidx.databinding.ObservableBoolean
 import com.arellomobile.mvp.InjectViewState
 import kz.smart.calendar.App
 import kz.smart.calendar.api.ApiManager
+import kz.smart.calendar.events.SetBottomBarVisibilityEvent
 import kz.smart.calendar.presentation.presenter.BasePresenter
 import kz.smart.calendar.presentation.view.home.HomeMainView
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @InjectViewState
-class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView>() {
+class HomeMainPresenter() : BasePresenter<HomeMainView>() {
     @Inject
     lateinit var client: ApiManager
 
@@ -22,11 +27,16 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
 
     init {
         App.appComponent.inject(this)
-
+        EventBus.getDefault().register(this)
     }
 
     fun showEvent(id: Int){
         //router.navigateTo(Screens.ProductShowScreen(productId, productName))
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: SetBottomBarVisibilityEvent) {
+        viewState?.setBottomViewVisibility(event.isVisible)
     }
 
     fun reloadData() = reloadData(showRefresh = true)

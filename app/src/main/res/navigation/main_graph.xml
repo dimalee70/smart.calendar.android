@@ -1,25 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://sch`emas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/mainAppActivity">
-
-    <activity
-        android:id="@+id/mainAppActivity"
-        android:name="kz.smart.calendar.ui.activity.MainAppActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" >
-        <action
-            android:id="@+id/action_mainAppActivity_to_homeActivity"
-            app:destination="@id/homeActivity"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:launchSingleTop="true" />
-    </activity>
-    <activity
-        android:id="@+id/homeActivity"
-        android:name="kz.smart.calendar.ui.activity.home.HomeActivity"
-        android:label="activity_home"
-        tools:layout="@layout/activity_home" />
+    app:startDestination="@id/homeMainFragment">
+    <fragment
+        android:id="@+id/homeMainFragment"
+        android:name="kz.smart.calendar.modules.home.presentation.HomeMainFragment"
+        android:label="HomeMainFragment" />
 </navigation>

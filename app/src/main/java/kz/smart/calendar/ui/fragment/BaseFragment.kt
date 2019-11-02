@@ -10,7 +10,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
+import kz.smart.calendar.R
+import kz.smart.calendar.events.SetBottomBarVisibilityEvent
 import kz.smart.calendar.rootDestinations
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 open class BaseFragment: Fragment() {
 
@@ -37,14 +42,26 @@ open class BaseFragment: Fragment() {
 
     override fun onStart() {
         super.onStart()
-        // return early if no arguments were parsed
-        //if (toolbarId == defaultInt || navHostId == defaultInt) return
 
-        // setup navigation with toolbar
-        //val toolbar = requireActivity().findViewById<Toolbar>(toolbarId)
-        //val navController = requireActivity().findNavController(navHostId)
+        //we don't hide/show bottom bar for settings
+        if (layoutRes != R.layout.content_settings_base)
+        {
+            setDestinationListener()
+        }
+    }
 
-        //NavigationUI.setupWithNavController(toolbar, navController, appBarConfig)
+    fun setDestinationListener()
+    {
+        requireActivity().findNavController(navHostId).addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.homeMainFragment, R.id.myEventsFragment, R.id.scheduleFragment, R.id.feedFragment, R.id.pollFragment, R.id.settingsFragment -> {
+                    EventBus.getDefault().post(SetBottomBarVisibilityEvent(true))
+                }
+                else -> {
+                    EventBus.getDefault().post(SetBottomBarVisibilityEvent(false))
+                }
+            }
+        }
     }
 
     fun onBackPressed(): Boolean {
