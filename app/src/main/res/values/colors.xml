@@ -27,5 +27,6 @@
     <color name="frameVoteColorChosen">#5BA1E4</color>
     <color name="unselectedBorder">#707070</color>
     <color name="secondaryUnselectedBorder">#E46B6B</color>
+    <color name="bottomShadowColor">#33393E46</color>
 
 </resources>
