@@ -25,6 +25,12 @@ data class RegisterRequestModel
             field = value
         }
 
+    var passwordConfirm: String = ""
+        @Bindable get
+        set(value) {
+            field = value
+        }
+
     var birthday: String = ""
         @Bindable get
         set(value) {

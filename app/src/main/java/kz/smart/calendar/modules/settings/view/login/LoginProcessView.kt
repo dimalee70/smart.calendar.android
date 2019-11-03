@@ -6,7 +6,5 @@ import kz.smart.calendar.presentation.BaseView
 
 @StateStrategyType(OneExecutionStateStrategy::class)
 interface LoginProcessView : BaseView {
-    fun showHome()
     fun onLoginClick()
-    fun onRegisterClick()
 }

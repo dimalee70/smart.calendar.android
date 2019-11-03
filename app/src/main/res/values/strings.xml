@@ -82,4 +82,8 @@
     <string name="poll_status_active">Пройден</string>
 
     <string name="i_will_join">Я пойду!</string>
+    <string name="login_title">Вход</string>
+    <string name="register_title">Регистрация</string>
+    <string name="do_register">Зарегистрироваться</string>
+    <string name="confirm_password">Подтвердите пароль</string>
 </resources>

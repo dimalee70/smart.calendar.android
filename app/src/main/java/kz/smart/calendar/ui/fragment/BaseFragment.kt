@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.navigation.*
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
@@ -14,10 +14,12 @@ import kz.smart.calendar.R
 import kz.smart.calendar.events.SetBottomBarVisibilityEvent
 import kz.smart.calendar.rootDestinations
 import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
+import kz.smart.calendar.models.shared.DataHolder
 
-open class BaseFragment: Fragment() {
+
+open class BaseFragment: BaseMvpFragment() {
 
     private val defaultInt = -1
     private var layoutRes: Int = -1
@@ -35,32 +37,50 @@ open class BaseFragment: Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return if (layoutRes == defaultInt) null
         else inflater.inflate(layoutRes, container, false)
     }
 
     override fun onStart() {
         super.onStart()
-
-        //we don't hide/show bottom bar for settings
-        if (layoutRes != R.layout.content_settings_base)
+        // Inflate the layout for this fragment
+        if (layoutRes == R.layout.content_settings_base)
         {
-            setDestinationListener()
+            val navController = requireActivity().findNavController(navHostId)
+            val navGraph = navController.navInflater.inflate(R.navigation.main_graph_settings)
+            if(DataHolder.user?.username != null)
+            {
+                navGraph.startDestination = R.id.settingsContainerFragment
+            }
+            else
+            {
+                navGraph.startDestination = R.id.loginContainerFragment
+            }
+            navController.graph = navGraph
         }
+        setDestinationListener()
     }
 
     fun setDestinationListener()
     {
         requireActivity().findNavController(navHostId).addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.homeMainFragment, R.id.myEventsFragment, R.id.scheduleFragment, R.id.feedFragment, R.id.pollFragment, R.id.settingsFragment -> {
-                    EventBus.getDefault().post(SetBottomBarVisibilityEvent(true))
-                }
-                else -> {
-                    EventBus.getDefault().post(SetBottomBarVisibilityEvent(false))
+            if (layoutRes != R.layout.content_settings_base) {
+                when (destination.id) {
+                    R.id.homeMainFragment, R.id.myEventsFragment, R.id.scheduleFragment, R.id.feedFragment, R.id.pollFragment -> {
+                        EventBus.getDefault().post(SetBottomBarVisibilityEvent(true))
+                    }
+                    else -> {
+                        EventBus.getDefault().post(SetBottomBarVisibilityEvent(false))
+                    }
                 }
             }
+            /*else if (destination.id == R.id.loginContainerFragment)
+            {
+                val navOptions = NavOptions.Builder()
+                    .setPopUpTo(R.id.settingsContainerFragment, true)
+                    .build()
+                requireActivity().findNavController(navHostId).navigate(R.id.action_loginContainerFragment_to_settingsContainerFragment, null, navOptions)
+            }*/
         }
     }
 

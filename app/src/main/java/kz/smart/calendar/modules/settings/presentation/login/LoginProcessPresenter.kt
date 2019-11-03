@@ -1,4 +1,4 @@
-package photograd.kz.smart.presentation.presenter.login
+package kz.smart.calendar.modules.settings.presentation.login
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
@@ -6,6 +6,7 @@ import com.onesignal.OneSignal
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kz.smart.calendar.App
 import kz.smart.calendar.api.ApiManager
 import kz.smart.calendar.models.requests.LoginRequestModel
 import kz.smart.calendar.models.shared.DataHolder
@@ -20,44 +21,39 @@ class LoginProcessPresenter : MvpPresenter<LoginProcessView>()
 
     private var disposable: Disposable? = null
 
-    val user = LoginRequestModel("",_password = "")
+    val user = LoginRequestModel()
 
-    fun logIn(loginReqModel: LoginRequestModel) {
-        /*viewState.showProgress()
+    init {
+        App.appComponent.inject(this)
+    }
 
-        loginReqModel.onesignal_player_id = OneSignal.getPermissionSubscriptionState().subscriptionStatus.userId
+    fun logIn() {
+        viewState.showProgress()
 
-        disposable = client.userLogin(loginReqModel)
+        user.onesignal_player_id = "test"//OneSignal.getPermissionSubscriptionState().subscriptionStatus.userId
+
+        disposable = client.userLogin(user)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {    result ->
                     run {
-                        viewState.hideProgress()
+                        viewState?.hideProgress()
                         DataHolder.user = result.data.user
                         DataHolder.userId = result.data.user.id
-                        DataHolder.sessionid = result.data.auth.sessionid
-                        viewState.showHome()
+                        DataHolder.sessionId = result.data.session_id
                     }
                 },
                 { error ->
                     run {
-                        viewState.hideProgress()
-                        viewState.showError(error)
+                        viewState?.hideProgress()
+                        viewState?.showError(error)
                     }
                 }
-            )*/
-    }
-
-    fun registerClick(){
-        viewState.onRegisterClick()
-    }
-
-    fun forgotPasswordClick(){
-        //viewState.onForgotPasswordClick()
+            )
     }
 
     fun loginClick(){
-        viewState.onLoginClick()
+        logIn()
     }
 }

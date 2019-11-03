@@ -1,4 +1,4 @@
-package kz.smart.calendar.presentation.view.login
+package kz.smart.calendar.modules.settings.view.login
 
 import com.arellomobile.mvp.MvpView
 

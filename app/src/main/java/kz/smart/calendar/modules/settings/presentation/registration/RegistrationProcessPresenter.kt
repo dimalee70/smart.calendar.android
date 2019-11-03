@@ -1,13 +1,12 @@
-package photograd.kz.smart.presentation.presenter.registration
+package kz.smart.calendar.modules.settings.presentation.registration
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.onesignal.OneSignal
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kz.smart.calendar.Constants
 import kz.smart.calendar.api.ApiManager
+import kz.smart.calendar.models.requests.RegisterRequestModel
 import kz.smart.calendar.models.shared.DataHolder
 import photograd.kz.smart.presentation.view.registration.RegistrationProcessView
 import javax.inject.Inject
@@ -21,33 +20,17 @@ class RegistrationProcessPresenter: MvpPresenter<RegistrationProcessView>() {
     lateinit var client: ApiManager
 
     private var disposable: Disposable? = null
+    val user = RegisterRequestModel("")
 
-    fun register(
-        email: String,
-        username: String,
-        password: String
-    ) {
-
-        /*val requestModel = RegistrationRequestModel(
-            email = email,
-            username = username,
-            password = password,
-            onesignal_player_id = OneSignal.getPermissionSubscriptionState().subscriptionStatus.userId,
-            platform = Constants.ANDROID_PLATFORM,
-            gender = NOT_SET,
-            birthday = DEFAULT_BIRTHDAY
-
-        )
-        disposable = client.register(model = requestModel).subscribeOn(Schedulers.io())
+    fun register() {
+        disposable = client.register(user).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { result ->
                     run {
-                        DataHolder.sessionId = result.data.auth.sessionid
+                        DataHolder.sessionId = result.data.session_id
                         DataHolder.user = result.data.user
                         DataHolder.userId = result.data.user.id
-                        viewState.hideProgress()
-                        viewState.showHome()
                     }
                 },
                 { error ->
@@ -56,10 +39,6 @@ class RegistrationProcessPresenter: MvpPresenter<RegistrationProcessView>() {
                         viewState?.showError(error)
                     }
                 }
-            )*/
-    }
-
-    fun register() {
-        viewState.onRegister()
+            )
     }
 }
