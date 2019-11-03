@@ -20,7 +20,7 @@ import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
 
 class MainAppActivity : BaseActivity(), MainAppView {
-    private val SPLASH_DELAY: Long = 1000
+    private val SPLASH_DELAY: Long = 100
 
     private val mHandler = Handler()
     private val mLauncher = Launcher()

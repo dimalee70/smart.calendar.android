@@ -7,8 +7,11 @@ import kz.smart.calendar.api.ApiManager
 import kz.smart.calendar.di.ApplicationContext
 import kz.smart.calendar.di.CustomApplicationScope
 import kz.smart.calendar.di.modules.*
+import kz.smart.calendar.models.db.CategoryDao
 import kz.smart.calendar.models.db.Db
+import kz.smart.calendar.models.db.OptionDao
 import kz.smart.calendar.models.db.UserDao
+import kz.smart.calendar.models.objects.CalendarModel
 import kz.smart.calendar.modules.poll.domain.PollFragment
 import kz.smart.calendar.modules.poll.domain.PollPresenter
 import photograd.kz.smart.presentation.presenter.login.LoginInPresenter
@@ -40,6 +43,8 @@ interface AppComponent {
     fun glideComponentBuilder(): GlideComponent.Builder
 
     fun userDao(): UserDao
+    fun optionDao(): OptionDao
+    fun categoryDao(): CategoryDao
 
     fun getDb(): Db
 
@@ -57,6 +62,8 @@ interface AppComponent {
     fun inject(presenter: RegistrationProcessPresenter)
     fun inject(presenter: LoginInPresenter)
     fun inject(presenter: LoginProcessPresenter)
+    fun inject(calendar: CalendarModel)
+
 
 
 }

@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kz.smart.calendar.models.enums.Status
 import org.joda.time.DateTime
 import java.text.SimpleDateFormat
 import java.util.*
@@ -57,5 +58,13 @@ class Converters {
         fun toLong(value: Date?): Long? {
             return (value?.time)
         }
+
+        @TypeConverter
+        @JvmStatic
+        fun fromSatus(obj: Status?): String? = obj?.name
+
+        @TypeConverter
+        @JvmStatic
+        fun toStatus(s: String?): Status? = if (s == null) null else Status.valueOf(s)
     }
 }

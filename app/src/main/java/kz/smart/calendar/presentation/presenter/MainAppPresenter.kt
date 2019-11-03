@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpPresenter
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
+import io.reactivex.Observable
 import kz.smart.calendar.App
 import kz.smart.calendar.R
 import kz.smart.calendar.Screens
@@ -16,13 +17,23 @@ import kz.smart.calendar.models.shared.DataHolder
 import kz.smart.calendar.presentation.view.MainAppView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.BiFunction
+import io.reactivex.rxkotlin.Observables
 import io.reactivex.schedulers.Schedulers
+import kz.smart.calendar.models.db.CategoryDao
+import kz.smart.calendar.models.db.OptionDao
+import kz.smart.calendar.models.objects.CalendarModel
 import kz.smart.calendar.models.objects.Event
 import kz.smart.calendar.models.requests.AuthRequestModel
+import kz.smart.calendar.models.requests.EventsCalendarRequest
 import kz.smart.calendar.models.requests.LoginRequestModel
+import kz.smart.calendar.models.shared.Utils
+import org.json.JSONObject
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
+
+
 
 @InjectViewState
 class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>() {
@@ -31,6 +42,10 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
 
     @Inject
     lateinit var userDao: UserDao
+    @Inject
+    lateinit var optionDao: OptionDao
+    @Inject
+    lateinit var categoryDao: CategoryDao
 
     @Inject
     lateinit var tokenInterceptor: TokenInterceptor
@@ -59,7 +74,7 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
                     run {
                         viewState?.hideProgress()
                         DataHolder.user = result.data.user
-                        router.newRootScreen(Screens.HomeScreen())
+                        syncData()
                     }
                 },
                 { error ->
@@ -74,10 +89,6 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
                             DataHolder.sharedPref.edit().clear().apply()
                             anonimousAuth()
                             return@subscribe
-                        }
-                        else
-                        {
-                            router.newRootScreen(Screens.HomeScreen())
                         }
                     }
 
@@ -101,43 +112,37 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
                         DataHolder.user = result.data.user
                         DataHolder.userId = result.data.user.id
                         DataHolder.sessionId = result.data.session_id
-                        getPolls()
-                        router.newRootScreen(Screens.HomeScreen())
+                        syncData()
                     }
                 },
                 { error ->
                     run {
                         viewState?.hideProgress()
-                    }
-
-                    if (error is HttpException)
-                    {
-                        if (error.code() == 403)
-                        {
-                            DataHolder.sharedPref.edit().clear().apply()
-                            //viewState?.showLogin()
-                            return@subscribe
-                        }
-                    }
-
-                    run {
                         viewState?.showError(error)
                     }
                 }
             )
     }
 
+    private fun syncData()
+    {
 
-    fun getPolls() {
-        viewState?.showProgress()
+        disposable = Observables
+            .zip(client.getCategories(),  client.getOptions(), client.getEventsCalendar(EventsCalendarRequest(0)))
+            { cats, options, calendar ->
+                categoryDao.deleteAll()
+                categoryDao.insertAll(cats.data.items)
+                optionDao.deleteAll()
+                optionDao.insertAll(options.data.items)
 
-        disposable = client.getPolls()
+                val test = CalendarModel(calendar.data)
+            }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {    result ->
+            .subscribe({
                     run {
                         viewState?.hideProgress()
+                        router.newRootScreen(Screens.HomeScreen())
                     }
                 },
                 { error ->
@@ -145,8 +150,69 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
                         viewState?.hideProgress()
                         viewState?.showError(error)
                     }
+                })
+
+
+                /*disposable = Observable.zip(
+            client.getCategories().subscribeOn(Schedulers.io()),
+            client.getSubcategories().subscribeOn(Schedulers.io()),
+            BiFunction{
+                catResonse: BaseResponse<ListResponse<Category>>,
+                subcatResponse: BaseResponse<ListResponse<Subcategory>>,->
+               // subcatResponse: BaseResponse<ListResponse<Subcategory>>,
+                combineResult(firstResponse, secondResponse) }))
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe { it -> doSomethingWithIndividualResponse(it) }*/
+
+
+
+
+
+        /*disposable = client.getCategories()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {    cats ->
+                    client.getSubcategories()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                            {  subcats   ->
+                                client.getOptions()
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(
+                                        {  subcats   ->
+                                            run {
+                                                viewState?.hideProgress()
+                                                router.newRootScreen(Screens.HomeScreen())
+                                            }
+
+                                        },
+                                        { error ->
+                                            run {
+                                                viewState?.hideProgress()
+                                                viewState?.showError(error)
+                                            }
+                                        }
+                                    )
+
+                            },
+                            { error ->
+                                run {
+                                    viewState?.hideProgress()
+                                    viewState?.showError(error)
+                                }
+                            }
+                        )
+                },
+                { error ->
+                    run {
+                        viewState?.hideProgress()
+                        viewState?.showError(error)
+                    }
                 }
-            )
+            )*/
     }
 
     fun start(event: Event?)

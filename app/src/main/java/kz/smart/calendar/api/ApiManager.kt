@@ -1,9 +1,11 @@
 package kz.smart.calendar.api
 
+import com.google.gson.internal.LinkedTreeMap
 import kz.smart.calendar.api.response.*
 import io.reactivex.Observable
 import kz.smart.calendar.models.objects.*
 import kz.smart.calendar.models.requests.*
+import org.json.JSONObject
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -24,10 +26,10 @@ interface ApiManager {
     fun logout(): Observable<BaseResponse<StatusResponse>>
 
     @POST("get_options")
-    fun getOptions(@Body body: StatusRequestModel): Observable<BaseResponse<ListResponse<Option>>>
+    fun getOptions(): Observable<BaseResponse<ListResponse<Option>>>
 
     @POST("get_categories")
-    fun getCategories(@Body body: StatusRequestModel): Observable<BaseResponse<ListResponse<Category>>>
+    fun getCategories(): Observable<BaseResponse<ListResponse<Category>>>
 
     @POST("get_subcategories")
     fun getSubcategories(@Body body: SubRequestModel): Observable<BaseResponse<ListResponse<Subcategory>>>
@@ -58,4 +60,7 @@ interface ApiManager {
 
     @POST("get_polls")
     fun getPolls(): Observable<BaseResponse<PollsResponse>>
+
+    @POST("get_events_calendar")
+    fun getEventsCalendar(@Body body: EventsCalendarRequest): Observable<BaseResponse<LinkedTreeMap<String, ArrayList<Int>>>>
 }

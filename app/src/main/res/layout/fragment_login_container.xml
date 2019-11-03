@@ -21,7 +21,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp"
-        app:tabRippleColor="#00000000" />
+        app:tabRippleColor="#00000000"
+        app:tabTextAppearance="@style/TabTextAppearance"
+        />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_login_fragments"

@@ -26,11 +26,14 @@ import androidx.databinding.InverseBindingListener
 import androidx.databinding.InverseBindingMethod
 import androidx.databinding.InverseBindingMethods
 import com.google.android.material.textfield.TextInputEditText
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kz.smart.calendar.App
 import kz.smart.calendar.R
 import com.theartofdev.edmodo.cropper.CropImageView
 import kz.smart.calendar.di.modules.GlideApp
 import kz.smart.calendar.extensions.shortDateDiff
+import org.json.JSONObject
 import java.lang.Exception
 import kotlin.math.roundToInt
 
@@ -58,7 +61,6 @@ object Utils {
         display.getSize(size)
         screenWidth = size.x
         screenHeight = size.y
-
     }
 
     @JvmStatic

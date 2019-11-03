@@ -9,7 +9,7 @@ class LabeledPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manag
     private val mFragmentTitleList: ArrayList<String> = ArrayList()
 
     override fun getItem(position: Int): Fragment {
-        return mFragmentList.get(position)
+        return mFragmentList[position]
     }
 
     override fun getCount(): Int {
@@ -22,6 +22,6 @@ class LabeledPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manag
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return mFragmentTitleList.get(position)
+        return mFragmentTitleList[position]
     }
 }
