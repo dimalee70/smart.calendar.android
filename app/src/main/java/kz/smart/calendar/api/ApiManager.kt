@@ -63,4 +63,7 @@ interface ApiManager {
 
     @POST("get_events_calendar")
     fun getEventsCalendar(@Body body: EventsCalendarRequest): Observable<BaseResponse<LinkedTreeMap<String, ArrayList<Int>>>>
+
+    @POST("poll_vote")
+    fun sendVote(@Body body: VotePollRequestModel):Observable<BaseResponse<Poll>>
 }

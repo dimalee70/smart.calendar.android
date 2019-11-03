@@ -1,4 +1,4 @@
-package photograd.kz.smart.presentation.presenter.login
+package kz.smart.calendar.modules.settings.presentation.login
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter

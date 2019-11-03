@@ -14,7 +14,8 @@ import kz.smart.calendar.models.db.UserDao
 import kz.smart.calendar.models.objects.CalendarModel
 import kz.smart.calendar.modules.poll.domain.PollFragment
 import kz.smart.calendar.modules.poll.domain.PollPresenter
-import photograd.kz.smart.presentation.presenter.login.LoginInPresenter
+import kz.smart.calendar.modules.poll.domain.VoteOptionPresenter
+import kz.smart.calendar.modules.settings.presentation.login.LoginInPresenter
 import kz.smart.calendar.presentation.presenter.MainAppPresenter
 import kz.smart.calendar.presentation.presenter.home.HomeMainPresenter
 import kz.smart.calendar.presentation.presenter.home.HomePresenter
@@ -62,6 +63,7 @@ interface AppComponent {
     fun inject(presenter: RegistrationProcessPresenter)
     fun inject(presenter: LoginInPresenter)
     fun inject(presenter: LoginProcessPresenter)
+    fun inject(presenter: VoteOptionPresenter)
     fun inject(calendar: CalendarModel)
 
 

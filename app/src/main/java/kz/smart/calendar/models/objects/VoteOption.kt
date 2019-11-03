@@ -2,6 +2,7 @@ package kz.smart.calendar.models.objects
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
+import kz.smart.calendar.modules.poll.domain.VoteOptionPresenter
 
 data class VoteOption(
     val id: Int,
@@ -18,4 +19,6 @@ data class VoteOption(
         field = value
         notifyChange()
     }
+
+    var presenter: VoteOptionPresenter? = null
 }

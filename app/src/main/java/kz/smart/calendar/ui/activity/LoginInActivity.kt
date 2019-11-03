@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.arellomobile.mvp.presenter.InjectPresenter
 import kz.smart.calendar.R
 import kz.smart.calendar.Screens
-import photograd.kz.smart.presentation.presenter.login.LoginInPresenter
+import kz.smart.calendar.modules.settings.presentation.login.LoginInPresenter
 import kz.smart.calendar.modules.settings.view.login.LoginInView
 import kz.smart.calendar.ui.common.BackButtonListener
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
