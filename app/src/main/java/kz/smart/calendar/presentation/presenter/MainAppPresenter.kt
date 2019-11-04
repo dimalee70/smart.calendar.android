@@ -119,6 +119,8 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
                     run {
                         viewState?.hideProgress()
                         viewState?.showError(error)
+                        router.newRootScreen(Screens.HomeScreen())
+
                     }
                 }
             )
@@ -128,14 +130,12 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
     {
 
         disposable = Observables
-            .zip(client.getCategories(),  client.getOptions(), client.getEventsCalendar(EventsCalendarRequest(0)))
-            { cats, options, calendar ->
+            .zip(client.getCategories(), client.getOptions())
+            { cats, options ->
                 categoryDao.deleteAll()
                 categoryDao.insertAll(cats.data.items)
                 optionDao.deleteAll()
                 optionDao.insertAll(options.data.items)
-
-                val test = CalendarModel(calendar.data)
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -151,68 +151,6 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
                         viewState?.showError(error)
                     }
                 })
-
-
-                /*disposable = Observable.zip(
-            client.getCategories().subscribeOn(Schedulers.io()),
-            client.getSubcategories().subscribeOn(Schedulers.io()),
-            BiFunction{
-                catResonse: BaseResponse<ListResponse<Category>>,
-                subcatResponse: BaseResponse<ListResponse<Subcategory>>,->
-               // subcatResponse: BaseResponse<ListResponse<Subcategory>>,
-                combineResult(firstResponse, secondResponse) }))
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe { it -> doSomethingWithIndividualResponse(it) }*/
-
-
-
-
-
-        /*disposable = client.getCategories()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {    cats ->
-                    client.getSubcategories()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                            {  subcats   ->
-                                client.getOptions()
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(
-                                        {  subcats   ->
-                                            run {
-                                                viewState?.hideProgress()
-                                                router.newRootScreen(Screens.HomeScreen())
-                                            }
-
-                                        },
-                                        { error ->
-                                            run {
-                                                viewState?.hideProgress()
-                                                viewState?.showError(error)
-                                            }
-                                        }
-                                    )
-
-                            },
-                            { error ->
-                                run {
-                                    viewState?.hideProgress()
-                                    viewState?.showError(error)
-                                }
-                            }
-                        )
-                },
-                { error ->
-                    run {
-                        viewState?.hideProgress()
-                        viewState?.showError(error)
-                    }
-                }
-            )*/
     }
 
     fun start(event: Event?)

@@ -2,6 +2,7 @@ package kz.smart.calendar.modules.schedule.domain
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
+import kz.smart.calendar.modules.schedule.presentation.DataDay
 import org.apache.commons.lang3.time.DateUtils
 import java.util.*
 import kotlin.properties.Delegates
@@ -11,15 +12,16 @@ abstract class CalendarCellAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     private val calendar: Calendar
     private val weekOfMonth: Int
     private val startDate: Calendar
+    private val dataDays: ArrayList<DataDay>
 
     var items: List<Day> by Delegates.observable(emptyList()) { _, old, new ->
         CalendarDiff(old, new).calculateDiff().dispatchUpdatesTo(this)
     }
 
-    constructor(context: Context, calendar: Calendar, startingAt: DayOfWeek, preselectedDay: Date? = null) : super() {
+    constructor(context: Context, calendar: Calendar, startingAt: DayOfWeek, dataDays: ArrayList<DataDay>, preselectedDay: Date? = null) : super() {
         this.context = context
         this.calendar = calendar
-
+        this.dataDays = dataDays
         val start = DateUtils.truncate(calendar, Calendar.DAY_OF_MONTH)
         if (start.get(Calendar.DAY_OF_WEEK) != (startingAt.getDifference() + 1)) {
             start.set(Calendar.DAY_OF_MONTH, if (startingAt.isLessFirstWeek(calendar)) -startingAt.getDifference() else 0)
@@ -50,7 +52,13 @@ abstract class CalendarCellAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
             }
             val isToday = DateUtils.isSameDay(cal, now)
 
-            Day(cal, state, isToday, isSelected)
+            var dataDay: DataDay? = null
+            if (state == DayState.ThisMonth)
+            {
+                dataDay = dataDays.firstOrNull{dd -> dd.day == cal.get(Calendar.DAY_OF_MONTH)}
+
+            }
+            Day(cal, state, isToday, isSelected, dataDay)
         }
     }
 
@@ -67,7 +75,8 @@ data class Day(
         var calendar: Calendar,
         var state: DayState,
         var isToday: Boolean,
-        var isSelected: Boolean
+        var isSelected: Boolean,
+        var dataDay: DataDay? = null
 )
 
 enum class DayState {

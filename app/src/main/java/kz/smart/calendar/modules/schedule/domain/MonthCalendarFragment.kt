@@ -1,5 +1,6 @@
 package kz.smart.calendar.modules.schedule.domain
 
+import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,17 +10,28 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.fragment_month_calendar.*
 import kz.smart.calendar.App
 
 import kz.smart.calendar.R
+import kz.smart.calendar.modules.schedule.presentation.CalendarPresenter
+import kz.smart.calendar.modules.schedule.presentation.DataDay
+import kz.smart.calendar.modules.schedule.view.CalendarView
+import kz.smart.calendar.ui.fragment.BaseMvpFragment
 import org.apache.commons.lang3.time.DateUtils
 import java.util.*
+import kotlin.collections.ArrayList
+import android.view.animation.AnimationUtils
+
+
 
 /**
  * A simple [Fragment] subclass.
  */
-class MonthCalendarFragment(base: Calendar = Calendar.getInstance(), val startingAt: DayOfWeek = DayOfWeek.Monday) : Fragment() {
+class MonthCalendarFragment(base: Calendar = Calendar.getInstance(), val startingAt: DayOfWeek = DayOfWeek.Monday) : BaseMvpFragment(),
+    CalendarView {
 
     companion object {
         private const val MONTH_EXTRA: String = "MONTH_EXTRA"
@@ -34,6 +46,14 @@ class MonthCalendarFragment(base: Calendar = Calendar.getInstance(), val startin
             return f
 
         }
+    }
+
+    @InjectPresenter
+    lateinit var mPresenter: CalendarPresenter
+
+    @ProvidePresenter
+    fun providePresenter(): CalendarPresenter{
+        return CalendarPresenter()
     }
 
     private val baseCalendar: Calendar = DateUtils.truncate(base, Calendar.DAY_OF_MONTH).apply {
@@ -59,17 +79,24 @@ class MonthCalendarFragment(base: Calendar = Calendar.getInstance(), val startin
     ): View? {
         month = arguments!!.getInt(MONTH_EXTRA)
         monthDiff = arguments!!.getInt(MONTH_DIFF_EXTRA)
+        mPresenter.reloadData(month, monthDiff)
         return inflater.inflate(R.layout.fragment_month_calendar, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        rvCalendar.adapter = object : CalendarCellAdapter(context!!, getCalendar(monthDiff), startingAt, selectedDay) {
+    override fun setItems(days: ArrayList<DataDay>) {
+        rvCalendar.adapter = object : CalendarCellAdapter(context!!, getCalendar(monthDiff), startingAt, days, selectedDay) {
             override fun onBindViewHolder(holder: RecyclerView.ViewHolder, day: Day) {
                 holder.itemView.setOnClickListener {
                     this@MonthCalendarFragment.selectedDay = day.calendar.time
                     this@MonthCalendarFragment.onDayClickLister?.invoke(day)
                     notifyCalendarItemChanged()
+
+                    val selectedView = holder.itemView.findViewById<View>(R.id.selected_view)
+                    val aniFade = AnimationUtils.loadAnimation(context!!, R.anim.fade_in_calendar)
+                    holder.itemView.findViewById<TextView>(R.id.text_day).setTextColor(ResourcesCompat.getColor(resources, android.R.color.white, App.instance.theme))
+                    holder.itemView.findViewById<TextView>(R.id.text_day).setTypeface(null, Typeface.BOLD)
+                    selectedView.visibility = View.VISIBLE
+                    selectedView.startAnimation(aniFade)
                 }
                 holder.itemView.setOnLongClickListener {
                     false

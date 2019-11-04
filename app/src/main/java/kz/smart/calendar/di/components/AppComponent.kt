@@ -15,6 +15,7 @@ import kz.smart.calendar.models.objects.CalendarModel
 import kz.smart.calendar.modules.poll.domain.PollFragment
 import kz.smart.calendar.modules.poll.domain.PollPresenter
 import kz.smart.calendar.modules.poll.domain.VoteOptionPresenter
+import kz.smart.calendar.modules.schedule.presentation.CalendarPresenter
 import kz.smart.calendar.modules.settings.presentation.login.LoginInPresenter
 import kz.smart.calendar.presentation.presenter.MainAppPresenter
 import kz.smart.calendar.presentation.presenter.home.HomeMainPresenter
@@ -64,8 +65,5 @@ interface AppComponent {
     fun inject(presenter: LoginInPresenter)
     fun inject(presenter: LoginProcessPresenter)
     fun inject(presenter: VoteOptionPresenter)
-    fun inject(calendar: CalendarModel)
-
-
-
+    fun inject(calendarPresenter: CalendarPresenter)
 }

@@ -6,20 +6,40 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.fragment_schedule.*
 
 import kz.smart.calendar.R
 import kz.smart.calendar.events.ScheduleEventDetailsEvent
+import kz.smart.calendar.modules.schedule.presentation.CalendarPresenter
+import kz.smart.calendar.modules.schedule.presentation.SchedulePresenter
+import kz.smart.calendar.modules.schedule.view.ScheduleView
 import kz.smart.calendar.ui.adapters.LabeledPagerAdapter
+import kz.smart.calendar.ui.fragment.BaseMvpFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.joda.time.DateTime
 
-/**
- * A simple [Fragment] subclass.
- */
-class ScheduleFragment : Fragment() {
+class ScheduleFragment : BaseMvpFragment(), ScheduleView {
+    companion object {
+        const val TAG = "ScheduleFragment"
+
+        fun newInstance(): ScheduleFragment {
+            val fragment = ScheduleFragment()
+            val args: Bundle = Bundle()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+    @InjectPresenter
+    lateinit var mPresenter: SchedulePresenter
+
+    @ProvidePresenter
+    fun providePresenter(): SchedulePresenter {
+        return SchedulePresenter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

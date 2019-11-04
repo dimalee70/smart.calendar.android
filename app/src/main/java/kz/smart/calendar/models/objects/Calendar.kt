@@ -1,18 +1,12 @@
 package kz.smart.calendar.models.objects
 
 import com.google.gson.internal.LinkedTreeMap
-import kz.smart.calendar.App
-import kz.smart.calendar.models.db.CategoryDao
-import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class CalendarModel(responseMap: LinkedTreeMap<String, ArrayList<Int>>?) {
-    @Inject
-    lateinit var categoryDao: CategoryDao
-    val days: ArrayList<Day> = ArrayList()
+    /*val days: ArrayList<Day> = ArrayList()
     init {
-        App.appComponent.inject(this)
         responseMap?.entries?.forEach{ it ->
             val categories: HashMap<Category, Int> = HashMap()
 
@@ -25,9 +19,9 @@ class CalendarModel(responseMap: LinkedTreeMap<String, ArrayList<Int>>?) {
 
             var test = days.toString()
         }
-    }
+    }*/
 }
-
+/*
 data class Day(
     val day: Int,
     var categories: Map<Category, Int>,
@@ -38,4 +32,4 @@ enum class DayState {
     PreviousMonth,
     ThisMonth,
     NextMonth
-}
+}*/
