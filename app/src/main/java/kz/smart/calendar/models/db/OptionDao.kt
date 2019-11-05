@@ -29,7 +29,10 @@ interface OptionDao {
     fun getFlowable(id: Int): Flowable<Option>
 
     @Query("SELECT * from option where id = :id")
-    fun get(id: String): Maybe<Option>
+    fun get(id: Int): Maybe<Option>
+
+    @Query("SELECT * from option where id = :id")
+    fun getSync(id: Int): Option
 
     @Update
     fun update(model: Option)

@@ -42,7 +42,7 @@ android {
         debug {
             ndk {
                 minifyEnabled false
-                abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86'
+                abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'//, 'x86'
             }
             //ext.enableCrashlytics = false
             signingConfig signingConfigs.release

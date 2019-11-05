@@ -1,4 +1,4 @@
-package kz.smart.calendar.modules.schedule.presentation
+package kz.smart.calendar.modules.feed.presentation
 
 import androidx.databinding.ObservableArrayList
 import com.arellomobile.mvp.InjectViewState
@@ -8,25 +8,17 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kz.smart.calendar.App
 import kz.smart.calendar.api.ApiManager
-import kz.smart.calendar.events.CalendarCellChosenEvent
 import kz.smart.calendar.models.db.CategoryDao
 import kz.smart.calendar.models.db.OptionDao
-import kz.smart.calendar.models.objects.Category
+import kz.smart.calendar.models.enums.Period
 import kz.smart.calendar.models.objects.Event
 import kz.smart.calendar.models.objects.Option
-import kz.smart.calendar.models.requests.EventsDayRequest
-import kz.smart.calendar.modules.schedule.domain.Day
-import kz.smart.calendar.modules.schedule.view.ScheduleView
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
-import java.text.SimpleDateFormat
-import java.util.*
+import kz.smart.calendar.models.requests.FeedRequestModel
 import javax.inject.Inject
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 @InjectViewState
-class SchedulePresenter : MvpPresenter<ScheduleView>() {
+class FeedPeriodPresenter : MvpPresenter<FeedPeriodView>() {
     @Inject
     lateinit var client: ApiManager
     @Inject
@@ -38,25 +30,11 @@ class SchedulePresenter : MvpPresenter<ScheduleView>() {
         App.appComponent.inject(this)
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: CalendarCellChosenEvent) {
-        viewState?.showSelectedDate(event.day)
-        if (event.day.dataDay?.categories?.isNotEmpty() == true)
-        {
-            getEventsByDay(event.day)
-        }
-        else{
-            viewState?.showEvents(ObservableArrayList<Event>())
-        }
-    }
     private var disposable: Disposable? = null
 
-    fun getEventsByDay(day: Day)
+    fun getEvents(period: Period)
     {
-        val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.ROOT)
-        val date = formatter.format(day.calendar.time)
-
-        disposable = client.getEventsForDay(EventsDayRequest(date))
+        disposable = client.getFeed(FeedRequestModel(period.value))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({  calendar ->

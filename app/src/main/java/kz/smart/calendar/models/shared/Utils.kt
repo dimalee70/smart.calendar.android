@@ -14,25 +14,28 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Guideline
-import androidx.databinding.BindingAdapter
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.target.Target
 import java.util.*
 import android.animation.AnimatorListenerAdapter
 import android.animation.Animator
+import android.graphics.Color
 import android.view.View.VISIBLE
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.databinding.InverseBindingListener
-import androidx.databinding.InverseBindingMethod
-import androidx.databinding.InverseBindingMethods
+import androidx.databinding.*
+import androidx.databinding.library.baseAdapters.BR
 import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kz.smart.calendar.App
 import kz.smart.calendar.R
 import com.theartofdev.edmodo.cropper.CropImageView
+import de.hdodenhof.circleimageview.CircleImageView
 import kz.smart.calendar.di.modules.GlideApp
 import kz.smart.calendar.extensions.shortDateDiff
+import kz.smart.calendar.ui.common.CircleView
 import org.json.JSONObject
 import java.lang.Exception
 import kotlin.math.roundToInt
@@ -53,6 +56,7 @@ object Utils {
     var screenWidth = 600
     var screenHeight = 600
     var animationDuration = 500L
+    var DP: Int = 0
 
     init {
         val wm: WindowManager = App.appComponent.context().getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -61,6 +65,7 @@ object Utils {
         display.getSize(size)
         screenWidth = size.x
         screenHeight = size.y
+        DP = App.appComponent.context().resources.displayMetrics.density.toInt()
     }
 
     @JvmStatic
@@ -138,6 +143,76 @@ object Utils {
             .setListener(null)
     }
 
+
+    @JvmStatic
+    @BindingAdapter("setImage")
+    fun setImage(view: CircleImageView, url: String?){
+        if(url != null) {
+            GlideApp.with(view.context)
+                .load(url)
+                .centerCrop()
+                .into(view)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("entries", "layout")
+    fun <T> setEntries(viewGroup: ViewGroup,
+                       entries: List<T>?, layoutId: Int){
+        viewGroup.removeAllViews()
+        if(entries != null){
+            val inflater = viewGroup.context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            for (i in entries.indices){
+                val entry = entries[i]
+                val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, layoutId, viewGroup, true)
+                binding.setVariable(BR.data, entry)
+            }
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("entry", "layoutId")
+    fun <T> setEntry(
+        viewGroup: ViewGroup,
+        entry: T?, layoutId: Int
+    ) {
+        viewGroup.removeAllViews()
+        if (entry != null) {
+            val inflater = viewGroup.context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+            val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, layoutId, viewGroup, true)
+            binding.setVariable(BR.data, entry)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("backgrndColor")
+    fun setBackgrndColor(view: View, сlr: String){
+        if (сlr.isNullOrEmpty())
+        {
+            return
+        }
+        view.setBackgroundColor(Color.parseColor(сlr))
+    }
+
+    @JvmStatic
+    @BindingAdapter("backgrndColor")
+    fun setBackTextColor(view: TextView, clr:String) {
+        if (clr.isNullOrEmpty())
+        {
+            return
+        }
+        val drawable = ContextCompat.getDrawable(view.context, R.drawable.bg_rounded)
+        if (drawable != null) {
+            val wrappedDrawable = DrawableCompat.wrap(drawable)
+            DrawableCompat.setTint(wrappedDrawable, Color.parseColor(clr))
+            view.background = wrappedDrawable
+
+        }
+    }
+
     @JvmStatic
     @BindingAdapter("visibleTransition")
     fun bindVisibleVisibility(view: View, visible: Boolean) {
@@ -207,6 +282,24 @@ object Utils {
         }
     }
 
+    fun getOfMonthFromResource(month: Int?, context: Context = App.instance.applicationContext): String{
+        return when(month) {
+            0 -> context.getString(R.string.january_of)
+            1 -> context.getString(R.string.february_of)
+            2 -> context.getString(R.string.march_of)
+            3 -> context.getString(R.string.april_of)
+            4 -> context.getString(R.string.may_of)
+            5 -> context.getString(R.string.june_of)
+            6 -> context.getString(R.string.jule_of)
+            7 -> context.getString(R.string.august_of)
+            8 -> context.getString(R.string.september_of)
+            9 -> context.getString(R.string.october_of)
+            10 -> context.getString(R.string.november_of)
+            else -> context.getString(R.string.december_of)
+        }
+    }
+
+
     fun getMonthFromResource(month: String?, context: Context): String? {
         month?:let {
             return context.getString(R.string.month)
@@ -270,6 +363,14 @@ object Utils {
         val textView: TextView = view as TextView
         if (date != null) {
             textView.text = date.shortDateDiff()
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("circleColor")
+    fun setCircleColor(view: CircleView, value: String?) {
+        if (value != null) {
+            view.setColor(value)
         }
     }
 

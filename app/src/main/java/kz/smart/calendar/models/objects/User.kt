@@ -20,4 +20,6 @@ data class User(
     var role: Int?
 ) : BaseObservable()
 {
+    @Ignore
+    val avatar_url:	String? = null
 }
