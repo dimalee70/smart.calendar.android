@@ -112,14 +112,13 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
                         DataHolder.user = result.data.user
                         DataHolder.userId = result.data.user.id
                         DataHolder.sessionId = result.data.session_id
-                        syncData()
                     }
                 },
                 { error ->
                     run {
+                        syncData()
                         viewState?.hideProgress()
                         viewState?.showError(error)
-                        router.newRootScreen(Screens.HomeScreen())
 
                     }
                 }

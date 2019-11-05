@@ -8,8 +8,10 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kz.smart.calendar.App
 import kz.smart.calendar.api.ApiManager
+import kz.smart.calendar.events.GoToProfileEvent
 import kz.smart.calendar.models.requests.LoginRequestModel
 import kz.smart.calendar.models.shared.DataHolder
+import org.greenrobot.eventbus.EventBus
 import photograd.kz.smart.presentation.view.login.LoginProcessView
 import javax.inject.Inject
 
@@ -42,6 +44,7 @@ class LoginProcessPresenter : MvpPresenter<LoginProcessView>()
                         DataHolder.user = result.data.user
                         DataHolder.userId = result.data.user.id
                         DataHolder.sessionId = result.data.session_id
+                        EventBus.getDefault().post(GoToProfileEvent())
                     }
                 },
                 { error ->

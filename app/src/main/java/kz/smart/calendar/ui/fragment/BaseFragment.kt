@@ -16,7 +16,11 @@ import kz.smart.calendar.rootDestinations
 import org.greenrobot.eventbus.EventBus
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import kz.smart.calendar.events.GoToProfileEvent
+import kz.smart.calendar.events.OpenEventDetailsEvent
 import kz.smart.calendar.models.shared.DataHolder
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 open class BaseFragment: BaseMvpFragment() {
@@ -55,10 +59,27 @@ open class BaseFragment: BaseMvpFragment() {
             else
             {
                 navGraph.startDestination = R.id.loginContainerFragment
+                EventBus.getDefault().register(this)
             }
             navController.graph = navGraph
         }
         setDestinationListener()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: GoToProfileEvent) {
+        val navController = requireActivity().findNavController(navHostId)
+        val navGraph = navController.navInflater.inflate(R.navigation.main_graph_settings)
+        navGraph.startDestination = R.id.settingsContainerFragment
+        navController.graph = navGraph
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (EventBus.getDefault().isRegistered(this))
+        {
+            EventBus.getDefault().unregister(this)
+        }
     }
 
     fun setDestinationListener()
@@ -74,13 +95,6 @@ open class BaseFragment: BaseMvpFragment() {
                     }
                 }
             }
-            /*else if (destination.id == R.id.loginContainerFragment)
-            {
-                val navOptions = NavOptions.Builder()
-                    .setPopUpTo(R.id.settingsContainerFragment, true)
-                    .build()
-                requireActivity().findNavController(navHostId).navigate(R.id.action_loginContainerFragment_to_settingsContainerFragment, null, navOptions)
-            }*/
         }
     }
 
