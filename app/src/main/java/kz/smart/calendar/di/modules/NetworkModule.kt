@@ -76,9 +76,8 @@ class JwtInterceptor : Interceptor {
 
             if(token != null && token.isNotEmpty())
             {
-                val finalToken = "X-SESSION-ID $token"
                 request = request.newBuilder()
-                    .addHeader("Authorization",finalToken)
+                    .addHeader("X-SESSION-ID", token)
                     .addHeader("Content-Type", "application/json")
                     .addHeader("X-ACCEPT-VERSION", Constants.version)
                     .build()
