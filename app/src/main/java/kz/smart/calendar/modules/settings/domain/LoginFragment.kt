@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.PresenterType
+import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.arellomobile.mvp.presenter.ProvidePresenterTag
 import kz.smart.calendar.R
 import kz.smart.calendar.databinding.FragmentLoginBinding
 import kz.smart.calendar.ui.activity.LoginInActivity
@@ -29,11 +32,23 @@ class LoginFragment : BaseMvpFragment(), LoginFragmentView, LoginProcessView {
         }
     }
 
-    @InjectPresenter
+    @InjectPresenter(type = PresenterType.GLOBAL)
     lateinit var mLoginPresenter: LoginPresenter
 
-    @InjectPresenter
+    @InjectPresenter(type = PresenterType.GLOBAL)
     lateinit var mLoginProcessPresenter: LoginProcessPresenter
+
+    @ProvidePresenterTag(presenterClass = LoginPresenter::class, type = PresenterType.GLOBAL)
+    fun provideLoginPresenterTag(): String = LoginFragment.TAG
+
+    @ProvidePresenterTag(presenterClass = LoginProcessPresenter::class, type = PresenterType.GLOBAL)
+    fun provideLoginProcessPresenterTag(): String = LoginFragment.TAG + "_process"
+
+    @ProvidePresenter(type = PresenterType.GLOBAL)
+    fun mLoginPresenter() = LoginPresenter()
+
+    @ProvidePresenter(type = PresenterType.GLOBAL)
+    fun mLoginProcessPresenter() = LoginProcessPresenter()
 
     lateinit var binding: FragmentLoginBinding
 
