@@ -20,7 +20,8 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                        android:layout_width="match_parent"
@@ -81,14 +82,14 @@
                         android:text="@string/login"
                         android:layout_width="262dp"
                         android:layout_height="50dp"
-                        android:layout_marginBottom="90dp"
+                        android:layout_marginTop="100dp"
                         android:padding="5dp"
                         android:background="@drawable/button_black_bg"
                         android:onClick="@{(v) -> presenter.loginClick()}"
                         android:textColor="@color/buttonTextColor"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/password"
                         />
 
 
