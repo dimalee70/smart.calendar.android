@@ -33,7 +33,7 @@ import javax.inject.Inject
 class FeedPeriodFragment: BaseMvpFragment(), FeedPeriodView,
     RecyclerBindingAdapter.OnItemClickListener<Event>{
     companion object {
-        val PERIOD_EXTRA: String = "PERIOD_EXTRA"
+        const val PERIOD_EXTRA: String = "PERIOD_EXTRA"
 
         fun newInstance(period: Period): FeedPeriodFragment {
 

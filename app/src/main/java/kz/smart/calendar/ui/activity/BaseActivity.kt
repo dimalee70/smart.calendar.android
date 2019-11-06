@@ -161,25 +161,21 @@ open class BaseActivity : MvpActivity(), BaseView {
 
     fun getNetworkErrorTitle(error: Throwable, responseBody: String?): String
     {
-        if (error is HttpException)
-        {
-            when (error.code())
-            {
-                404 -> return getString(R.string.bad_server_response)
-                500 -> return getString(R.string.default_unexpected_error_message)
-                502 -> return getString(R.string.default_error_message)
+        when (error) {
+            is HttpException -> {
+                when (error.code())
+                {
+                    404 -> return getString(R.string.bad_server_response)
+                    500 -> return getString(R.string.default_unexpected_error_message)
+                    502 -> return getString(R.string.default_error_message)
+                }
+                return getErrorTitle(responseBody)
             }
-            return getErrorTitle(responseBody)
-        } else if (error is IOException)
-        {
-            return getString(R.string.network_connection_lost)
-        }
-        else if (error is GlideException)
-        {
-            return getString(R.string.bad_connection)
+            is IOException -> return getString(R.string.network_connection_lost)
+            is GlideException -> return getString(R.string.bad_connection)
+            else -> return if (error.localizedMessage != null) getString(R.string.unknown_error) else ""
         }
 
-        return if (error.localizedMessage != null) getString(R.string.unknown_error) else ""
     }
 
     private fun getErrorTitle(responseBody: String?): String {

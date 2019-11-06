@@ -11,7 +11,6 @@ import kz.smart.calendar.models.db.CategoryDao
 import kz.smart.calendar.models.db.Db
 import kz.smart.calendar.models.db.OptionDao
 import kz.smart.calendar.models.db.UserDao
-import kz.smart.calendar.models.objects.CalendarModel
 import kz.smart.calendar.models.objects.Event
 import kz.smart.calendar.modules.common.presentation.EventDetailsPresenter
 import kz.smart.calendar.modules.feed.domain.FeedPeriodFragment
@@ -37,7 +36,7 @@ import javax.inject.Singleton
 @Singleton
 @CustomApplicationScope
 @Component(modules = [ApplicationModule::class, NavigationModule::class,
-    ServiceUtilModule::class, RoomModule::class, EventListModule::class])
+    ServiceUtilModule::class, RoomModule::class, EventModule::class])
 interface AppComponent {
 
     @ApplicationContext

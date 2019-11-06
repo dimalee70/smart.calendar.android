@@ -23,7 +23,7 @@ class LoginInActivity : BaseActivity(), LoginInView {
     companion object {
         const val TAG = "LoginInActivity"
         fun getIntent(context: Context): Intent = Intent(context, LoginInActivity::class.java)
-        val LOGIN_TRANSITION = "login_transition"
+        const val LOGIN_TRANSITION = "login_transition"
     }
 
     @InjectPresenter

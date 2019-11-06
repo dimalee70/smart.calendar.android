@@ -65,7 +65,7 @@ class LoginFragment : BaseMvpFragment(), LoginFragmentView, LoginProcessView {
     ): View?
     {
         binding = DataBindingUtil.inflate<FragmentLoginBinding>(inflater , R.layout.fragment_login, container, false)
-        var frView : View  = binding.root
+        val frView : View  = binding.root
 
         binding.user = mLoginProcessPresenter.user
         binding.presenter = mLoginProcessPresenter

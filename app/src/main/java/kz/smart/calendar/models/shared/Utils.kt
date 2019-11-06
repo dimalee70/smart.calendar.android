@@ -191,7 +191,7 @@ object Utils {
     @JvmStatic
     @BindingAdapter("backgrndColor")
     fun setBackgrndColor(view: View, сlr: String){
-        if (сlr.isNullOrEmpty())
+        if (сlr.isEmpty())
         {
             return
         }
@@ -201,7 +201,7 @@ object Utils {
     @JvmStatic
     @BindingAdapter("backgrndColor")
     fun setBackTextColor(view: TextView, clr:String) {
-        if (clr.isNullOrEmpty())
+        if (clr.isEmpty())
         {
             return
         }
@@ -217,7 +217,7 @@ object Utils {
     @JvmStatic
     @BindingAdapter("backgrndColor")
     fun setBackTextColor(view: LinearLayoutCompat, clr:String) {
-        if (clr.isNullOrEmpty())
+        if (clr.isEmpty())
         {
             return
         }

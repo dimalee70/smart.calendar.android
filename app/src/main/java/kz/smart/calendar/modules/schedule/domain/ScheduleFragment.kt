@@ -13,6 +13,7 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.navigation.fragment.findNavController
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.google.firebase.crash.component.FirebaseCrashRegistrar
 import kotlinx.android.synthetic.main.fragment_schedule.*
 import kz.smart.calendar.App
 

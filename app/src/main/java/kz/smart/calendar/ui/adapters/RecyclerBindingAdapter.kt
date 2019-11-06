@@ -59,7 +59,7 @@ class RecyclerBindingAdapter<T>(
         holder.binding.setVariable(variableId, item)
 //        holder.binding.executePendingBindings()
         if(holderLayout == R.layout.item_poll){
-            var poll = item as Poll
+            val poll = item as Poll
 
             poll.presener = VoteOptionPresenter(poll, poll.vote_options)
 
@@ -72,8 +72,8 @@ class RecyclerBindingAdapter<T>(
             recyclerVoteAdapter.setOnItemClickListener(
                 object: OnItemClickListener<VoteOption> {
                     override fun onItemClick(position: Int, item: VoteOption) {
-                        var idx = votes.indexOfFirst {
-                            it.isSlected == true
+                        val idx = votes.indexOfFirst {
+                            it.isSlected
                         }
                         if(idx >= 0)
                             votes[idx].isSlected = false

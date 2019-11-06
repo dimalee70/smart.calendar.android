@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App.Dark"
         android:usesCleartextTraffic="true">
-        <activity android:name=".modules.myevents.domain.PreviewActivity"></activity>
+        <activity android:name=".modules.myevents.domain.PreviewActivity"/>
         <activity android:name=".modules.myevents.domain.AddEventActivity" />
         <activity
             android:name=".ui.activity.home.HomeActivity"
@@ -53,11 +53,20 @@
         </service>
 
         <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_logo" />
+            android:name="com.onesignal.NotificationAccentColor.DEFAULT"
+            android:value="FF0000FF"/>
         <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
+            android:name="com.onesignal.NotificationOpened.DEFAULT"
+            android:value="DISABLE"/>
+
+        <service
+            android:name=".onesignal.NotificationService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+            <intent-filter>
+                <action android:name="com.onesignal.NotificationExtender"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

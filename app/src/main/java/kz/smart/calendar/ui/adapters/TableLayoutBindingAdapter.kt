@@ -29,7 +29,7 @@ object TableLayoutBindingAdapter {
 
     private val sColumnPattern = Pattern.compile("\\s*,\\s*")
 
-    private val MAX_COLUMNS = 20
+    private const val MAX_COLUMNS = 20
 
     @BindingAdapter("android:collapseColumns")
     fun setCollapseColumns(view: TableLayout, columnsStr: CharSequence) {
@@ -44,7 +44,7 @@ object TableLayoutBindingAdapter {
 
     @BindingAdapter("android:shrinkColumns")
     fun setShrinkColumns(view: TableLayout, columnsStr: CharSequence?) {
-        if (columnsStr != null && columnsStr.length > 0 && columnsStr[0] == '*') {
+        if (columnsStr != null && columnsStr.isNotEmpty() && columnsStr[0] == '*') {
             view.isShrinkAllColumns = true
         } else {
             view.isShrinkAllColumns = false
@@ -62,7 +62,7 @@ object TableLayoutBindingAdapter {
 
     @BindingAdapter("android:stretchColumns")
     fun setStretchColumns(view: TableLayout, columnsStr: CharSequence?) {
-        if (columnsStr != null && columnsStr.length > 0 && columnsStr[0] == '*') {
+        if (columnsStr != null && columnsStr.isNotEmpty() && columnsStr[0] == '*') {
             view.isStretchAllColumns = true
         } else {
             view.isStretchAllColumns = false
@@ -105,7 +105,7 @@ object TableLayoutBindingAdapter {
 
     @BindingAdapter("setImage")
     fun ImageView.setImage(url: String){
-        if(!url.isNullOrEmpty())
+        if(!url.isEmpty())
         {
             Glide.with(context)
                 .load(url)
@@ -153,15 +153,14 @@ object TableLayoutBindingAdapter {
     @BindingAdapter("isSelected")
     fun PollTextView.setIsSelected(select: Boolean){
         val drawable = ContextCompat.getDrawable(context, R.drawable.bg_rounded_ans)!!
-        if(select){
+        background = if(select){
             val wrappedDrawable = DrawableCompat.wrap(drawable)
             DrawableCompat.setTint(wrappedDrawable, ContextCompat.getColor(context, R.color.frameVoteColorChosen))
-            background = wrappedDrawable
-        }
-        else{
+            wrappedDrawable
+        } else{
             val wrappedDrawable = DrawableCompat.wrap(drawable)
             DrawableCompat.setTint(wrappedDrawable, ContextCompat.getColor(context, R.color.frameVoteColorUnChosen))
-            background = wrappedDrawable
+            wrappedDrawable
         }
     }
 

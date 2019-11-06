@@ -74,17 +74,14 @@ class JwtInterceptor : Interceptor {
         if(request.header("No-Authentication")==null){
             val token = DataHolder.sessionId
 
-            if(token != null && token.isNotEmpty())
-            {
-                request = request.newBuilder()
+            request = if(token != null && token.isNotEmpty()) {
+                request.newBuilder()
                     .addHeader("X-SESSION-ID", token)
                     .addHeader("Content-Type", "application/json")
                     .addHeader("X-ACCEPT-VERSION", Constants.version)
                     .build()
-            }
-            else
-            {
-                request = request.newBuilder()
+            } else {
+                request.newBuilder()
                     .addHeader("Content-Type", "application/json")
                     .addHeader("X-ACCEPT-VERSION", Constants.version)
                     .build()

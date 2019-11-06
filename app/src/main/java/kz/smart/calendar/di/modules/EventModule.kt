@@ -7,7 +7,7 @@ import kz.smart.calendar.models.objects.Event
 import javax.inject.Singleton
 
 @Module
-class EventListModule {
+class EventModule {
     private var event: Event = Event(
         -1,"","", "",-1,"",
         0,0,"","",-1,

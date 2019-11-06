@@ -1,27 +1,24 @@
 package kz.smart.calendar
 
-import android.annotation.SuppressLint
 import android.content.Context
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
-import com.crashlytics.android.Crashlytics
-import com.crashlytics.android.core.CrashlyticsCore
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.google.firebase.analytics.FirebaseAnalytics
 import io.reactivex.disposables.Disposable
-import io.reactivex.internal.functions.Functions
-import io.reactivex.schedulers.Schedulers
 import kz.smart.calendar.di.components.AppComponent
 import kz.smart.calendar.di.components.DaggerAppComponent
 import kz.smart.calendar.di.modules.ApplicationModule
 import kz.smart.calendar.di.modules.RoomModule
-import io.fabric.sdk.android.Fabric
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
+import com.onesignal.OneSignal
+import photograd.kz.photograd.onesignal.NotificationOpenedHandler
 
 
 class App : MultiDexApplication() {
     private var cicerone: Cicerone<Router>? = null
+    private var sAnalytics: FirebaseAnalytics? = null
 
     override fun attachBaseContext(context: Context) {
         super.attachBaseContext(context)
@@ -35,20 +32,22 @@ class App : MultiDexApplication() {
 
         instance = this
 
+        OneSignal.startInit(this)
+            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+            .unsubscribeWhenNotificationsAreDisabled(true)
+            .setNotificationOpenedHandler(NotificationOpenedHandler())
+            .init()
+
         appComponent = DaggerAppComponent.builder()
             .applicationModule(ApplicationModule(this))
             .roomModule(RoomModule(this))
             .build()
 
-
-        val crashlyticsKit = Crashlytics.Builder()
-            .core(CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
-            .build()
-        Fabric.with(this, crashlyticsKit)
-
         //if (BuildConfig.DEBUG) {
         Timber.plant(Timber.DebugTree())
         //}
+
+        sAnalytics = FirebaseAnalytics.getInstance(this)
     }
 
     companion object

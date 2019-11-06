@@ -10,29 +10,29 @@ import org.greenrobot.eventbus.EventBus
 import java.util.*
 import kotlin.properties.Delegates
 
-abstract class CalendarCellAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private val context: Context
-    private val calendar: Calendar
+abstract class CalendarCellAdapter//+ (if (startingAt.isLessFirstWeek(calendar)) 1 else 0) - (if (startingAt.isMoreLastWeek(calendar)) 1 else 0)
+    (
+    private val context: Context,
+    private val calendar: Calendar,
+    startingAt: DayOfWeek,
+    private val dataDays: ArrayList<DataDay>,
+    preselectedDay: Date? = null
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val weekOfMonth: Int
     private val startDate: Calendar
-    private val dataDays: ArrayList<DataDay>
 
     var items: List<Day> by Delegates.observable(emptyList()) { _, old, new ->
         CalendarDiff(old, new).calculateDiff().dispatchUpdatesTo(this)
     }
 
-    constructor(context: Context, calendar: Calendar, startingAt: DayOfWeek, dataDays: ArrayList<DataDay>, preselectedDay: Date? = null) : super() {
-        this.context = context
-        this.calendar = calendar
-        this.dataDays = dataDays
+    init {
         val start = DateUtils.truncate(calendar, Calendar.DAY_OF_MONTH)
         if (start.get(Calendar.DAY_OF_WEEK) != (startingAt.getDifference() + 1)) {
             start.set(Calendar.DAY_OF_MONTH, if (startingAt.isLessFirstWeek(calendar)) -startingAt.getDifference() else 0)
             start.add(Calendar.DAY_OF_MONTH, -start.get(Calendar.DAY_OF_WEEK) + 1 + startingAt.getDifference())
         }
         startDate = start
-        this.weekOfMonth = calendar.getActualMaximum(Calendar.WEEK_OF_MONTH) //+ (if (startingAt.isLessFirstWeek(calendar)) 1 else 0) - (if (startingAt.isMoreLastWeek(calendar)) 1 else 0)
-
+        this.weekOfMonth = calendar.getActualMaximum(Calendar.WEEK_OF_MONTH)
         updateItems(preselectedDay)
     }
 

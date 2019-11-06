@@ -31,6 +31,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.view.ViewGroup
+import android.widget.Button
+import com.crashlytics.android.Crashlytics
 import kz.smart.calendar.R
 
 
@@ -56,9 +59,6 @@ class HomeActivity : BaseActivity(), HomeView{
     override fun onCreate(savedInstanceState: Bundle?) {
         App.appComponent.inject(this)
         super.onCreate(savedInstanceState)
-        if(savedInstanceState == null){
-         //   navigator.applyCommands(arrayOf<Command>(Replace(Screens.HomeMainScreen())))
-        }
         setContentView(R.layout.activity_home)
     }
 
