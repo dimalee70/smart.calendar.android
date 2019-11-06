@@ -34,10 +34,10 @@ import javax.inject.Inject
 /**
  * A simple [Fragment] subclass.
  */
-class PollFragment : BaseMvpFragment(), PollView, VoteOptionView{
-    override fun setPoll(poll: Poll) {
-        println("Poll")
-    }
+class PollFragment : BaseMvpFragment(), PollView{
+
+
+
 
     companion object {
         const val TAG = "HomeMainFragment"
@@ -130,5 +130,12 @@ class PollFragment : BaseMvpFragment(), PollView, VoteOptionView{
         return binding.root
     }
 
+    override fun setPoll(poll: Poll) {
+        var idx = recyclerPollAdapter.getItems().indexOfFirst {
+            it.id == poll.id
+        }
+
+        recyclerPollAdapter.getItems()[idx] = poll
+    }
 
 }

@@ -32,6 +32,15 @@ class VoteOptionPresenter(private var poll: Poll, private val vote_options: Arra
             it.isSlected
         }
         if (vote != null){
+            vote.isSlected = false
+//            vote.percentage = 50f
+//            vote.isSlected = false
+//            val idx = poll.vote_options.indexOfFirst {
+//                it.id == vote.id
+//            }
+//
+//            poll.vote_options[idx] = vote
+//            EventBus.getDefault().post(PollUpdateEvent(poll))
 
         disposable = client.sendVote(VotePollRequestModel(poll.id, vote.id))
             .subscribeOn(Schedulers.io())
@@ -40,8 +49,8 @@ class VoteOptionPresenter(private var poll: Poll, private val vote_options: Arra
                 {    result ->
                     run {
                         viewState?.hideProgress()
-                        poll = result.data
-                        EventBus.getDefault().post(PollUpdateEvent(poll))
+                        val p = result.data
+                        EventBus.getDefault().post(PollUpdateEvent(p))
 
                     }
                 },

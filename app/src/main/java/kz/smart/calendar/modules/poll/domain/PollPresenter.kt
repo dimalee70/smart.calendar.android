@@ -27,7 +27,7 @@ class PollPresenter(private var router: Router): BasePresenter<PollView>() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: PollUpdateEvent) {
-        println(event.poll)
+        viewState?.setPoll(event.poll)
     }
 
     fun getPolls(){

@@ -164,4 +164,12 @@ object TableLayoutBindingAdapter {
             background = wrappedDrawable
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("percentageText")
+    fun PollTextView.setPercentBackground(percentage: Float?){
+        if(percentage != null){
+            setRatio(percentage / 100f)
+        }
+    }
 }

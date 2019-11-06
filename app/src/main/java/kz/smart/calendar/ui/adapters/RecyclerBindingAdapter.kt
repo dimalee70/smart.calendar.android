@@ -45,6 +45,10 @@ class RecyclerBindingAdapter<T>(
         //items.addOnListChangedCallback(ObservableListCallback())
     }
 
+    fun getItems(): ObservableArrayList<T>{
+        return items
+    }
+
     override fun onBindViewHolder(holder: RecyclerBindingAdapter.BindingHolder, position: Int) {
         val item = items[position]
 
