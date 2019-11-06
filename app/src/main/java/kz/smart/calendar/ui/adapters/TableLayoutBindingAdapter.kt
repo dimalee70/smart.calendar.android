@@ -136,7 +136,7 @@ object TableLayoutBindingAdapter {
     @JvmStatic
     @BindingAdapter("statusText")
     fun TextView.setStatusText(num: Int){
-        text = if (num == 0) resources.getString(R.string.poll_status_no_active) else resources.getString(R.string.poll_status_active)
+        text = if (num == 1) resources.getString(R.string.poll_status_active) else resources.getString(R.string.poll_status_no_active)
     }
 
     @JvmStatic

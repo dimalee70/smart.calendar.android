@@ -39,12 +39,14 @@ class VoteOptionPresenter(private var poll: Poll, private val vote_options: Arra
                     run {
                         viewState?.hideProgress()
                         poll = result.data
+
                     }
                 },
                 { error ->
                     run {
                         viewState?.hideProgress()
                     }
+                    viewState?.setPoll(poll)
 
                     if (error is HttpException)
                     {

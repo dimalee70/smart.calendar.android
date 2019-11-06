@@ -33,7 +33,10 @@ import javax.inject.Inject
 /**
  * A simple [Fragment] subclass.
  */
-class PollFragment : BaseMvpFragment(), PollView{
+class PollFragment : BaseMvpFragment(), PollView, VoteOptionView{
+    override fun setPoll(poll: Poll) {
+        println("Poll")
+    }
 
     companion object {
         const val TAG = "HomeMainFragment"
