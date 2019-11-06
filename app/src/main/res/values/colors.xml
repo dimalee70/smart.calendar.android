@@ -9,7 +9,7 @@
 
     <color name="darkColorText">#FFFFFF</color>
     <color name="darkInverseTextColor">#FFFFFF</color>
-    <color name="colorPrimary">#7A7A7A</color>
+    <color name="colorPrimary">#393E46</color>
     <color name="colorSecondary">#DADADA</color>
     <color name="colorPanel">#FFFFFF</color>
     <color name="colorPrimaryDark">#000000</color>

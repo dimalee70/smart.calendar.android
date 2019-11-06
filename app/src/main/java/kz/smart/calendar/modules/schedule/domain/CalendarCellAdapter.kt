@@ -2,8 +2,10 @@ package kz.smart.calendar.modules.schedule.domain
 
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
+import kz.smart.calendar.events.CalendarCellChosenEvent
 import kz.smart.calendar.modules.schedule.presentation.DataDay
 import org.apache.commons.lang3.time.DateUtils
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -56,9 +58,13 @@ abstract class CalendarCellAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
             if (state == DayState.ThisMonth)
             {
                 dataDay = dataDays.firstOrNull{dd -> dd.day == cal.get(Calendar.DAY_OF_MONTH)}
-
+                dataDay?.year = cal.get(Calendar.YEAR)
             }
-            Day(cal, state, isToday, isSelected, dataDay)
+            val day = Day(cal, state, isToday, isSelected, dataDay)
+            if (isToday) {
+                EventBus.getDefault().post(CalendarCellChosenEvent(day))
+            }
+            return@map day
         }
     }
 

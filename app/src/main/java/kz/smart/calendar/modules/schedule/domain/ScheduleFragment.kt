@@ -6,25 +6,38 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.library.baseAdapters.BR
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.fragment_schedule.*
+import kz.smart.calendar.App
 
 import kz.smart.calendar.R
+import kz.smart.calendar.databinding.FragmentScheduleBinding
 import kz.smart.calendar.events.ScheduleEventDetailsEvent
+import kz.smart.calendar.models.objects.Event
+import kz.smart.calendar.models.shared.Utils
 import kz.smart.calendar.modules.schedule.presentation.CalendarPresenter
+import kz.smart.calendar.modules.schedule.presentation.CategorySimple
+import kz.smart.calendar.modules.schedule.presentation.DataDay
 import kz.smart.calendar.modules.schedule.presentation.SchedulePresenter
 import kz.smart.calendar.modules.schedule.view.ScheduleView
 import kz.smart.calendar.ui.adapters.LabeledPagerAdapter
+import kz.smart.calendar.ui.adapters.RecyclerBindingAdapter
 import kz.smart.calendar.ui.fragment.BaseMvpFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.joda.time.DateTime
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ScheduleFragment : BaseMvpFragment(), ScheduleView {
     companion object {
         const val TAG = "ScheduleFragment"
+        var selectedDate: Date? = null
 
         fun newInstance(): ScheduleFragment {
             val fragment = ScheduleFragment()
@@ -41,12 +54,28 @@ class ScheduleFragment : BaseMvpFragment(), ScheduleView {
         return SchedulePresenter()
     }
 
+    lateinit var simpleCategoryAdapter: RecyclerBindingAdapter<CategorySimple>
+    lateinit var eventsAdapter: RecyclerBindingAdapter<Event>
+
+    lateinit var binding: FragmentScheduleBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        App.appComponent.inject(this)
+        super.onCreate(savedInstanceState)
+        simpleCategoryAdapter = RecyclerBindingAdapter(R.layout.category_count_list_item, BR.data, context!!)
+        eventsAdapter = RecyclerBindingAdapter(R.layout.item_event, BR.data, context!!)
+        //simpleCategoryAdapter.setItems()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_schedule, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_schedule, container, false)
+        binding.presenter = mPresenter
+        binding.recyclerview.adapter = simpleCategoryAdapter
+        binding.rvEvents.adapter = eventsAdapter
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,19 +105,37 @@ class ScheduleFragment : BaseMvpFragment(), ScheduleView {
 
     }
 
+    override fun showSelectedDate(day: Day?)
+    {
+        binding.txtDay.text = "${day?.calendar?.get(Calendar.DAY_OF_MONTH)} ${Utils.getOfMonthFromResource(day?.calendar?.get(Calendar.MONTH))}"
+
+
+        if (day?.dataDay?.categories?.isNotEmpty() != true)
+        {
+            binding.recyclerview.visibility = View.GONE
+            simpleCategoryAdapter.setItems(ObservableArrayList())
+            return
+        }
+        binding.recyclerview.visibility = View.VISIBLE
+        val list = ObservableArrayList<CategorySimple>()
+        list.addAll(day.dataDay!!.categories)
+        simpleCategoryAdapter.setItems(list)
+        simpleCategoryAdapter.notifyDataSetChanged()
+    }
+
+    override fun showEvents(events: ObservableArrayList<Event>) {
+        eventsAdapter.setItems(events)
+        eventsAdapter.notifyDataSetChanged()
+    }
 
     override fun onStart() {
         super.onStart()
-        EventBus.getDefault().register(this)
+        EventBus.getDefault().register(mPresenter)
     }
 
     override fun onStop() {
         super.onStop()
-        EventBus.getDefault().unregister(this)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: ScheduleEventDetailsEvent) {
+        EventBus.getDefault().unregister(mPresenter)
     }
 
     fun getMonthFromResource(month: Int?): String{

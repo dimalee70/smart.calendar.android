@@ -3,14 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="data" type="kz.smart.calendar.models.objects.TestEvent" />
+        <variable name="data" type="kz.smart.calendar.models.objects.Event" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_marginTop="14dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginStart="14dp"
         android:layout_height="187dp"
         app:cardCornerRadius="10dp"
         >
@@ -18,18 +16,17 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/headerLl"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:backgrndColor="@{data.frameColor}"
+                app:backgrndColor="@{data.category.color}"
                 >
 
                 <TextView
@@ -37,9 +34,12 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_time"
                     android:layout_marginStart="20dp"
-                    android:text="@{data.time}"
+                    android:text="@{data.start_date}"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:textSize="12sp"
                     android:drawablePadding="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -47,20 +47,25 @@
                     android:text="@{data.address}"
                     android:layout_marginStart="10dp"
                     android:textSize="10sp"
-                    android:gravity="center"
+                    android:gravity="end|center_vertical"
                     android:drawableEnd="@drawable/ic_location"
                     android:ellipsize="end"
                     android:singleLine="true"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginEnd="20dp"
+                    android:drawablePadding="10dp"
                     />
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
                 android:id="@+id/backgroundIv"
                 android:layout_width="match_parent"
                 android:layout_height="139dp"
                 android:scaleType="centerCrop"
-                app:setImage="@{data.backgrndImage}"
+                app:RawImageUrl="@{data.cover_url}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/headerLl"
@@ -68,12 +73,12 @@
             <View
                 android:id="@+id/backgroundV"
                 android:layout_height="0dp"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 app:layout_constraintEnd_toEndOf="@+id/backgroundIv"
                 app:layout_constraintStart_toStartOf="@+id/backgroundIv"
                 app:layout_constraintTop_toTopOf="@+id/backgroundIv"
                 app:layout_constraintBottom_toBottomOf="@+id/backgroundIv"
-                android:background="#80000000"
+                android:background="@drawable/item_gradient_bg"
                 />
 
             <LinearLayout
@@ -93,7 +98,7 @@
                     android:textSize="12sp"
                     android:layout_marginTop="19dp"
                     android:textColor="#ffffff"
-                    android:text="@{data.where}"
+                    android:text="@{data.organizer}"
                     android:layout_marginStart="21dp"
                     />
                 <TextView
@@ -118,7 +123,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_community"
-                        android:text="@{data.amount}"
+                        android:text="@{String.valueOf(data.attendance)}"
                         android:textSize="12sp"
                         android:drawablePadding="8dp"
                         android:gravity="center"
@@ -131,7 +136,7 @@
                         android:layout_height="20dp"
                         android:layout_toRightOf="@+id/profileSecondCiv"
                         android:layout_marginStart="-4dp"
-                        app:setImage="@{data.thirdProfile}"
+                        app:setImage="@{data.thirdFriendPhoto}"
                         />
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -140,7 +145,7 @@
                         android:layout_height="20dp"
                         android:layout_marginStart="-4dp"
                         android:layout_toRightOf="@+id/profileFirstCiv"
-                        app:setImage="@{data.secondProfile}"
+                        app:setImage="@{data.secondFriendPhoto}"
                         />
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -149,23 +154,27 @@
                         android:layout_height="20dp"
                         android:layout_marginStart="11dp"
                         android:layout_toRightOf="@+id/communityTv"
-                        app:setImage="@{data.firstProfile}"
+                        app:setImage="@{data.firstFriendPhoto}"
                         />
 
                 </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tagTv"
-                    android:layout_width="86dp"
-                    android:layout_height="24dp"
-                    android:text="@{data.theme}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{data.category.title}"
                     android:textColor="#393E46"
                     android:textSize="14sp"
                     android:textAlignment="center"
                     android:layout_marginBottom="14dp"
                     android:background="@drawable/bg_rounded"
                     android:layout_marginTop="16dp"
-                    app:backgrndColor="@{data.frameColor}"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    app:backgrndColor="@{data.category.color}"
                     />
 
 
@@ -183,7 +192,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:background="@color/frameColor"
-                app:entries="@{data.footer}"
+                app:entries="@{data.options}"
                 app:layout="@{@layout/item_event_footer}"
                 />
             <!--                    app:layout_constraintTop_toBottomOf="@+id/backgroundIv"-->
@@ -191,7 +200,7 @@
             <TextView
                 android:id="@+id/likesTv"
                 android:textColor="#ffffff"
-                android:text="@{data.likes}"
+                android:text="@{String.valueOf(data.like_amount)}"
                 android:drawableEnd="@drawable/ic_likes"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"

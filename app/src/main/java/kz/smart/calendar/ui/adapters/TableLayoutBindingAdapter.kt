@@ -103,51 +103,11 @@ object TableLayoutBindingAdapter {
         return columns
     }
 
-    @BindingAdapter("entries", "layout")
-    fun <T> setEntries(viewGroup: ViewGroup,
-                       entries: List<T>?, layoutId: Int){
-        viewGroup.removeAllViews()
-        if(entries != null){
-            val inflater = viewGroup.context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            for (i in entries.indices){
-                val entry = entries[i]
-                val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, layoutId, viewGroup, true)
-                binding.setVariable(BR.data, entry)
-            }
-        }
-    }
-
-    @BindingAdapter("entry", "layoutId")
-    fun <T> setEntry(
-        viewGroup: ViewGroup,
-        entry: T?, layoutId: Int
-    ) {
-        viewGroup.removeAllViews()
-        if (entry != null) {
-            val inflater = viewGroup.context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
-            val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, layoutId, viewGroup, true)
-            binding.setVariable(BR.data, entry)
-        }
-    }
-
     @BindingAdapter("setImage")
     fun ImageView.setImage(url: String){
         if(!url.isNullOrEmpty())
         {
             Glide.with(context)
-                .load(url)
-                .apply(createOptionForGlide())
-                .into(this)
-        }
-    }
-
-    @BindingAdapter("setImage")
-    fun CircleImageView.setImage(url: String?){
-        if(url != null) {
-            com.bumptech.glide.Glide.with(context)
                 .load(url)
                 .apply(createOptionForGlide())
                 .into(this)
@@ -166,21 +126,6 @@ object TableLayoutBindingAdapter {
             .dontTransform()
     }
 
-    @BindingAdapter("backgrndColor")
-    fun LinearLayout.setBackgrndColor(сlr: String){
-        setBackgroundColor(Color.parseColor(сlr))
-    }
-
-    @BindingAdapter("backgrndColor")
-    fun TextView.setBackgrndColor(clr:String) {
-        val drawable = ContextCompat.getDrawable(context, R.drawable.bg_rounded)
-        if (drawable != null) {
-            val wrappedDrawable = DrawableCompat.wrap(drawable)
-            DrawableCompat.setTint(wrappedDrawable, Color.parseColor(clr))
-            background = wrappedDrawable
-
-        }
-    }
 
     @JvmStatic
     @BindingAdapter("textInt")

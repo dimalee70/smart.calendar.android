@@ -1,4 +1,4 @@
-package kz.smart.calendar.modules.schedule.view
+package kz.smart.calendar.modules.feed.presentation
 
 import androidx.databinding.ObservableArrayList
 import com.arellomobile.mvp.MvpView
@@ -8,7 +8,6 @@ import kz.smart.calendar.models.objects.Event
 import kz.smart.calendar.modules.schedule.domain.Day
 
 @StateStrategyType(SkipStrategy::class)
-interface ScheduleView : MvpView {
-    fun showSelectedDate(day: Day?)
+interface FeedPeriodView : MvpView {
     fun showEvents(events: ObservableArrayList<Event>)
 }

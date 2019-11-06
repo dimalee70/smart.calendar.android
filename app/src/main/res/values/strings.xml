@@ -24,6 +24,19 @@
     <string name="november">Ноябрь</string>
     <string name="december">Декабрь</string>
 
+    <string name="january_of">января</string>
+    <string name="february_of">февраля</string>
+    <string name="march_of">марта</string>
+    <string name="april_of">апреля</string>
+    <string name="may_of">мая</string>
+    <string name="june_of">июня</string>
+    <string name="jule_of">июля</string>
+    <string name="august_of">августа</string>
+    <string name="september_of">сентября</string>
+    <string name="october_of">октября</string>
+    <string name="november_of">ноября</string>
+    <string name="december_of">декабря</string>
+
     <string name="birth_date">Дата рождения</string>
     <string name="sex">Пол</string>
     <string name="not_confirmed">(не подтверждена)</string>

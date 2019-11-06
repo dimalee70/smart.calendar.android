@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item>
+    <shape android:shape="rectangle">
+        <!--apply button background transparent, full opacity-->
+        <gradient android:angle="0" android:startColor="#FF000000" android:endColor="#00545454"  />
+    </shape>
+</item>
+</selector>
