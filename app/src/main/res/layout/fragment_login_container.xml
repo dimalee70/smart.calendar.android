@@ -7,10 +7,31 @@
     tools:context=".modules.settings.domain.LoginContainerFragment">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.rd.PageIndicatorView
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:piv_animationType="fill"
+        app:piv_dynamicCount="true"
+        app:piv_interactiveAnimation="false"
+        app:piv_selectedColor="@color/frameColor"
+        app:piv_unselectedColor="#77393E46"
+        app:piv_viewPager="@id/vp_login_fragments"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:piv_padding="6dp"
+        app:piv_radius="8dp"
+        android:padding="2dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="14dp"
+
+        />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/login_tabs"
@@ -18,7 +39,7 @@
         android:layout_height="wrap_content"
         android:tabStripEnabled="false"
         app:tabMode="scrollable"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/indicator"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp"
         app:tabRippleColor="#00000000"

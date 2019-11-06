@@ -6,12 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_login_container.*
 
 import kz.smart.calendar.R
 import kz.smart.calendar.ui.adapters.LabeledPagerAdapter
+import androidx.viewpager.widget.ViewPager
+
+
 
 /**
  * A simple [Fragment] subclass.
@@ -46,5 +47,21 @@ class LoginContainerFragment : Fragment() {
 
         vp_login_fragments.adapter = adapter
         login_tabs!!.setupWithViewPager(vp_login_fragments)
+
+        vp_login_fragments.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                indicator.selection = position
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+        })
     }
 }
