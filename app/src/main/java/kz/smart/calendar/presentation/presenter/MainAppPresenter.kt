@@ -74,6 +74,7 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
                     run {
                         viewState?.hideProgress()
                         DataHolder.user = result.data.user
+                        tokenInterceptor.token = "Bearer " + DataHolder.sessionId
                         syncData()
                     }
                 },

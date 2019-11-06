@@ -6,10 +6,12 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kz.smart.calendar.App
 import kz.smart.calendar.api.ApiManager
+import kz.smart.calendar.events.PollUpdateEvent
 import kz.smart.calendar.models.objects.Poll
 import kz.smart.calendar.models.objects.VoteOption
 import kz.smart.calendar.models.requests.VotePollRequestModel
 import kz.smart.calendar.presentation.presenter.BasePresenter
+import org.greenrobot.eventbus.EventBus
 import retrofit2.HttpException
 import javax.inject.Inject
 
@@ -30,6 +32,15 @@ class VoteOptionPresenter(private var poll: Poll, private val vote_options: Arra
             it.isSlected
         }
         if (vote != null){
+            vote.isSlected = false
+//            vote.percentage = 50f
+//            vote.isSlected = false
+//            val idx = poll.vote_options.indexOfFirst {
+//                it.id == vote.id
+//            }
+//
+//            poll.vote_options[idx] = vote
+//            EventBus.getDefault().post(PollUpdateEvent(poll))
 
         disposable = client.sendVote(VotePollRequestModel(poll.id, vote.id))
             .subscribeOn(Schedulers.io())
@@ -38,7 +49,9 @@ class VoteOptionPresenter(private var poll: Poll, private val vote_options: Arra
                 {    result ->
                     run {
                         viewState?.hideProgress()
-                        poll = result.data
+                        val p = result.data
+                        EventBus.getDefault().post(PollUpdateEvent(p))
+
                     }
                 },
                 { error ->

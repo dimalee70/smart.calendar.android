@@ -27,6 +27,7 @@ import kz.smart.calendar.models.objects.VoteOption
 import kz.smart.calendar.presentation.presenter.home.HomeMainPresenter
 import kz.smart.calendar.ui.adapters.RecyclerBindingAdapter
 import kz.smart.calendar.ui.fragment.BaseMvpFragment
+import org.greenrobot.eventbus.EventBus
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -34,6 +35,9 @@ import javax.inject.Inject
  * A simple [Fragment] subclass.
  */
 class PollFragment : BaseMvpFragment(), PollView{
+
+
+
 
     companion object {
         const val TAG = "HomeMainFragment"
@@ -85,6 +89,16 @@ class PollFragment : BaseMvpFragment(), PollView{
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(mPollPresenter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(mPollPresenter)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -116,5 +130,12 @@ class PollFragment : BaseMvpFragment(), PollView{
         return binding.root
     }
 
+    override fun setPoll(poll: Poll) {
+        var idx = recyclerPollAdapter.getItems().indexOfFirst {
+            it.id == poll.id
+        }
+
+        recyclerPollAdapter.getItems()[idx] = poll
+    }
 
 }

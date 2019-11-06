@@ -17,6 +17,7 @@ import kz.smart.calendar.R
 import kz.smart.calendar.models.objects.Poll
 import kz.smart.calendar.models.objects.VoteOption
 import kz.smart.calendar.modules.poll.domain.VoteOptionPresenter
+import kz.smart.calendar.modules.poll.domain.VoteOptionView
 
 import java.util.ArrayList
 
@@ -24,7 +25,7 @@ class RecyclerBindingAdapter<T>(
     private val holderLayout: Int,
     private val variableId: Int,
     private val context: Context
-) : RecyclerView.Adapter<RecyclerBindingAdapter.BindingHolder>() {
+) : RecyclerView.Adapter<RecyclerBindingAdapter.BindingHolder>(){
 //    private var items: ArrayList<T> = ArrayList()
     private var items: ObservableArrayList<T> = ObservableArrayList()
     private var onItemClickListener: OnItemClickListener<T>? = null
@@ -44,6 +45,10 @@ class RecyclerBindingAdapter<T>(
         //items.addOnListChangedCallback(ObservableListCallback())
     }
 
+    fun getItems(): ObservableArrayList<T>{
+        return items
+    }
+
     override fun onBindViewHolder(holder: RecyclerBindingAdapter.BindingHolder, position: Int) {
         val item = items[position]
 
@@ -55,7 +60,10 @@ class RecyclerBindingAdapter<T>(
 //        holder.binding.executePendingBindings()
         if(holderLayout == R.layout.item_poll){
             var poll = item as Poll
+
             poll.presener = VoteOptionPresenter(poll, poll.vote_options)
+
+
 //            holder.binding.root.finishButton.setOnClickListener {
 //
 //            }

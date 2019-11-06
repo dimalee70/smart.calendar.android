@@ -7,7 +7,10 @@ import kz.smart.calendar.App
 import kz.smart.calendar.api.ApiManager
 import kz.smart.calendar.api.response.BaseResponse
 import kz.smart.calendar.api.response.PollsResponse
+import kz.smart.calendar.events.PollUpdateEvent
 import kz.smart.calendar.presentation.presenter.BasePresenter
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -20,6 +23,11 @@ class PollPresenter(private var router: Router): BasePresenter<PollView>() {
 
     init {
         App.appComponent.inject(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: PollUpdateEvent) {
+        viewState?.setPoll(event.poll)
     }
 
     fun getPolls(){

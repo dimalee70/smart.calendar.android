@@ -6,12 +6,13 @@ import kz.smart.calendar.modules.poll.domain.VoteOptionPresenter
 
 data class VoteOption(
     val id: Int,
-    val text: String
-): BaseObservable() {
+    val text: String,
     var percentage: Float? = null
-    constructor(id: Int, text:String, percentage: Float) : this(id, text) {
-        this.percentage = percentage
-    }
+): BaseObservable() {
+
+//    constructor(id: Int, text:String, percentage: Float) : this(id, text) {
+//        this.percentage = percentage
+//    }
 
     var isSlected: Boolean = false
     @Bindable get
