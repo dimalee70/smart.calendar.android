@@ -2,33 +2,58 @@ package kz.smart.calendar.modules.common.domain
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_set_extras.*
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
+import kotlinx.android.synthetic.main.fragment_event_details.*
 
 import kz.smart.calendar.R
+import kz.smart.calendar.databinding.FragmentEventDetailsBinding
+import kz.smart.calendar.modules.common.presentation.EventDetailsPresenter
+import kz.smart.calendar.modules.common.presentation.EventDetailsView
+import kz.smart.calendar.ui.fragment.BaseMvpFragment
 
-/**
- * A simple [Fragment] subclass.
- */
-class EventDetailsFragment : Fragment() {
+
+class EventDetailsFragment : BaseMvpFragment(), EventDetailsView {
+
+    companion object {
+        fun newInstance(): EventDetailsFragment {
+            val f = EventDetailsFragment()
+            val bdl = Bundle(1)
+            f.arguments = bdl
+            return f
+
+        }
+    }
+    @InjectPresenter
+    lateinit var mPresenter: EventDetailsPresenter
+
+    @ProvidePresenter
+    fun providePresenter(): EventDetailsPresenter {
+        return EventDetailsPresenter()
+    }
+
+    lateinit var binding: FragmentEventDetailsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event_details, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_details, container, false)
+        binding.presenter = mPresenter
+        binding.data = mPresenter.event
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn_continue.setOnClickListener {
-            findNavController().navigate(R.id.action_eventDetailsFragment2_to_galleryFragment)
+        backBtn.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 }

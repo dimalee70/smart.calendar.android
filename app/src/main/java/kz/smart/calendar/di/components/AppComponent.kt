@@ -12,6 +12,8 @@ import kz.smart.calendar.models.db.Db
 import kz.smart.calendar.models.db.OptionDao
 import kz.smart.calendar.models.db.UserDao
 import kz.smart.calendar.models.objects.CalendarModel
+import kz.smart.calendar.models.objects.Event
+import kz.smart.calendar.modules.common.presentation.EventDetailsPresenter
 import kz.smart.calendar.modules.feed.domain.FeedPeriodFragment
 import kz.smart.calendar.modules.feed.presentation.FeedPeriodPresenter
 import kz.smart.calendar.modules.poll.domain.PollFragment
@@ -51,6 +53,7 @@ interface AppComponent {
     fun userDao(): UserDao
     fun optionDao(): OptionDao
     fun categoryDao(): CategoryDao
+    fun event(): Event
 
     fun getDb(): Db
 
@@ -74,4 +77,5 @@ interface AppComponent {
     fun inject(presenter: CalendarPresenter)
     fun inject(presenter: SchedulePresenter)
     fun inject(presenter: FeedPeriodPresenter)
+    fun inject(presenter: EventDetailsPresenter)
 }

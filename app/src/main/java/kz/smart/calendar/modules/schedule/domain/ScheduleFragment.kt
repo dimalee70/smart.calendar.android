@@ -1,6 +1,7 @@
 package kz.smart.calendar.modules.schedule.domain
 
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.library.baseAdapters.BR
+import androidx.navigation.fragment.findNavController
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.fragment_schedule.*
@@ -16,6 +18,7 @@ import kz.smart.calendar.App
 
 import kz.smart.calendar.R
 import kz.smart.calendar.databinding.FragmentScheduleBinding
+import kz.smart.calendar.events.OpenEventDetailsEvent
 import kz.smart.calendar.events.ScheduleEventDetailsEvent
 import kz.smart.calendar.models.objects.Event
 import kz.smart.calendar.models.shared.Utils
@@ -31,10 +34,13 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.joda.time.DateTime
+import java.lang.ClassCastException
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class ScheduleFragment : BaseMvpFragment(), ScheduleView {
+class ScheduleFragment : BaseMvpFragment(), ScheduleView,
+    RecyclerBindingAdapter.OnItemClickListener<Event>{
     companion object {
         const val TAG = "ScheduleFragment"
         var selectedDate: Date? = null
@@ -56,15 +62,21 @@ class ScheduleFragment : BaseMvpFragment(), ScheduleView {
 
     lateinit var simpleCategoryAdapter: RecyclerBindingAdapter<CategorySimple>
     lateinit var eventsAdapter: RecyclerBindingAdapter<Event>
+    private var onCustomClickListenerRecycler: RecyclerBindingAdapter.OnItemClickListener<Event>? = this
 
     lateinit var binding: FragmentScheduleBinding
+
+    @Inject
+    lateinit var event: Event
 
     override fun onCreate(savedInstanceState: Bundle?) {
         App.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         simpleCategoryAdapter = RecyclerBindingAdapter(R.layout.category_count_list_item, BR.data, context!!)
         eventsAdapter = RecyclerBindingAdapter(R.layout.item_event, BR.data, context!!)
-        //simpleCategoryAdapter.setItems()
+        if(onCustomClickListenerRecycler != null){
+            eventsAdapter.setOnItemClickListener(onCustomClickListenerRecycler!!)
+        }
     }
 
     override fun onCreateView(
@@ -153,5 +165,24 @@ class ScheduleFragment : BaseMvpFragment(), ScheduleView {
             11 -> context!!.getString(R.string.november)
             else -> context!!.getString(R.string.december)
         }
+    }
+
+    override fun onItemClick(position: Int, item: Event) {
+        event.fromEvent(item)
+        findNavController().navigate(R.id.action_scheduleFragment_to_eventDetailsFragment)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            onCustomClickListenerRecycler = this
+        }catch (e: Throwable){
+            throw ClassCastException(context.toString())
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        onCustomClickListenerRecycler = null
     }
 }

@@ -8,12 +8,15 @@ import javax.inject.Singleton
 
 @Module
 class EventListModule {
-
-    private var events: ObservableArrayList<Event> = ObservableArrayList()
+    private var event: Event = Event(
+        -1,"","", "",-1,"",
+        0,0,"","",-1,
+        null, ArrayList(),ArrayList(), false, null
+    )
 
     @Provides
     @Singleton
-    fun provideEventList(): ObservableArrayList<Event>{
-        return events
+    fun provideEvent(): Event{
+        return event
     }
 }

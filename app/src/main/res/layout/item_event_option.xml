@@ -8,18 +8,21 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon"
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:layout_margin="4dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
                 app:RawImageUrl="@{data.icon_url}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:tint="@android:color/black"
+                app:layout_constraintDimensionRatio="H,1:1"
                 />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

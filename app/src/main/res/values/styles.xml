@@ -6,6 +6,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:typeface">serif</item>
         <item name="fontFamily">@font/metropolis_regular</item>
+        <item name="android:textColor">@color/frameColor</item>
     </style>
 
     <style name="Theme.App.Dark.FullScreen" parent="Theme.App.Dark">

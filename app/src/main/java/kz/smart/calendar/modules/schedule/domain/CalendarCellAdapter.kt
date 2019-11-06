@@ -3,6 +3,7 @@ package kz.smart.calendar.modules.schedule.domain
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import kz.smart.calendar.events.CalendarCellChosenEvent
+import kz.smart.calendar.events.CalendarDefaultCellEvent
 import kz.smart.calendar.modules.schedule.presentation.DataDay
 import org.apache.commons.lang3.time.DateUtils
 import org.greenrobot.eventbus.EventBus
@@ -62,7 +63,7 @@ abstract class CalendarCellAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
             }
             val day = Day(cal, state, isToday, isSelected, dataDay)
             if (isToday) {
-                EventBus.getDefault().post(CalendarCellChosenEvent(day))
+                EventBus.getDefault().post(CalendarDefaultCellEvent(day))
             }
             return@map day
         }

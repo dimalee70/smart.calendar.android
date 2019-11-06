@@ -1,6 +1,7 @@
 package kz.smart.calendar.modules.feed.domain
 
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,9 +26,12 @@ import kz.smart.calendar.modules.feed.presentation.FeedPeriodView
 import kz.smart.calendar.ui.adapters.RecyclerBindingAdapter
 import kz.smart.calendar.ui.fragment.BaseMvpFragment
 import org.greenrobot.eventbus.EventBus
+import java.lang.ClassCastException
+import javax.inject.Inject
 
 
-class FeedPeriodFragment: BaseMvpFragment(), FeedPeriodView  {
+class FeedPeriodFragment: BaseMvpFragment(), FeedPeriodView,
+    RecyclerBindingAdapter.OnItemClickListener<Event>{
     companion object {
         val PERIOD_EXTRA: String = "PERIOD_EXTRA"
 
@@ -51,8 +55,12 @@ class FeedPeriodFragment: BaseMvpFragment(), FeedPeriodView  {
     }
 
     lateinit var eventsAdapter: RecyclerBindingAdapter<Event>
+    private var onCustomClickListenerRecycler: RecyclerBindingAdapter.OnItemClickListener<Event>? = this
 
     lateinit var binding: FragmentFeedPeriodBinding
+
+    @Inject
+    lateinit var event: Event
 
     var period: Period? = null
 
@@ -60,6 +68,9 @@ class FeedPeriodFragment: BaseMvpFragment(), FeedPeriodView  {
         App.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         eventsAdapter = RecyclerBindingAdapter(R.layout.item_event, BR.data, context!!)
+        if(onCustomClickListenerRecycler != null){
+            eventsAdapter.setOnItemClickListener(onCustomClickListenerRecycler!!)
+        }
     }
 
     override fun onCreateView(
@@ -75,15 +86,30 @@ class FeedPeriodFragment: BaseMvpFragment(), FeedPeriodView  {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        /*btn_continue.setOnClickListener {
-            EventBus.getDefault().post(OpenEventDetailsEvent(null))
-        }*/
         mPresenter.getEvents(period!!)
+    }
+
+    override fun onItemClick(position: Int, item: Event) {
+        event.fromEvent(item)
+        EventBus.getDefault().post(OpenEventDetailsEvent(item))
     }
 
     override fun showEvents(events: ObservableArrayList<Event>) {
         eventsAdapter.setItems(events)
         eventsAdapter.notifyDataSetChanged()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            onCustomClickListenerRecycler = this
+        }catch (e: Throwable){
+            throw ClassCastException(context.toString())
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        onCustomClickListenerRecycler = null
     }
 }

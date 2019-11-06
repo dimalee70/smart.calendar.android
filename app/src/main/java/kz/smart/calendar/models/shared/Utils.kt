@@ -21,6 +21,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.Animator
 import android.graphics.Color
 import android.view.View.VISIBLE
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.addTextChangedListener
@@ -200,6 +201,22 @@ object Utils {
     @JvmStatic
     @BindingAdapter("backgrndColor")
     fun setBackTextColor(view: TextView, clr:String) {
+        if (clr.isNullOrEmpty())
+        {
+            return
+        }
+        val drawable = ContextCompat.getDrawable(view.context, R.drawable.bg_rounded)
+        if (drawable != null) {
+            val wrappedDrawable = DrawableCompat.wrap(drawable)
+            DrawableCompat.setTint(wrappedDrawable, Color.parseColor(clr))
+            view.background = wrappedDrawable
+
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("backgrndColor")
+    fun setBackTextColor(view: LinearLayoutCompat, clr:String) {
         if (clr.isNullOrEmpty())
         {
             return
