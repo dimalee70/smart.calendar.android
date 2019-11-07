@@ -49,7 +49,7 @@ class VoteOptionPresenter(private var poll: Poll, private val vote_options: Arra
                 {    result ->
                     run {
                         viewState?.hideProgress()
-                        val p = result.data
+                        val p = result.data.poll
                         EventBus.getDefault().post(PollUpdateEvent(p))
 
                     }

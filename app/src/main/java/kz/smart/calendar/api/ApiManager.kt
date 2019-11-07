@@ -69,5 +69,5 @@ interface ApiManager {
 
 
     @POST("poll_vote")
-    fun sendVote(@Body body: VotePollRequestModel):Observable<BaseResponse<Poll>>
+    fun sendVote(@Body body: VotePollRequestModel):Observable<BaseResponse<PollResponse>>
 }

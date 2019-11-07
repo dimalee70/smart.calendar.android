@@ -136,6 +136,7 @@ class PollFragment : BaseMvpFragment(), PollView{
         }
 
         recyclerPollAdapter.getItems()[idx] = poll
+        recyclerPollAdapter.notifyItemChanged(idx)
     }
 
 }
