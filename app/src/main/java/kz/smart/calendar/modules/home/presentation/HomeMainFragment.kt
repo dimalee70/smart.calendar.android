@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -18,12 +19,13 @@ import kz.smart.calendar.databinding.FragmentHomeMainBinding
 import kz.smart.calendar.presentation.presenter.home.HomeMainPresenter
 import kz.smart.calendar.presentation.view.home.HomeMainView
 import kz.smart.calendar.ui.common.BackButtonListener
+import kz.smart.calendar.ui.common.MainPagerAdapter
 import kz.smart.calendar.ui.fragment.BaseFragment
 import kz.smart.calendar.ui.fragment.BaseMvpFragment
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeMainFragment : BaseMvpFragment(), HomeMainView,
-    ViewPager.OnPageChangeListener,
     BottomNavigationView.OnNavigationItemReselectedListener,
     BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -60,9 +62,9 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
             container,
             false
         )
-        // setup main view pager
-        binding.mainPager.addOnPageChangeListener(this)
-        binding.mainPager.adapter = ViewPagerAdapter()
+
+        binding.mainPager.adapter = MainPagerAdapter(this, fragments)
+        binding.mainPager.isUserInputEnabled = false
         //binding.mainPager.post(this::checkDeepLink)
         binding.mainPager.offscreenPageLimit = fragments.size
 
@@ -73,21 +75,29 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
         if (backStack.empty()) backStack.push(0)
         //var bottomBarBackground =
         binding.bottomNav.background = ContextCompat.getDrawable(context!!, R.drawable.tabbar_background)
+
+        binding.mainPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val itemId = indexToPage[position] ?: R.id.home
+                if (binding.bottomNav.selectedItemId != itemId) binding.bottomNav.selectedItemId = itemId
+            }
+    })
+
         return binding.root
     }
-
-
 
     // overall back stack of containers
     private val backStack = Stack<Int>()
 
     // list of base destination containers
-    val fragments = listOf(
+    val fragments = ArrayList(listOf(
         BaseFragment.newInstance(R.layout.content_feed_base , R.id.nav_host_feed),
         BaseFragment.newInstance(R.layout.content_calendar_base , R.id.nav_host_calendar),
         BaseFragment.newInstance(R.layout.content_poll_base , R.id.nav_host_poll),
         BaseFragment.newInstance(R.layout.content_events_base , R.id.nav_host_events),
-        BaseFragment.newInstance(R.layout.content_settings_base,  R.id.nav_host_settings))
+        BaseFragment.newInstance(R.layout.content_settings_base,  R.id.nav_host_settings)))
+
     private val indexToPage = mapOf(0 to R.id.feed, 1 to R.id.calendar, 2 to R.id.poll, 3 to R.id.my_events, 4 to R.id.profile)
 
     /*var navigator: SupportAppNavigator = object : SupportAppNavigator(this, R.id.activity_home_frame_layout) {
@@ -114,14 +124,6 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
         finishAffinity()
     }*/
 
-    inner class ViewPagerAdapter : FragmentPagerAdapter(childFragmentManager) {
-
-        override fun getItem(position: Int): Fragment = fragments[position]
-
-        override fun getCount(): Int = fragments.size
-
-    }
-
     /// BottomNavigationView ItemSelected Implementation
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val position = indexToPage.values.indexOf(item.itemId)
@@ -133,16 +135,6 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
         val position = indexToPage.values.indexOf(item.itemId)
         val fragment = fragments[position]
         fragment.popToRoot()
-    }
-
-    /// OnPageSelected Listener Implementation
-    override fun onPageScrollStateChanged(state: Int) {}
-
-    override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
-
-    override fun onPageSelected(page: Int) {
-        val itemId = indexToPage[page] ?: R.id.home
-        if (binding.bottomNav.selectedItemId != itemId) binding.bottomNav.selectedItemId = itemId
     }
 
     private fun setItem(position: Int) {

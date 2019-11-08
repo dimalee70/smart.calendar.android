@@ -187,6 +187,7 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.8.1'
     implementation 'com.romandanylyk:pageindicatorview:1.0.3'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation "androidx.viewpager2:viewpager2:1.0.0-rc01"
 }
 
 apply plugin: 'com.google.gms.google-services'
