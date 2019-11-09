@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 import kz.smart.calendar.R
@@ -83,19 +86,33 @@ class   FeedFragment : Fragment() {
 
     private fun setupViewPager() {
 
-        val adapter = LabeledPagerAdapter(childFragmentManager)
-
         val dayFragment: FeedPeriodFragment = FeedPeriodFragment.newInstance(Period.DAY)
+        dayFragment.title = getString(R.string.today)
         val weekFragment: FeedPeriodFragment = FeedPeriodFragment.newInstance(Period.WEEK)
+        weekFragment.title = getString(R.string.week)
         val monthFragment: FeedPeriodFragment = FeedPeriodFragment.newInstance(Period.MONTH)
-
-        adapter.addFragment(dayFragment, getString(R.string.today))
-        adapter.addFragment(weekFragment, getString(R.string.week))
-        adapter.addFragment(monthFragment, getString(R.string.month))
+        monthFragment.title = getString(R.string.month)
+        val adapter = LabeledPagerAdapter(this, ArrayList(listOf(dayFragment, weekFragment, monthFragment)))
 
         vp_periods.adapter = adapter
-        period_tabs!!.setupWithViewPager(vp_periods)
+        TabLayoutMediator(period_tabs, vp_periods, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+            tab.text = (vp_periods.adapter as LabeledPagerAdapter).fragments[position].title
+        }).attach()
+                /*var height = 0
+                for (i in 0 until childCount) {
+                    val child = getChildAt(i)
+                    child.measure(
+                        widthMeasureSpec,
+                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+                    )
+                    val h = child.measuredHeight
+                    if (h > height) height = h
+                }
 
+                var heightMeasureSpec1 = heightMeasureSpec
+                if (height != 0) {
+                    heightMeasureSpec1 = View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY)
+                }*/
     }
 
 

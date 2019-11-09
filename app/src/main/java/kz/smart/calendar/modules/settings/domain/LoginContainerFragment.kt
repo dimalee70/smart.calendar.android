@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_login_container.*
 import kz.smart.calendar.R
 import kz.smart.calendar.ui.adapters.LabeledPagerAdapter
 import androidx.viewpager.widget.ViewPager
-
+import com.google.android.material.tabs.TabLayoutMediator
 
 
 /**
@@ -36,32 +36,16 @@ class LoginContainerFragment : Fragment() {
 
 
     private fun setupViewPager() {
-
-        val adapter = LabeledPagerAdapter(childFragmentManager)
-
         val loginFragment: LoginFragment = LoginFragment.newInstance()
+        loginFragment.title = getString(R.string.login_title)
         val registrationFragment: RegistrationFragment = RegistrationFragment.newInstance()
-
-        adapter.addFragment(loginFragment, getString(R.string.login_title))
-        adapter.addFragment(registrationFragment, getString(R.string.register_title))
+        registrationFragment.title = getString(R.string.register_title)
+        val adapter = LabeledPagerAdapter(this,  ArrayList(listOf(loginFragment, registrationFragment)))
 
         vp_login_fragments.adapter = adapter
-        login_tabs!!.setupWithViewPager(vp_login_fragments)
-
-        vp_login_fragments.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                indicator.selection = position
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-        })
+        TabLayoutMediator(login_tabs, vp_login_fragments, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+            tab.text = (vp_login_fragments.adapter as LabeledPagerAdapter).fragments[position].title
+        }).attach()
+        indicator.setViewPager(vp_login_fragments)
     }
 }
