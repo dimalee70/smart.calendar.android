@@ -14,8 +14,8 @@
             android:id="@+id/action_scheduleFragment_to_eventDetailsFragment"
             app:destination="@id/eventDetailsFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:launchSingleTop="false" />
+            app:launchSingleTop="false"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/eventDetailsFragment"

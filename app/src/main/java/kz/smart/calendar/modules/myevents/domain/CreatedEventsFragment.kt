@@ -14,25 +14,23 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import kz.smart.calendar.App
 
 import kz.smart.calendar.R
-import kz.smart.calendar.databinding.FragmentFeedPeriodBinding
-import kz.smart.calendar.databinding.FragmentVisitEventsBinding
+import kz.smart.calendar.databinding.FragmentCreatedEventsBinding
 import kz.smart.calendar.events.OpenEventDetailsEvent
 import kz.smart.calendar.events.OpenEventDetailsMyEvents
-import kz.smart.calendar.models.enums.Period
 import kz.smart.calendar.models.objects.Event
-import kz.smart.calendar.modules.myevents.presentation.VisitEventsPresenter
-import kz.smart.calendar.modules.myevents.presentation.VisitEventsView
+import kz.smart.calendar.modules.myevents.presentation.CreatedEventsPresenter
+import kz.smart.calendar.modules.myevents.presentation.CreatedEventsView
 import kz.smart.calendar.ui.adapters.RecyclerBindingAdapter
 import kz.smart.calendar.ui.fragment.BaseMvpFragment
 import org.greenrobot.eventbus.EventBus
 import java.lang.ClassCastException
 import javax.inject.Inject
 
-class VisitEventsFragment: BaseMvpFragment(), VisitEventsView,
+class CreatedEventsFragment: BaseMvpFragment(), CreatedEventsView,
     RecyclerBindingAdapter.OnItemClickListener<Event>{
     companion object {
-        fun newInstance(): VisitEventsFragment {
-            val f = VisitEventsFragment()
+        fun newInstance(): CreatedEventsFragment {
+            val f = CreatedEventsFragment()
             val bdl = Bundle(1)
             f.arguments = bdl
             return f
@@ -41,17 +39,17 @@ class VisitEventsFragment: BaseMvpFragment(), VisitEventsView,
     }
 
     @InjectPresenter
-    lateinit var mPresenter: VisitEventsPresenter
+    lateinit var mPresenter: CreatedEventsPresenter
 
     @ProvidePresenter
-    fun providePresenter(): VisitEventsPresenter {
-        return VisitEventsPresenter()
+    fun providePresenter(): CreatedEventsPresenter {
+        return CreatedEventsPresenter()
     }
 
     lateinit var eventsAdapter: RecyclerBindingAdapter<Event>
     private var onCustomClickListenerRecycler: RecyclerBindingAdapter.OnItemClickListener<Event>? = this
 
-    lateinit var binding: FragmentVisitEventsBinding
+    lateinit var binding: FragmentCreatedEventsBinding
 
     @Inject
     lateinit var event: Event
@@ -69,7 +67,7 @@ class VisitEventsFragment: BaseMvpFragment(), VisitEventsView,
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_visit_events, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_created_events, container, false)
         binding.presenter = mPresenter
         binding.rvEvents.adapter = eventsAdapter
         return binding.root

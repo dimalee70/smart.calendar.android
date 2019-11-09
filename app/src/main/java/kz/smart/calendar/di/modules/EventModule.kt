@@ -9,8 +9,8 @@ import javax.inject.Singleton
 @Module
 class EventModule {
     private var event: Event = Event(
-        -1,"","", "",-1,"",
-        0,0,"","",-1,
+        -1,"",null, "",-1,"",
+        0,0,null,"",-1,
         null, ArrayList(),ArrayList(), false, null
     )
 

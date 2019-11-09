@@ -36,9 +36,12 @@ import com.theartofdev.edmodo.cropper.CropImageView
 import de.hdodenhof.circleimageview.CircleImageView
 import kz.smart.calendar.di.modules.GlideApp
 import kz.smart.calendar.extensions.shortDateDiff
+import kz.smart.calendar.extensions.shortDayDiff
 import kz.smart.calendar.ui.common.CircleView
+import org.joda.time.DateTime
 import org.json.JSONObject
 import java.lang.Exception
+import java.text.SimpleDateFormat
 import kotlin.math.roundToInt
 
 @InverseBindingMethods(
@@ -108,6 +111,70 @@ object Utils {
             .load(url)
             .centerCrop()
             .into(view)
+    }
+
+    private val dateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ROOT)
+    private val timeFormat = SimpleDateFormat("HH:mm", Locale.ROOT)
+
+    @JvmStatic
+    @BindingAdapter("date")
+    fun setDateText(view: TextView, date:Date?) {
+        if (date == null)
+        {
+            view.text = ""
+            return
+        }
+        view.text = dateFormat.format(date)
+    }
+
+    @JvmStatic
+    @BindingAdapter("dateTime")
+    fun setDateTimeText(view: TextView, date:Date?) {
+        if (date == null)
+        {
+            view.text = ""
+            return
+        }
+        val dateTime = DateTime(date)
+        val monthName = getOfMonthFromResource(dateTime.monthOfYear().get()-1, view.context)
+
+        view.text = "${dateTime.dayOfMonth().get()} ${monthName}, ${timeFormat.format(date)}"
+    }
+
+    @JvmStatic
+    @BindingAdapter("daysRemain", "fromDate")
+    fun setDaysRemain(view: TextView, date:Date?, fromDate: Date?) {
+        if (date == null)
+        {
+            view.text = ""
+            return
+        }
+        view.text = date.shortDayDiff(fromDate)
+    }
+
+    @JvmStatic
+    @BindingAdapter("daysRemain")
+    fun setDaysRemainSimple(view: TextView, date:Date?) {
+        if (date == null)
+        {
+            view.text = ""
+            return
+        }
+        view.text = date.shortDayDiff()
+    }
+
+
+
+
+    @JvmStatic
+    @BindingAdapter("time")
+    fun setTimeText(view: TextView, date:Date?) {
+        if (date == null)
+        {
+            view.text = ""
+            return
+        }
+        view.text = timeFormat.format(date)
     }
 
     @JvmStatic

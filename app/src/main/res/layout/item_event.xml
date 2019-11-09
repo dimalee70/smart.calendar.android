@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_time"
                     android:layout_marginStart="20dp"
-                    android:text="@{data.start_date}"
+                    app:time="@{data.start_date}"
                     app:layout_constraintTop_toTopOf="parent"
                     android:textSize="12sp"
                     android:drawablePadding="10dp"

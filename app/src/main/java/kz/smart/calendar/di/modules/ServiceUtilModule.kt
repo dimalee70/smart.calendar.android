@@ -18,7 +18,7 @@ class ServiceUtilModule {
     @Provides
     @CustomApplicationScope
     fun getGson(): Gson {
-        val gsonBuilder = GsonBuilder()
+        val gsonBuilder = GsonBuilder().setDateFormat("dd.MM.yyyy HH:mm")
         return gsonBuilder.create()
     }
 

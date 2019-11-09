@@ -82,6 +82,28 @@ inline fun Date.shortDateDiff(fromDate: Date? = null): String
     )
 }
 
+inline fun Date.shortDayDiff(fromDate: Date? = null): String
+{
+    var from = DateTime.now()
+    if (fromDate != null) { from = DateTime(fromDate) }
+    val to = DateTime(this)
+    val duration = Duration(from, to)
+    var days = duration.standardDays
+
+    if (days < 0)
+    {
+        days = 0
+    }
+
+    val last = days.toString().takeLast(1).toInt()
+    val suffix = if (last == 1) "день" else if (last < 5) "дня" else "дней"
+    return  "$days $suffix"
+
+    /*return App.appComponent.context().getString(R.string.short_day_remain,
+        String.format("%d", days)
+    )*/
+}
+
 inline fun Date.stringHMSTimeDiff(fromDate: Date? = null): String
 {
     var from = DateTime.now()

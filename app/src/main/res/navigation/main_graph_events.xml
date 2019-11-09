@@ -17,10 +17,16 @@
             app:exitAnim="@anim/fragment_open_exit"
             app:launchSingleTop="true"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_myEventsFragment_to_nav_event_details"
+            app:destination="@id/nav_event_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/addEventFragment2"
         android:name="kz.smart.calendar.modules.myevents.domain.AddEventFragment"
         android:label="fragment_add_event"
         tools:layout="@layout/fragment_add_event" />
+    <include app:graph="@navigation/nav_event_details" />
 </navigation>

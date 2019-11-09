@@ -51,6 +51,7 @@ class EventDetailsFragment : BaseMvpFragment(), EventDetailsView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mPresenter.getEventInfo()
 
         backBtn.setOnClickListener {
             findNavController().popBackStack()

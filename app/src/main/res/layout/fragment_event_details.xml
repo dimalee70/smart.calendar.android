@@ -88,7 +88,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
-                android:text="@{data.start_date}"
+                app:dateTime="@{data.start_date}"
                 android:textSize="12sp"
                 android:textColor="#ffffff"
                 android:gravity="center_vertical|start"
@@ -131,6 +131,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dashboard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -174,7 +175,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_duration"
-                    android:text="2 дня"
+                    app:daysRemain="@{data.end_date}"
+                    app:fromDate="@{data.start_date}"
                     android:textSize="12sp"
                     android:drawablePadding="8dp"
                     android:gravity="center"
@@ -202,7 +204,80 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                     />
 
 
+                <RelativeLayout
+                    android:id="@+id/rl_friends"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="14dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/communityTv"
+                    android:layout_marginTop="15dp"
+                    >
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profileThirdCiv"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_toRightOf="@+id/profileSecondCiv"
+                        android:layout_marginStart="-4dp"
+                        app:setImage="@{data.thirdFriendPhoto}"
+                        />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profileSecondCiv"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="-4dp"
+                        android:layout_toRightOf="@+id/profileFirstCiv"
+                        app:setImage="@{data.secondFriendPhoto}"
+                        />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profileFirstCiv"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="11dp"
+                        app:setImage="@{data.firstFriendPhoto}"
+                        />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_friends"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="@{data.friendNames}"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    app:layout_constraintStart_toEndOf="@id/rl_friends"
+                    app:layout_constraintTop_toTopOf="@id/rl_friends"
+                    app:layout_constraintBottom_toBottomOf="@id/rl_friends"
+                    android:layout_marginStart="17dp"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    app:backgrndColor="@{data.category.color}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_friends"
+                    android:layout_marginTop="15dp"
+                    />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/decription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{data.eventInfo.description}"
+                android:textSize="14sp"
+                android:gravity="start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dashboard"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="15dp"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

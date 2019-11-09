@@ -15,6 +15,10 @@ import kz.smart.calendar.models.objects.Event
 import kz.smart.calendar.modules.common.presentation.EventDetailsPresenter
 import kz.smart.calendar.modules.feed.domain.FeedPeriodFragment
 import kz.smart.calendar.modules.feed.presentation.FeedPeriodPresenter
+import kz.smart.calendar.modules.myevents.domain.CreatedEventsFragment
+import kz.smart.calendar.modules.myevents.domain.VisitEventsFragment
+import kz.smart.calendar.modules.myevents.presentation.CreatedEventsPresenter
+import kz.smart.calendar.modules.myevents.presentation.VisitEventsPresenter
 import kz.smart.calendar.modules.poll.domain.PollFragment
 import kz.smart.calendar.modules.poll.domain.PollPresenter
 import kz.smart.calendar.modules.poll.domain.VoteOptionPresenter
@@ -64,6 +68,8 @@ interface AppComponent {
     fun inject(fragment: PollFragment)
     fun inject(fragment: ScheduleFragment)
     fun inject(fragment: FeedPeriodFragment)
+    fun inject(fragment: VisitEventsFragment)
+    fun inject(fragment: CreatedEventsFragment)
 
     fun inject(presenter: MainAppPresenter)
     fun inject(presenter: HomePresenter)
@@ -77,4 +83,6 @@ interface AppComponent {
     fun inject(presenter: SchedulePresenter)
     fun inject(presenter: FeedPeriodPresenter)
     fun inject(presenter: EventDetailsPresenter)
+    fun inject(presenter: VisitEventsPresenter)
+    fun inject(presenter: CreatedEventsPresenter)
 }
