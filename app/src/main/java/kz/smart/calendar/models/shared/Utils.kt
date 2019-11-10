@@ -60,7 +60,7 @@ object Utils {
     var screenWidth = 600
     var screenHeight = 600
     var animationDuration = 500L
-    var DP: Int = 0
+    var DP: Float = 0.0f
 
     init {
         val wm: WindowManager = App.appComponent.context().getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -69,7 +69,7 @@ object Utils {
         display.getSize(size)
         screenWidth = size.x
         screenHeight = size.y
-        DP = App.appComponent.context().resources.displayMetrics.density.toInt()
+        DP = App.appComponent.context().resources.displayMetrics.density
     }
 
     @JvmStatic

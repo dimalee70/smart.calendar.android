@@ -36,7 +36,7 @@ class CreatedEventsPresenter : MvpPresenter<CreatedEventsView>() {
 
     fun getEvents()
     {
-        disposable = client.getCreatedEvents(StatusRequestModel(Status.ACTIVE))
+        disposable = client.getCreatedEvents(StatusRequestModel(Status.ACTIVE.value))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({  calendar ->

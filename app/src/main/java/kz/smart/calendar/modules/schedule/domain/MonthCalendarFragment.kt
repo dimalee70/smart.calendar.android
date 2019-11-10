@@ -135,8 +135,8 @@ class MonthCalendarFragment(base: Calendar = Calendar.getInstance(), val startin
             if (day.dataDay?.topThreeColors?.isNotEmpty() == true)
             {
 
-                val params : LinearLayoutCompat.LayoutParams = LinearLayoutCompat.LayoutParams(7 * Utils.DP,12 * Utils.DP)
-                params.setMargins(2 * Utils.DP,0,2 * Utils.DP,0)
+                val params : LinearLayoutCompat.LayoutParams = LinearLayoutCompat.LayoutParams((7 * Utils.DP).toInt(),(12 * Utils.DP).toInt())
+                params.setMargins((2 * Utils.DP).toInt(),0,(2 * Utils.DP).toInt(),0)
                 params.gravity = Gravity.CENTER
 
                 val llCircles = view.findViewById<LinearLayoutCompat>(R.id.llCircles)

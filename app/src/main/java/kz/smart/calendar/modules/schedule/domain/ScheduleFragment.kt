@@ -118,26 +118,30 @@ class ScheduleFragment : BaseMvpFragment(), ScheduleView,
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 val view = adapter!!.fragments[position].view
+                if (view != null) {
+                    view.post {
+                        val wMeasureSpec =
+                            View.MeasureSpec.makeMeasureSpec(view.width, View.MeasureSpec.EXACTLY)
+                        val hMeasureSpec =
+                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+                        view.measure(wMeasureSpec, hMeasureSpec)
 
-                val fragment = (adapter!!.fragments[position] as MonthCalendarFragment)
-                binding.vpMonths.layoutParams =
-                    ( binding.vpMonths.layoutParams as LinearLayout.LayoutParams).also { lp ->
-                        lp.height = fragment.getCalendar(position).getActualMaximum(Calendar.WEEK_OF_MONTH) * 54 * Utils.DP
+                        if (binding.vpMonths.layoutParams.height != view.measuredHeight) {
+                            binding.vpMonths.layoutParams =
+                                (binding.vpMonths.layoutParams as LinearLayout.LayoutParams).also { lp ->
+                                    lp.height = view.measuredHeight
+                                }
+                        }
                     }
-                /*view?.post {
-                    val wMeasureSpec =
-                        View.MeasureSpec.makeMeasureSpec(view.width, View.MeasureSpec.EXACTLY)
-                    val hMeasureSpec =
-                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-                    view.measure(wMeasureSpec, hMeasureSpec)
-
-                    if ( binding.vpMonths.layoutParams.height != view.measuredHeight) {
-                        binding.vpMonths.layoutParams =
-                            ( binding.vpMonths.layoutParams as LinearLayout.LayoutParams).also { lp ->
-                                lp.height = view.measuredHeight
-                            }
-                    }
-                }*/
+                }
+                else
+                {
+                    val fragment = (adapter!!.fragments[position] as MonthCalendarFragment)
+                    binding.vpMonths.layoutParams =
+                        ( binding.vpMonths.layoutParams as LinearLayout.LayoutParams).also { lp ->
+                            lp.height = (fragment.getCalendar(position).getActualMaximum(Calendar.WEEK_OF_MONTH) * 54 * Utils.DP).toInt()
+                        }
+                }
             }
         })
     }
