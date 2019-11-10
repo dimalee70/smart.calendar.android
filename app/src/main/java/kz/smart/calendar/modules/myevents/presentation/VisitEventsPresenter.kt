@@ -1,6 +1,7 @@
 package kz.smart.calendar.modules.myevents.presentation
 
 import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableInt
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -32,6 +33,8 @@ class VisitEventsPresenter : MvpPresenter<VisitEventsView>() {
         App.appComponent.inject(this)
     }
 
+    val count: ObservableInt = ObservableInt(0)
+
     private var disposable: Disposable? = null
 
     fun getEvents()
@@ -39,17 +42,18 @@ class VisitEventsPresenter : MvpPresenter<VisitEventsView>() {
         disposable = client.getAttendingEvents(StatusRequestModel(Status.ACTIVE.value))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({  calendar ->
+            .subscribe({  eventsResp ->
                 val events = ObservableArrayList<Event>()
-                calendar.data.items.forEach {
+                eventsResp.data.items.forEach {
                     it.category = categoryDao.getSync(it.category_id)
                     it.options = ArrayList<Option>()
                     it.option_ids.forEach {opt ->
                         it.options?.add(optionDao.getSync(opt))
                     }
                 }
-                events.addAll(calendar.data.items)
+                events.addAll(eventsResp.data.items)
                 run {
+                    count.set(eventsResp.data.items.size)
                     viewState?.showEvents(events)
                 }
             },
