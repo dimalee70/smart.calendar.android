@@ -13,6 +13,7 @@ import kz.smart.calendar.models.requests.LoginRequestModel
 import kz.smart.calendar.models.shared.DataHolder
 import org.greenrobot.eventbus.EventBus
 import photograd.kz.smart.presentation.view.login.LoginProcessView
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @InjectViewState
@@ -49,8 +50,18 @@ class LoginProcessPresenter : MvpPresenter<LoginProcessView>()
                 },
                 { error ->
                     run {
+
                         viewState?.hideProgress()
                         viewState?.showError(error)
+                    }
+                    if (error is HttpException)
+                    {
+                        if (error.code() == 405)
+                        {
+                            user.login = ""
+                            user.password = ""
+                            return@subscribe
+                        }
                     }
                 }
             )
