@@ -59,5 +59,8 @@ class SubscriptionsFragment : BaseMvpFragment(), SubscriptionsView {
         return binding.root
     }
 
+    override fun toString(): String {
+        return "Мои подписки"
+    }
 
 }

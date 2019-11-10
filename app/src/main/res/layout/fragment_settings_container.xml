@@ -97,7 +97,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/infoLl"
             />
-
+        <TextView
+            android:id="@+id/titleTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/categories"
+            android:layout_marginStart="14dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/indicatorSetting"
+            />
 <!--        <com.google.android.material.tabs.TabLayout-->
 <!--            android:id="@+id/settingTabsTl"-->
 <!--            android:layout_width="match_parent"-->
@@ -116,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/indicatorSetting"
+            app:layout_constraintTop_toBottomOf="@id/titleTv"
             />
 <!--            app:layout_constraintTop_toBottomOf="@id/settingTabsTl"-->
 

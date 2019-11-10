@@ -58,5 +58,7 @@ class EventHistoryFragment : BaseMvpFragment(), EventHistoryView{
         return binding.root
     }
 
-
+    override fun toString(): String {
+        return "История мероприятий"
+    }
 }

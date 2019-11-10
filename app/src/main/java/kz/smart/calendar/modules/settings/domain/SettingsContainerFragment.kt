@@ -89,6 +89,8 @@ class SettingsContainerFragment : BaseMvpFragment(), SettingContainerView {
 
             override fun onPageSelected(position: Int) {
                 binding.indicatorSetting.selection = position
+                val page = binding.settingsVp.currentItem
+                binding.titleTv.text = adapter.getItem(page).toString()
             }
 
             override fun onPageScrollStateChanged(state: Int) {
