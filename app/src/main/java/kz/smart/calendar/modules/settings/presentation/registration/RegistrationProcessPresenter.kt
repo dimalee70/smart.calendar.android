@@ -5,10 +5,12 @@ import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kz.smart.calendar.App
 import kz.smart.calendar.api.ApiManager
 import kz.smart.calendar.models.requests.RegisterRequestModel
 import kz.smart.calendar.models.shared.DataHolder
 import photograd.kz.smart.presentation.view.registration.RegistrationProcessView
+import retrofit2.HttpException
 import javax.inject.Inject
 
 const val NOT_SET = 0
@@ -21,6 +23,10 @@ class RegistrationProcessPresenter: MvpPresenter<RegistrationProcessView>() {
 
     private var disposable: Disposable? = null
     val user = RegisterRequestModel("")
+
+    init {
+        App.appComponent.inject(this)
+    }
 
     fun register() {
         disposable = client.register(user).subscribeOn(Schedulers.io())
@@ -37,6 +43,37 @@ class RegistrationProcessPresenter: MvpPresenter<RegistrationProcessView>() {
                     run {
                         viewState?.hideProgress()
                         viewState?.showError(error)
+                    }
+                    if (error is HttpException)
+                    {
+                        if (error.code() == 405)
+                        {
+                            logout()
+                            user.login = ""
+                            user.password = ""
+                            user.birthday = ""
+                            user.username = ""
+                            user.passwordConfirm = ""
+                            return@subscribe
+                        }
+                    }
+                }
+            )
+    }
+
+    fun logout(){
+        disposable = client.logout()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {    result ->
+                    run {
+                        viewState?.hideProgress()
+                    }
+                },
+                { error ->
+                    run {
+                        viewState?.hideProgress()
                     }
                 }
             )
