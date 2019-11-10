@@ -26,6 +26,8 @@ import kz.smart.calendar.modules.schedule.presentation.SchedulePresenter
 import kz.smart.calendar.modules.schedule.view.ScheduleView
 import kz.smart.calendar.ui.adapters.LabeledPagerAdapter
 import kz.smart.calendar.ui.adapters.RecyclerBindingAdapter
+import kz.smart.calendar.ui.common.DepthPageTransformer
+import kz.smart.calendar.ui.common.ZoomOutPageTransformer
 import kz.smart.calendar.ui.fragment.BaseMvpFragment
 import org.greenrobot.eventbus.EventBus
 import java.lang.ClassCastException
@@ -113,7 +115,7 @@ class ScheduleFragment : BaseMvpFragment(), ScheduleView,
         TabLayoutMediator(binding.monthTabs, binding.vpMonths, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
             tab.text = adapter!!.fragments[position].title
         }).attach()
-
+        binding.vpMonths.setPageTransformer(DepthPageTransformer())
         binding.vpMonths.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
