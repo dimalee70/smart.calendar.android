@@ -15,6 +15,7 @@ import org.greenrobot.eventbus.EventBus
 import photograd.kz.smart.presentation.view.login.LoginProcessView
 import retrofit2.HttpException
 import javax.inject.Inject
+import kotlin.math.log
 
 @InjectViewState
 class LoginProcessPresenter : MvpPresenter<LoginProcessView>()
@@ -58,6 +59,7 @@ class LoginProcessPresenter : MvpPresenter<LoginProcessView>()
                     {
                         if (error.code() == 405)
                         {
+                            logout()
                             user.login = ""
                             user.password = ""
                             return@subscribe
@@ -66,6 +68,24 @@ class LoginProcessPresenter : MvpPresenter<LoginProcessView>()
                 }
             )
     }
+
+    fun logout(){
+        disposable = client.logout()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {    result ->
+                    run {
+                        viewState?.hideProgress()
+                    }
+                },
+                { error ->
+                    run {
+                        viewState?.hideProgress()
+                    }
+                }
+            )
+        }
 
     fun loginClick(){
         logIn()
