@@ -25,6 +25,7 @@ import kz.smart.calendar.modules.poll.domain.VoteOptionPresenter
 import kz.smart.calendar.modules.schedule.domain.ScheduleFragment
 import kz.smart.calendar.modules.schedule.presentation.CalendarPresenter
 import kz.smart.calendar.modules.schedule.presentation.SchedulePresenter
+import kz.smart.calendar.modules.settings.domain.SettingContinerPresenter
 import kz.smart.calendar.modules.settings.presentation.login.LoginInPresenter
 import kz.smart.calendar.presentation.presenter.MainAppPresenter
 import kz.smart.calendar.presentation.presenter.home.HomeMainPresenter
@@ -35,6 +36,7 @@ import kz.smart.calendar.ui.activity.home.HomeActivity
 import kz.smart.calendar.ui.fragment.home.HomeMainFragment
 import kz.smart.calendar.modules.settings.presentation.login.LoginProcessPresenter
 import kz.smart.calendar.modules.settings.presentation.registration.RegistrationProcessPresenter
+import kz.smart.calendar.modules.settings.presentation.settings.*
 import javax.inject.Singleton
 
 @Singleton
@@ -85,4 +87,10 @@ interface AppComponent {
     fun inject(presenter: EventDetailsPresenter)
     fun inject(presenter: VisitEventsPresenter)
     fun inject(presenter: CreatedEventsPresenter)
+    fun inject(presenter: SettingContinerPresenter)
+    fun inject(presenter: CategoriesPresenter)
+    fun inject(presenter: EventHistoryPresenter)
+    fun inject(presenter: OptionsPresenter)
+    fun inject(presenter: SubscribersPresenter)
+    fun inject(presenter: SubscriptionsPresenter)
 }

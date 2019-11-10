@@ -79,6 +79,20 @@
 
         </LinearLayout>
 
+        <me.relex.circleindicator.CircleIndicator3
+            android:id="@+id/indicatorSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="14dp"
+            app:ci_drawable="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/infoLl"
+            app:ci_width="8dp"
+            app:ci_height="8dp"
+            />
+
 <!--        <com.rd.PageIndicatorView-->
 <!--            android:id="@+id/indicatorSetting"-->
 <!--            android:layout_width="wrap_content"-->
@@ -98,6 +112,18 @@
 <!--            app:layout_constraintTop_toBottomOf="@+id/infoLl"-->
 <!--            />-->
 
+<!--        <com.google.android.material.tabs.TabLayout-->
+<!--            android:id="@+id/period_tabs"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:tabGravity="fill"-->
+<!--            android:tabStripEnabled="false"-->
+<!--            app:tabIndicatorHeight="0dp"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:tabRippleColor="#00000000"-->
+<!--            app:tabTextAppearance="@style/TabTextAppearance"-->
+<!--            app:tabMode="fixed" />-->
+
         <TextView
             android:id="@+id/titleTv"
             android:layout_width="match_parent"
@@ -109,6 +135,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/indicatorSetting"
             />
+<!--            app:layout_constraintTop_toBottomOf="@+id/indicatorSetting"-->
 <!--        <com.google.android.material.tabs.TabLayout-->
 <!--            android:id="@+id/settingTabsTl"-->
 <!--            android:layout_width="match_parent"-->
@@ -122,13 +149,22 @@
 <!--            app:tabTextAppearance="@style/TabTextAppearance"-->
 <!--            />-->
 
-        <androidx.viewpager.widget.ViewPager
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/settingsVp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/titleTv"
+            android:orientation="horizontal"
             />
+
+<!--        <androidx.viewpager.widget.ViewPager-->
+<!--            android:id="@+id/settingsVp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/titleTv"-->
+<!--            />-->
 <!--            app:layout_constraintTop_toBottomOf="@id/settingTabsTl"-->
 
 
