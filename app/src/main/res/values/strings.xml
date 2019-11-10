@@ -96,6 +96,7 @@
     <string name="option_settings">Настройка опций</string>
     <string name="desired_options">Желаемые опции</string>
     <string name="publish">Опубликовать</string>
+    <string name="categories">Категории</string>
 
     <string name="poll_status_active">Не пройден</string>
     <string name="poll_status_no_active">Пройден</string>
