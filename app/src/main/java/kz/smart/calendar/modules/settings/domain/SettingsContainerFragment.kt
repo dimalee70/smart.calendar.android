@@ -8,8 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.fragment_feed.*
 import kotlinx.android.synthetic.main.fragment_login_container.*
 import kotlinx.android.synthetic.main.fragment_login_container.view.*
 import kotlinx.android.synthetic.main.fragment_settings_container.*
@@ -44,7 +48,7 @@ class SettingsContainerFragment : BaseMvpFragment(), SettingContainerView {
             container,
             false
         )
-        binding.indicatorSetting.count = 5
+//        binding.indicatorSetting.count = 5
         binding.presenter = mSettingsContainerPresenter
         // Inflate the layout for this fragment
         return binding.root
@@ -57,12 +61,12 @@ class SettingsContainerFragment : BaseMvpFragment(), SettingContainerView {
     }
 
     private fun setupViewPager(){
-        val adapter = LabeledPagerAdapter(childFragmentManager)
         val categoriesFragment: CategoriesFragment = CategoriesFragment.newInstance()
         val optionsFragment: OptionsFragment = OptionsFragment.newInstance()
         val eventHistoryFragment: EventHistoryFragment = EventHistoryFragment.newInstance()
         val subscriptionsFragment: SubscriptionsFragment = SubscriptionsFragment.newInstance()
         val subscribersFragment: SubscribersFragment = SubscribersFragment.newInstance()
+        val adapter = LabeledPagerAdapter(this, ArrayList(listOf(categoriesFragment, optionsFragment, eventHistoryFragment, subscriptionsFragment, subscribersFragment)))
 
 //        adapter.addFragment(categoriesFragment, "Категории")
 //        adapter.addFragment(optionsFragment, "Желаемые опции")
@@ -70,31 +74,59 @@ class SettingsContainerFragment : BaseMvpFragment(), SettingContainerView {
 //        adapter.addFragment(subscriptionsFragment, "Мои подписки")
 //        adapter.addFragment(subscribersFragment, "Мои подписчики")
 
-        adapter.addFragment(categoriesFragment, "")
-        adapter.addFragment(optionsFragment, "")
-        adapter.addFragment(eventHistoryFragment, "")
-        adapter.addFragment(subscriptionsFragment, "")
-        adapter.addFragment(subscribersFragment, "")
+//        adapter.addFragment(categoriesFragment, "")
+//        adapter.addFragment(optionsFragment, "")
+//        adapter.addFragment(eventHistoryFragment, "")
+//        adapter.addFragment(subscriptionsFragment, "")
+//        adapter.addFragment(subscribersFragment, "")
 
         binding.settingsVp.adapter = adapter
 //        binding.settingTabsTl.setupWithViewPager(binding.settingsVp)
 
-        binding.settingsVp.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
+        binding.settingsVp.registerOnPageChangeCallback(object: OnPageChangeCallback() {
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+            }
+
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
             }
 
             override fun onPageSelected(position: Int) {
-                binding.indicatorSetting.selection = position
-                val page = binding.settingsVp.currentItem
-                binding.titleTv.text = adapter.getItem(page).toString()
+                binding.titleTv.text  =
+                (binding.settingsVp.adapter as LabeledPagerAdapter).fragments[position].toString()
+//                binding.indicatorSetting.selection = position
+//                super.onPageSelected(position)
             }
 
-            override fun onPageScrollStateChanged(state: Int) {
-            }
         })
+
+        binding.indicatorSetting.setViewPager(binding.settingsVp)
+//        TabLayoutMediator(binding.periodTabs, binding.settingsVp, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+//            binding.titleTv.text  =
+//                (binding.settingsVp.adapter as LabeledPagerAdapter).fragments[position].toString()
+//        }).attach()
+
+//        binding.settingsVp.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
+//            override fun onPageScrolled(
+//                position: Int,
+//                positionOffset: Float,
+//                positionOffsetPixels: Int
+//            ) {
+//            }
+//
+//            override fun onPageSelected(position: Int) {
+//                binding.indicatorSetting.selection = position
+//                val page = binding.settingsVp.currentItem
+//                binding.titleTv.text = adapter.getItem(page).toString()
+//            }
+//
+//            override fun onPageScrollStateChanged(state: Int) {
+//            }
+//        })
     }
 }
