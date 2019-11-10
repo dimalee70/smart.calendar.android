@@ -19,6 +19,7 @@
     <color name="buttonHighlight">#ff554f</color>
     <color name="buttonText">#FFFFFF</color>
     <color name="frameColor">#393E46</color>
+    <color name="unselectedIndicatorColor">#77393E46</color>
     <color name="pollTextColor">#393E46</color>
     <color name="pollFrameTextColor">#F7F7F7</color>
     <color name="pollBackgrndColor">#FFE3CA</color>

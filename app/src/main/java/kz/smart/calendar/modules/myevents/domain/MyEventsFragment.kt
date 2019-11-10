@@ -48,9 +48,10 @@ class MyEventsFragment : Fragment() {
         val adapter = LabeledPagerAdapter(this, frags)
 
         vp_events.adapter = adapter
-        TabLayoutMediator(events_tabs, vp_events, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+        indicator.setViewPager(vp_events)
+        /*TabLayoutMediator(events_tabs, vp_events, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
             tab.text = (vp_events.adapter as LabeledPagerAdapter).fragments[position].title
-        }).attach()
+        }).attach()*/
     }
 
 
