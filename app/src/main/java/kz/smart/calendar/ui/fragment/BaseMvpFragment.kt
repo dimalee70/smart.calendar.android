@@ -30,6 +30,7 @@ open class BaseMvpFragment: MvpAppCompatFragment(), BaseView
     private var progressDialog: DelayedProgressDialog? = null
     private var loadingDialog: LoadingDialog? = null
     var errorDialog: AlertDialog? = null
+    var title: String? = null
 
     override fun showError(exception: Throwable) {
         if (errorDialog == null || (errorDialog != null && !errorDialog!!.isShowing))

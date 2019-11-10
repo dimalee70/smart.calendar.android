@@ -11,16 +11,20 @@ import kz.smart.calendar.models.db.CategoryDao
 import kz.smart.calendar.models.db.Db
 import kz.smart.calendar.models.db.OptionDao
 import kz.smart.calendar.models.db.UserDao
-import kz.smart.calendar.models.objects.CalendarModel
+import kz.smart.calendar.models.objects.Event
+import kz.smart.calendar.modules.common.presentation.EventDetailsPresenter
 import kz.smart.calendar.modules.feed.domain.FeedPeriodFragment
 import kz.smart.calendar.modules.feed.presentation.FeedPeriodPresenter
+import kz.smart.calendar.modules.myevents.domain.CreatedEventsFragment
+import kz.smart.calendar.modules.myevents.domain.VisitEventsFragment
+import kz.smart.calendar.modules.myevents.presentation.CreatedEventsPresenter
+import kz.smart.calendar.modules.myevents.presentation.VisitEventsPresenter
 import kz.smart.calendar.modules.poll.domain.PollFragment
 import kz.smart.calendar.modules.poll.domain.PollPresenter
 import kz.smart.calendar.modules.poll.domain.VoteOptionPresenter
 import kz.smart.calendar.modules.schedule.domain.ScheduleFragment
 import kz.smart.calendar.modules.schedule.presentation.CalendarPresenter
 import kz.smart.calendar.modules.schedule.presentation.SchedulePresenter
-import kz.smart.calendar.modules.settings.domain.SettingContinerPresenter
 import kz.smart.calendar.modules.settings.presentation.login.LoginInPresenter
 import kz.smart.calendar.presentation.presenter.MainAppPresenter
 import kz.smart.calendar.presentation.presenter.home.HomeMainPresenter
@@ -31,13 +35,12 @@ import kz.smart.calendar.ui.activity.home.HomeActivity
 import kz.smart.calendar.ui.fragment.home.HomeMainFragment
 import kz.smart.calendar.modules.settings.presentation.login.LoginProcessPresenter
 import kz.smart.calendar.modules.settings.presentation.registration.RegistrationProcessPresenter
-import kz.smart.calendar.modules.settings.presentation.settings.*
 import javax.inject.Singleton
 
 @Singleton
 @CustomApplicationScope
 @Component(modules = [ApplicationModule::class, NavigationModule::class,
-    ServiceUtilModule::class, RoomModule::class, EventListModule::class])
+    ServiceUtilModule::class, RoomModule::class, EventModule::class])
 interface AppComponent {
 
     @ApplicationContext
@@ -53,6 +56,7 @@ interface AppComponent {
     fun userDao(): UserDao
     fun optionDao(): OptionDao
     fun categoryDao(): CategoryDao
+    fun event(): Event
 
     fun getDb(): Db
 
@@ -64,6 +68,8 @@ interface AppComponent {
     fun inject(fragment: PollFragment)
     fun inject(fragment: ScheduleFragment)
     fun inject(fragment: FeedPeriodFragment)
+    fun inject(fragment: VisitEventsFragment)
+    fun inject(fragment: CreatedEventsFragment)
 
     fun inject(presenter: MainAppPresenter)
     fun inject(presenter: HomePresenter)
@@ -76,10 +82,7 @@ interface AppComponent {
     fun inject(presenter: CalendarPresenter)
     fun inject(presenter: SchedulePresenter)
     fun inject(presenter: FeedPeriodPresenter)
-    fun inject(presenter: SettingContinerPresenter)
-    fun inject(presenter: CategoriesPresenter)
-    fun inject(presenter: OptionsPresenter)
-    fun inject(presenter: EventHistoryPresenter)
-    fun inject(presenter: SubscriptionsPresenter)
-    fun inject(presenter: SubscribersPresenter)
+    fun inject(presenter: EventDetailsPresenter)
+    fun inject(presenter: VisitEventsPresenter)
+    fun inject(presenter: CreatedEventsPresenter)
 }

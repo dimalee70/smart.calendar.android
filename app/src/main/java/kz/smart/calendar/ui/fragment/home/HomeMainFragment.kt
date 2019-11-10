@@ -32,9 +32,6 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
     var position: Int? = null
 
-    @Inject
-    lateinit var events: ObservableArrayList<Event>
-
     companion object {
         const val TAG = "HomeMainFragment"
 

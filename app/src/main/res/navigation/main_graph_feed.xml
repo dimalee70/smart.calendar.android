@@ -12,7 +12,10 @@
         tools:layout="@layout/fragment_feed" >
         <action
             android:id="@+id/action_feedFragment_to_nav_event_details"
-            app:destination="@id/nav_event_details" />
+            app:destination="@id/nav_event_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpToInclusive="false" />
     </fragment>
     <include app:graph="@navigation/nav_event_details" />
 </navigation>

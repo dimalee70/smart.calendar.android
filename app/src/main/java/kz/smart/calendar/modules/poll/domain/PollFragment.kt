@@ -131,7 +131,7 @@ class PollFragment : BaseMvpFragment(), PollView{
     }
 
     override fun setPoll(poll: Poll) {
-        var idx = recyclerPollAdapter.getItems().indexOfFirst {
+        val idx = recyclerPollAdapter.getItems().indexOfFirst {
             it.id == poll.id
         }
 

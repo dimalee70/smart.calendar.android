@@ -32,7 +32,7 @@ class LoginProcessPresenter : MvpPresenter<LoginProcessView>()
     fun logIn() {
         viewState.showProgress()
 
-        user.onesignal_player_id = "test"//OneSignal.getPermissionSubscriptionState().subscriptionStatus.userId
+        user.onesignal_player_id = OneSignal.getPermissionSubscriptionState().subscriptionStatus.userId
 
         disposable = client.userLogin(user)
             .subscribeOn(Schedulers.io())

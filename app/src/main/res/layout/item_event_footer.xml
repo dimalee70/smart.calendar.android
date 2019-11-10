@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="data" type="kz.smart.calendar.models.objects.Option" />
     </data>
@@ -23,24 +22,4 @@
                 />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_marginTop="2dp"-->
-<!--            android:layout_marginBottom="2dp"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@{data.isHiddenAnswer() || data.isHiddenAnswer() == null ? @drawable/panel_bg : data.isRightAnswer() ? @drawable/green_bg : @drawable/red_bg}"-->
-<!--            android:layout_weight="1">-->
-<!--        <TextView-->
-<!--                android:text="@{data.isHiddenAnswer() ? @string/hidden : data.answerText == null ? @string/not_answered : data.answerText}"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:padding="2dp"-->
-<!--                android:textSize="11sp"-->
-<!--                android:gravity="center"-->
-<!--                style="@style/TextView.AutoSize"-->
-<!--                />-->
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 </layout>

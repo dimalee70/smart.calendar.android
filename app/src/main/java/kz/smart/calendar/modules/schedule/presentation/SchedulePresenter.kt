@@ -9,6 +9,7 @@ import io.reactivex.schedulers.Schedulers
 import kz.smart.calendar.App
 import kz.smart.calendar.api.ApiManager
 import kz.smart.calendar.events.CalendarCellChosenEvent
+import kz.smart.calendar.events.CalendarDefaultCellEvent
 import kz.smart.calendar.models.db.CategoryDao
 import kz.smart.calendar.models.db.OptionDao
 import kz.smart.calendar.models.objects.Category
@@ -38,8 +39,11 @@ class SchedulePresenter : MvpPresenter<ScheduleView>() {
         App.appComponent.inject(this)
     }
 
+    var currentDay: Day? = null
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: CalendarCellChosenEvent) {
+        currentDay = event.day
         viewState?.showSelectedDate(event.day)
         if (event.day.dataDay?.categories?.isNotEmpty() == true)
         {
@@ -50,6 +54,14 @@ class SchedulePresenter : MvpPresenter<ScheduleView>() {
         }
     }
     private var disposable: Disposable? = null
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: CalendarDefaultCellEvent) {
+        if (currentDay == null)
+        {
+            onMessageEvent(CalendarCellChosenEvent(event.day))
+        }
+    }
 
     fun getEventsByDay(day: Day)
     {

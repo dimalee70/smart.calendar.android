@@ -67,6 +67,11 @@ interface ApiManager {
     @POST("get_events_for_day")
     fun getEventsForDay(@Body body: EventsDayRequest): Observable<BaseResponse<ListResponse<Event>>>
 
+
     @POST("poll_vote")
-    fun sendVote(@Body body: VotePollRequestModel):Observable<BaseResponse<PollResponse>>
+    fun sendVote(@Body body: VotePollRequestModel):Observable<BaseResponse<Poll>>
+
+    @POST("get_event_info")
+    fun getEventInfo(@Body body: LikeEventRequestModel):Observable<BaseResponse<EventInfo>>
+
 }

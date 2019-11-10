@@ -25,7 +25,7 @@ class Converters {
         }
 
         @SuppressLint("NewApi", "SimpleDateFormat")
-        private val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.ZZZZZZZ'Z'")
+        private val dateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm")
         @TypeConverter
         @JvmStatic
         fun toOffsetDateTime(value: String?): Date? {

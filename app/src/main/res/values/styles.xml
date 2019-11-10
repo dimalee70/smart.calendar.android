@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.App" parent="Theme.AppCompat.Light.NoActionBar">
         <!--item name="primaryButtonTheme">@style/Widget.Button.Primary</item-->
@@ -6,6 +6,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:typeface">serif</item>
         <item name="fontFamily">@font/metropolis_regular</item>
+        <item name="android:textColor">@color/frameColor</item>
     </style>
 
     <style name="Theme.App.Dark.FullScreen" parent="Theme.App.Dark">
@@ -36,7 +37,7 @@
     </style>
 
     <style name="Widget.TextView.Primary" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textColor">@color/frameColor</item>
         <item name="android:textSize">14sp</item>
         <item name="fontFamily">@font/metropolis_regular</item>
     </style>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="data" type="kz.smart.calendar.models.objects.Event" />
@@ -34,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_time"
                     android:layout_marginStart="20dp"
-                    android:text="@{data.start_date}"
+                    app:time="@{data.start_date}"
                     app:layout_constraintTop_toTopOf="parent"
                     android:textSize="12sp"
                     android:drawablePadding="10dp"
@@ -163,7 +162,7 @@
                     android:id="@+id/tagTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{data.category.title}"
+                    android:text="@{data.name}"
                     android:textColor="#393E46"
                     android:textSize="14sp"
                     android:textAlignment="center"

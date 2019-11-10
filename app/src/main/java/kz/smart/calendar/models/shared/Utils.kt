@@ -21,6 +21,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.Animator
 import android.graphics.Color
 import android.view.View.VISIBLE
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.addTextChangedListener
@@ -35,9 +36,12 @@ import com.theartofdev.edmodo.cropper.CropImageView
 import de.hdodenhof.circleimageview.CircleImageView
 import kz.smart.calendar.di.modules.GlideApp
 import kz.smart.calendar.extensions.shortDateDiff
+import kz.smart.calendar.extensions.shortDayDiff
 import kz.smart.calendar.ui.common.CircleView
+import org.joda.time.DateTime
 import org.json.JSONObject
 import java.lang.Exception
+import java.text.SimpleDateFormat
 import kotlin.math.roundToInt
 
 @InverseBindingMethods(
@@ -107,6 +111,70 @@ object Utils {
             .load(url)
             .centerCrop()
             .into(view)
+    }
+
+    private val dateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.ROOT)
+    private val timeFormat = SimpleDateFormat("HH:mm", Locale.ROOT)
+
+    @JvmStatic
+    @BindingAdapter("date")
+    fun setDateText(view: TextView, date:Date?) {
+        if (date == null)
+        {
+            view.text = ""
+            return
+        }
+        view.text = dateFormat.format(date)
+    }
+
+    @JvmStatic
+    @BindingAdapter("dateTime")
+    fun setDateTimeText(view: TextView, date:Date?) {
+        if (date == null)
+        {
+            view.text = ""
+            return
+        }
+        val dateTime = DateTime(date)
+        val monthName = getOfMonthFromResource(dateTime.monthOfYear().get()-1, view.context)
+
+        view.text = "${dateTime.dayOfMonth().get()} ${monthName}, ${timeFormat.format(date)}"
+    }
+
+    @JvmStatic
+    @BindingAdapter("daysRemain", "fromDate")
+    fun setDaysRemain(view: TextView, date:Date?, fromDate: Date?) {
+        if (date == null)
+        {
+            view.text = ""
+            return
+        }
+        view.text = date.shortDayDiff(fromDate)
+    }
+
+    @JvmStatic
+    @BindingAdapter("daysRemain")
+    fun setDaysRemainSimple(view: TextView, date:Date?) {
+        if (date == null)
+        {
+            view.text = ""
+            return
+        }
+        view.text = date.shortDayDiff()
+    }
+
+
+
+
+    @JvmStatic
+    @BindingAdapter("time")
+    fun setTimeText(view: TextView, date:Date?) {
+        if (date == null)
+        {
+            view.text = ""
+            return
+        }
+        view.text = timeFormat.format(date)
     }
 
     @JvmStatic
@@ -190,7 +258,7 @@ object Utils {
     @JvmStatic
     @BindingAdapter("backgrndColor")
     fun setBackgrndColor(view: View, сlr: String){
-        if (сlr.isNullOrEmpty())
+        if (сlr.isEmpty())
         {
             return
         }
@@ -200,7 +268,23 @@ object Utils {
     @JvmStatic
     @BindingAdapter("backgrndColor")
     fun setBackTextColor(view: TextView, clr:String) {
-        if (clr.isNullOrEmpty())
+        if (clr.isEmpty())
+        {
+            return
+        }
+        val drawable = ContextCompat.getDrawable(view.context, R.drawable.bg_rounded)
+        if (drawable != null) {
+            val wrappedDrawable = DrawableCompat.wrap(drawable)
+            DrawableCompat.setTint(wrappedDrawable, Color.parseColor(clr))
+            view.background = wrappedDrawable
+
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("backgrndColor")
+    fun setBackTextColor(view: LinearLayoutCompat, clr:String) {
+        if (clr.isEmpty())
         {
             return
         }
@@ -401,117 +485,6 @@ object Utils {
         params.guidePercent = value / 1000f
         guideline.layoutParams = params
     }
-
-    @JvmStatic
-    @BindingAdapter(value = ["bind:doubleUomValue", "bind:uom"], requireAll = false)
-    fun setDoubleUomValue(view: TextInputEditText, value: Any?, uom: String?) {
-        try {
-            if (view.value == value?.toString() || value == "" || (value == null && view.value == "")) {
-                return
-            }
-
-            if (value == null && view.value != "") {
-                view.value = ""
-                return
-            }
-
-            if (value is Double)
-            {
-                view.value = "$value $uom"
-                return
-            }
-        }catch (e: IllegalStateException){
-            e.printStackTrace()
-        }
-
-    }
-
-    @JvmStatic
-    @BindingAdapter(value = ["bind:intUomValue", "bind:uom"], requireAll = false)
-    fun setIntUomValue(view: TextInputEditText, value: Any?, uom: String?) {
-        if (view.value == value?.toString() || value == "" || (value == null && view.value == ""))
-        {
-            return
-        }
-
-        if (value == null && view.value != "") {
-            view.value = ""
-            return
-        }
-
-        if (value is Int)
-        {
-            view.value = "$value $uom"
-            return
-        }
-
-        try {
-            val paramValue = (value as Double).roundToInt()
-            view.value = "$paramValue $uom"
-            return
-        }catch (e:Exception){}
-    }
-
-
-
-    @JvmStatic
-    @BindingAdapter("doubleValue")
-    fun setDoubleValue(view: TextInputEditText, value: Any?) {
-        if (view.value == value?.toString() || value == "" || (value == null && view.value == ""))
-        {
-            return
-        }
-        if (value == null) {
-            view.value = ""
-            return
-        }
-
-        if (value is Double)
-        {
-            view.value = value.toString()
-            return
-        }
-    }
-
-
-    @JvmStatic
-    @BindingAdapter(value = ["app:doubleValueAttrChanged"])
-    fun setDoubleListener(editText: TextInputEditText, listener: InverseBindingListener?) {
-        if (listener != null) {
-            editText.addTextChangedListener {
-                listener.onChange()
-            }
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter("intValue")
-    fun setIntValue(view: TextInputEditText, value: Any?) {
-        if (view.value == value?.toString() || value == "" || (value == null && view.value == ""))
-        {
-            return
-        }
-
-        if (value == null) {
-            view.value = ""
-            return
-        }
-
-        if (value is Int)
-        {
-            view.value = value.toString()
-            return
-        }
-
-        val paramValue = value.toString().toIntOrNull()
-        if (paramValue == null) {
-            view.value = ""
-            return
-        }
-
-        view.value = "$paramValue"
-    }
-
 
     @JvmStatic
     @BindingAdapter(value = ["app:intValueAttrChanged"])
