@@ -12,11 +12,13 @@ import kotlinx.android.synthetic.main.fragment_feed.*
 import kotlinx.android.synthetic.main.fragment_my_events.*
 
 import kz.smart.calendar.R
+import kz.smart.calendar.events.AddEvent
 import kz.smart.calendar.events.OpenEventDetailsEvent
 import kz.smart.calendar.events.OpenEventDetailsMyEvents
 import kz.smart.calendar.models.enums.Period
 import kz.smart.calendar.modules.feed.domain.FeedPeriodFragment
 import kz.smart.calendar.ui.adapters.LabeledPagerAdapter
+import kz.smart.calendar.ui.common.ZoomOutPageTransformer
 import kz.smart.calendar.ui.fragment.BaseMvpFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -40,18 +42,16 @@ class MyEventsFragment : Fragment() {
 
     private fun setupViewPager() {
 
-        val illjoin = VisitEventsFragment.newInstance() as BaseMvpFragment
-        illjoin.title = getString(R.string.i_will_join_title)
+        val illJoin = VisitEventsFragment.newInstance() as BaseMvpFragment
+        illJoin.title = getString(R.string.i_will_join_title)
         val createdEventsFragment = CreatedEventsFragment.newInstance() as BaseMvpFragment
         createdEventsFragment.title = getString(R.string.my_events)
-        val frags = ArrayList(listOf(illjoin, createdEventsFragment))
+        val frags = ArrayList(listOf(illJoin, createdEventsFragment))
         val adapter = LabeledPagerAdapter(this, frags)
 
+        vp_events.setPageTransformer(ZoomOutPageTransformer())
         vp_events.adapter = adapter
         indicator.setViewPager(vp_events)
-        /*TabLayoutMediator(events_tabs, vp_events, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-            tab.text = (vp_events.adapter as LabeledPagerAdapter).fragments[position].title
-        }).attach()*/
     }
 
 
@@ -68,5 +68,10 @@ class MyEventsFragment : Fragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: OpenEventDetailsMyEvents) {
         findNavController().navigate(R.id.action_myEventsFragment_to_nav_event_details)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: AddEvent) {
+        findNavController().navigate(R.id.action_myEventsFragment_to_addEventFragment2)
     }
 }

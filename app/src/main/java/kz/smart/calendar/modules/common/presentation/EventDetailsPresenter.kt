@@ -7,8 +7,11 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kz.smart.calendar.App
 import kz.smart.calendar.api.ApiManager
+import kz.smart.calendar.events.UpdateMyEvents
 import kz.smart.calendar.models.objects.Event
 import kz.smart.calendar.models.requests.LikeEventRequestModel
+import kz.smart.calendar.models.requests.WillAttendRequest
+import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 @InjectViewState
@@ -44,4 +47,36 @@ class EventDetailsPresenter: MvpPresenter<EventDetailsView>(){
                 }
             )
     }
+
+    fun willAttend()
+    {
+        disposable = client.willAttend(WillAttendRequest(event.id))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({  eventInfoResp ->
+                EventBus.getDefault().post(UpdateMyEvents())
+            },
+                { error ->
+                    run {
+                    }
+                }
+            )
+    }
+
+    fun likeEvent()
+    {
+        disposable = client.likeEvent(LikeEventRequestModel(event.id))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({  eventInfoResp ->
+                EventBus.getDefault().post(UpdateMyEvents())
+            },
+                { error ->
+                    run {
+                    }
+                }
+            )
+    }
+
+
 }

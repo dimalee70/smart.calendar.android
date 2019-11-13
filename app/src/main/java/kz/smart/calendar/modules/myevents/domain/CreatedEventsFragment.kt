@@ -15,6 +15,7 @@ import kz.smart.calendar.App
 
 import kz.smart.calendar.R
 import kz.smart.calendar.databinding.FragmentCreatedEventsBinding
+import kz.smart.calendar.events.AddEvent
 import kz.smart.calendar.events.OpenEventDetailsEvent
 import kz.smart.calendar.events.OpenEventDetailsMyEvents
 import kz.smart.calendar.models.objects.Event
@@ -70,6 +71,10 @@ class CreatedEventsFragment: BaseMvpFragment(), CreatedEventsView,
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_created_events, container, false)
         binding.presenter = mPresenter
         binding.rvEvents.adapter = eventsAdapter
+        binding.createEvent.setOnClickListener {
+            EventBus.getDefault().post(AddEvent())
+        }
+
         return binding.root
     }
 

@@ -21,6 +21,8 @@ import kz.smart.calendar.models.enums.Period
 import kz.smart.calendar.models.objects.TestEvent
 import kz.smart.calendar.ui.adapters.LabeledPagerAdapter
 import kz.smart.calendar.ui.adapters.RecyclerBindingAdapter
+import kz.smart.calendar.ui.common.DepthPageTransformer
+import kz.smart.calendar.ui.common.ZoomOutPageTransformer
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -52,6 +54,7 @@ class   FeedFragment : Fragment() {
         val adapter = LabeledPagerAdapter(this, ArrayList(listOf(dayFragment, weekFragment, monthFragment)))
 
         vp_periods.adapter = adapter
+        vp_periods.setPageTransformer(DepthPageTransformer())
         TabLayoutMediator(period_tabs, vp_periods, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
             tab.text = (vp_periods.adapter as LabeledPagerAdapter).fragments[position].title
         }).attach()
