@@ -69,7 +69,7 @@ interface ApiManager {
 
 
     @POST("poll_vote")
-    fun sendVote(@Body body: VotePollRequestModel):Observable<BaseResponse<Poll>>
+    fun sendVote(@Body body: VotePollRequestModel):Observable<BaseResponse<PollResponse>>
 
     @POST("get_event_info")
     fun getEventInfo(@Body body: LikeEventRequestModel):Observable<BaseResponse<EventInfo>>

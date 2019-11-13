@@ -146,7 +146,7 @@ object TableLayoutBindingAdapter {
             text = ""
             return
         }
-        text = num.toString() + "%"
+        text = "%.1f".format(num) + "%"
     }
 
     @JvmStatic

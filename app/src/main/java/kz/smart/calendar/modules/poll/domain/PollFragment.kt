@@ -20,6 +20,7 @@ import kz.smart.calendar.R
 import kz.smart.calendar.api.response.BaseResponse
 import kz.smart.calendar.api.response.PollsResponse
 import kz.smart.calendar.databinding.FragmentPollBinding
+import kz.smart.calendar.events.PollUpdateEvent
 import kz.smart.calendar.models.enums.Status
 import kz.smart.calendar.models.objects.Event
 import kz.smart.calendar.models.objects.Poll
@@ -28,6 +29,8 @@ import kz.smart.calendar.presentation.presenter.home.HomeMainPresenter
 import kz.smart.calendar.ui.adapters.RecyclerBindingAdapter
 import kz.smart.calendar.ui.fragment.BaseMvpFragment
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -91,12 +94,12 @@ class PollFragment : BaseMvpFragment(), PollView{
 
     override fun onStart() {
         super.onStart()
-        EventBus.getDefault().register(mPollPresenter)
+        EventBus.getDefault().register(this)
     }
 
     override fun onStop() {
         super.onStop()
-        EventBus.getDefault().unregister(mPollPresenter)
+        EventBus.getDefault().unregister(this)
     }
 
     override fun onCreateView(
@@ -130,13 +133,18 @@ class PollFragment : BaseMvpFragment(), PollView{
         return binding.root
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: PollUpdateEvent) {
+        setPoll(event.poll)
+    }
+
     override fun setPoll(poll: Poll) {
         val idx = recyclerPollAdapter.getItems().indexOfFirst {
             it.id == poll.id
         }
 
         recyclerPollAdapter.getItems()[idx] = poll
-        recyclerPollAdapter.notifyItemChanged(idx)
+//        recyclerPollAdapter.notifyItemChanged(idx)
     }
 
 }

@@ -25,10 +25,7 @@ class PollPresenter(private var router: Router): BasePresenter<PollView>() {
         App.appComponent.inject(this)
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: PollUpdateEvent) {
-        viewState?.setPoll(event.poll)
-    }
+
 
     fun getPolls(){
         disposables.add(
