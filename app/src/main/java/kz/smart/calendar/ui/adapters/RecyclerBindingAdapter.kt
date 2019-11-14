@@ -67,6 +67,8 @@ class RecyclerBindingAdapter<T>(
 //            holder.binding.root.finishButton.setOnClickListener {
 //
 //            }
+            if (holderLayout == R.layout.item_categories)
+                holder.setIsRecyclable(false)
             val votes = ObservableArrayList<VoteOption>()
             val recyclerVoteAdapter = RecyclerBindingAdapter<VoteOption>(R.layout.item_vote, BR.data, context)
             recyclerVoteAdapter.setOnItemClickListener(

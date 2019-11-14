@@ -68,7 +68,8 @@
             android:layout_gravity="bottom|right"
             android:src="@drawable/ic_edit"
             android:layout_margin="16dp"
-            android:background="@drawable/bg_rectangle_edit"/>
+            android:background="@drawable/bg_rectangle_edit"
+            />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

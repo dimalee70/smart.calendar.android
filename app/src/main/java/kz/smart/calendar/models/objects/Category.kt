@@ -18,3 +18,6 @@ data class Category(
     @ColumnInfo
     val status: Status
 )
+{
+    var checked: Boolean = false
+}

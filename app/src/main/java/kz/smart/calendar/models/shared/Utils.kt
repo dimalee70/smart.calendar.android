@@ -21,6 +21,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.Animator
 import android.graphics.Color
 import android.view.View.VISIBLE
+import android.widget.RadioButton
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
@@ -163,8 +164,11 @@ object Utils {
         view.text = date.shortDayDiff()
     }
 
-
-
+    @JvmStatic
+    @BindingAdapter("setChecked")
+    fun RadioButton.setChecked(checked: Boolean){
+        this.isChecked = checked
+    }
 
     @JvmStatic
     @BindingAdapter("time")
