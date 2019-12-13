@@ -66,6 +66,7 @@ class PollFragment : BaseMvpFragment(), PollView{
         return PollPresenter(router)
     }
 
+
     lateinit var recyclerPollAdapter: RecyclerBindingAdapter<Poll>
 
     lateinit var binding: FragmentPollBinding
